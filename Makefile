@@ -2,7 +2,7 @@
 # Setup Project
 
 PROJECT_NAME := provider-openstack
-PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
+PROJECT_REPO := github.com/rossigee/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.5.5
 export TERRAFORM_PROVIDER_SOURCE := terraform-provider-openstack/openstack
