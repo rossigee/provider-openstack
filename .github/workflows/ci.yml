@@ -2,220 +2,230 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: 
+      - master
       - release-*
-  pull_request: {}
-  workflow_dispatch: {}
+  pull_request:
+    branches:
+      - master
+      - release-*
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  actions: read
 
 env:
-  GO_VERSION: "1.24"
+  GO_VERSION: '1.24.5'
+  GOLANGCI_VERSION: 'latest'
+  GOLANGCILINT_VERSION: '2.3.1'
+  DOCKER_BUILDX_VERSION: 'v0.11.2'
+  # Registry configuration
+  PRIMARY_REGISTRY: ghcr.io/rossigee
+  ENABLE_HARBOR_PUBLISH: false
+  ENABLE_UPBOUND_PUBLISH: false
 
 jobs:
   detect-noop:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       noop: ${{ steps.noop.outputs.should_skip }}
     steps:
       - name: Detect No-op Changes
         id: noop
-        uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5.3.1
+        uses: fkirc/skip-duplicate-actions@v5.3.0
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           paths_ignore: '["**.md", "**.png", "**.jpg"]'
           do_not_skip: '["workflow_dispatch", "schedule", "push"]'
 
-  report-breaking-changes:
-    runs-on: ubuntu-latest
-    needs: detect-noop
-    if: needs.detect-noop.outputs.noop != 'true'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          submodules: true
-
-      - name: Get modified CRDs
-        id: modified-crds
-        uses: tj-actions/changed-files@039afcd1024c210363c9d3fc8fd07e1f3fcf2867 # v35.9.3 (breaks the 'Report native schema version changes' step on newer versions)
-        with:
-          files: |
-            package/crds/**
-
-      - name: Report breaking CRD OpenAPI v3 schema changes
-        if: steps.modified-crds.outputs.any_changed == 'true'
-        env:
-          MODIFIED_CRD_LIST: ${{ steps.modified-crds.outputs.all_changed_files }}
-        run: |
-          make crddiff
-
-      - name: Report native schema version changes
-        run: |
-          make schema-version-diff
-
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
-    steps:
-      # - name: Cleanup Disk
-      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-      #   with:
-      #     large-packages: false
-      #     swap-storage: false
 
+    steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           submodules: true
 
       - name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
 
-      - name: Find the Analysis Cache
-        id: analysis_cache
-        run: |
-          echo "analysis_cache=$HOME/.cache/golangci-lint" >> $GITHUB_OUTPUT && \
-          echo "analysis_cache_key=$(make go.lint.analysiskey)" >> $GITHUB_OUTPUT && \
-          echo "analysis_cache_key_int=$(make go.lint.analysiskey-interval)" >> $GITHUB_OUTPUT
-
-      - name: Cache Linter Analysis
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4
-        id: cache-analysis
-        with:
-          path: ${{ steps.analysis_cache.outputs.analysis_cache }}
-          key: ${{ steps.analysis_cache.outputs.analysis_cache_key }}
-          restore-keys: |
-            ${{ steps.analysis_cache.outputs.analysis_cache_key_int }}
-
       - name: Vendor Dependencies
-        run: make vendor vendor.check
+        run: go mod vendor
 
       - name: Lint
-        env:
-          GOLANGCI_LINT_CACHE: ${{ steps.go_cache.outputs.analysis_cache }}
-          SKIP_LINTER_ANALYSIS: false
-          RUN_BUILDTAGGER: true
-          GOGC: "50"
         run: make lint
 
   check-diff:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
-    steps:
-      # - name: Cleanup Disk
-      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-      #   with:
-      #     large-packages: false
-      #     swap-storage: false
 
+    steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           submodules: true
 
       - name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
 
-      - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports
-
       - name: Vendor Dependencies
-        run: make vendor vendor.check
+        run: go mod vendor
 
       - name: Check Diff
-        id: check-diff
         run: |
-          mkdir _output
-          make check-diff
-        env:
-          # check-diff depends on the generate Make target, and we would like
-          # to save a skipped resource list
-          SKIPPED_RESOURCES_CSV: ../_output/skipped_resources.csv
-
-      - name: Show diff
-        if: failure() && steps.check-diff.outcome == 'failure'
-        run: git diff
-
-      - name: Report Statistics
-        run: head -1 _output/skipped_resources.csv
-
-      - name: Publish skipped resources CSV to Github
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
-        with:
-          name: skipped_resources
-          path: _output/skipped_resources.csv
+          make reviewable
+          git diff --exit-code
 
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
-    steps:
-      # - name: Cleanup Disk
-      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-      #   with:
-      #     large-packages: false
-      #     swap-storage: false
 
+    steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           submodules: true
-
-      - name: Fetch History
-        run: git fetch --prune --unshallow
+          fetch-depth: 0
 
       - name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: make vendor vendor.check
+        run: go mod vendor
 
       - name: Run Unit Tests
-        run: make -j2 test
+        run: |
+          make test
 
-  local-deploy:
-    runs-on: ubuntu-latest
+      - name: Upload Coverage Reports
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.out
+          verbose: true
+
+  security-scan:
+    runs-on: ubuntu-24.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
-    steps:
-      # - name: Cleanup Disk
-      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-      #   with:
-      #     large-packages: false
-      #     swap-storage: false
+    permissions:
+      contents: read
+      security-events: write
 
+    steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         with:
           submodules: true
 
-      - name: Fetch History
-        run: git fetch --prune --unshallow
-
       - name: Setup Go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: make vendor vendor.check
+        run: go mod vendor
 
-      - name: Deploying locally built provider package
-        run: make local-deploy
+      - name: Run Go Vulnerability Check
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
 
-  publish-provider-package:
-    uses: crossplane-contrib/provider-workflows/.github/workflows/publish-provider-non-family.yml@9a2125b3ec67a41a24913ada8212b9359f104c8c
-    with:
-      repository: provider-openstack
-      go-version: "1.23" # Keep in sync with env.GO_VERSION above
-      cleanup-disk: true
-      mirror-to-upbound-registry: false
-    secrets:
-      GHCR_PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: '-no-fail -fmt sarif -out gosec-results.sarif ./...'
+        continue-on-error: true
+
+      - name: Fix Gosec SARIF format
+        if: always() && hashFiles('gosec-results.sarif') != ''
+        run: |
+          if [ -f gosec-results.sarif ]; then
+            jq '.runs[].results[].locations[].physicalLocation.artifactLocation.uri |= if . == null or . == "" then "." else . end' gosec-results.sarif > gosec-results-fixed.sarif
+            mv gosec-results-fixed.sarif gosec-results.sarif
+          fi
+
+      - name: Upload Gosec Results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('gosec-results.sarif') != ''
+        with:
+          sarif_file: gosec-results.sarif
+          category: gosec
+
+  publish-artifacts:
+    runs-on: ubuntu-24.04
+    needs: [lint, check-diff, unit-tests, security-scan]
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Vendor Dependencies
+        run: go mod vendor
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_TOKEN }}
+
+      - name: Login to Harbor Registry (Optional)
+        if: env.ENABLE_HARBOR_PUBLISH == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: harbor.golder.lan
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: Build and Push to Primary Registry
+        run: |
+          # Build and push to GitHub Container Registry (primary)
+          echo "Repository: ${{ github.repository }}"
+          echo "Repository owner: ${{ github.repository_owner }}"
+          make publish REGISTRY_ORGS="ghcr.io/${{ github.repository_owner }}" XPKG_REG_ORGS="ghcr.io/${{ github.repository_owner }}"
+
+      - name: Build and Push to Harbor (Optional)
+        if: env.ENABLE_HARBOR_PUBLISH == 'true'
+        run: |
+          # Push to Harbor Registry
+          make publish REGISTRY_ORGS="harbor.golder.lan/library"
+
+      - name: Build and Push to Upbound Registry (Optional)
+        if: env.ENABLE_UPBOUND_PUBLISH == 'true'
+        run: |
+          # Push to Upbound Registry (only if token is available)
+          if [ -n "$UPBOUND_TOKEN" ]; then
+            make publish REGISTRY_ORGS="xpkg.upbound.io/crossplane-contrib"
+          else
+            echo "UPBOUND_TOKEN not available, skipping Upbound registry push"
+          fi
+        env:
+          UPBOUND_TOKEN: ${{ secrets.UPBOUND_TOKEN }}
