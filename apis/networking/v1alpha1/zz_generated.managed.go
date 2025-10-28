@@ -6,7 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 
 // GetCondition of this AddressscopeV2.
 func (mg *AddressscopeV2) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -29,7 +29,6 @@ func (mg *AddressscopeV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this AddressscopeV2.
-func (mg *AddressscopeV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -59,7 +58,6 @@ func (mg *AddressscopeV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this AddressscopeV2.
-func (mg *AddressscopeV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -89,7 +87,6 @@ func (mg *FloatingipAssociateV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this FloatingipAssociateV2.
-func (mg *FloatingipAssociateV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -119,7 +116,6 @@ func (mg *FloatingipAssociateV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this FloatingipAssociateV2.
-func (mg *FloatingipAssociateV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -149,7 +145,6 @@ func (mg *FloatingipV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this FloatingipV2.
-func (mg *FloatingipV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -179,7 +174,6 @@ func (mg *FloatingipV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this FloatingipV2.
-func (mg *FloatingipV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -209,7 +203,6 @@ func (mg *NetworkV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this NetworkV2.
-func (mg *NetworkV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -239,7 +232,6 @@ func (mg *NetworkV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this NetworkV2.
-func (mg *NetworkV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -269,7 +261,6 @@ func (mg *PortSecgroupAssociateV2) GetProviderConfigReference() *xpv1.Reference 
 }
 
 // GetPublishConnectionDetailsTo of this PortSecgroupAssociateV2.
-func (mg *PortSecgroupAssociateV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -299,7 +290,6 @@ func (mg *PortSecgroupAssociateV2) SetProviderConfigReference(r *xpv1.Reference)
 }
 
 // SetPublishConnectionDetailsTo of this PortSecgroupAssociateV2.
-func (mg *PortSecgroupAssociateV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -329,7 +319,6 @@ func (mg *PortV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this PortV2.
-func (mg *PortV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -359,7 +348,6 @@ func (mg *PortV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this PortV2.
-func (mg *PortV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -389,7 +377,6 @@ func (mg *PortforwardingV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this PortforwardingV2.
-func (mg *PortforwardingV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -419,7 +406,6 @@ func (mg *PortforwardingV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this PortforwardingV2.
-func (mg *PortforwardingV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -449,7 +435,6 @@ func (mg *QosBandwidthLimitRuleV2) GetProviderConfigReference() *xpv1.Reference 
 }
 
 // GetPublishConnectionDetailsTo of this QosBandwidthLimitRuleV2.
-func (mg *QosBandwidthLimitRuleV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -479,7 +464,6 @@ func (mg *QosBandwidthLimitRuleV2) SetProviderConfigReference(r *xpv1.Reference)
 }
 
 // SetPublishConnectionDetailsTo of this QosBandwidthLimitRuleV2.
-func (mg *QosBandwidthLimitRuleV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -509,7 +493,6 @@ func (mg *QosDscpMarkingRuleV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this QosDscpMarkingRuleV2.
-func (mg *QosDscpMarkingRuleV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -539,7 +522,6 @@ func (mg *QosDscpMarkingRuleV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this QosDscpMarkingRuleV2.
-func (mg *QosDscpMarkingRuleV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -569,7 +551,6 @@ func (mg *QosMinimumBandwidthRuleV2) GetProviderConfigReference() *xpv1.Referenc
 }
 
 // GetPublishConnectionDetailsTo of this QosMinimumBandwidthRuleV2.
-func (mg *QosMinimumBandwidthRuleV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -599,7 +580,6 @@ func (mg *QosMinimumBandwidthRuleV2) SetProviderConfigReference(r *xpv1.Referenc
 }
 
 // SetPublishConnectionDetailsTo of this QosMinimumBandwidthRuleV2.
-func (mg *QosMinimumBandwidthRuleV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -629,7 +609,6 @@ func (mg *QosPolicyV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this QosPolicyV2.
-func (mg *QosPolicyV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -659,7 +638,6 @@ func (mg *QosPolicyV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this QosPolicyV2.
-func (mg *QosPolicyV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -689,7 +667,6 @@ func (mg *QuotaV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this QuotaV2.
-func (mg *QuotaV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -719,7 +696,6 @@ func (mg *QuotaV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this QuotaV2.
-func (mg *QuotaV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -749,7 +725,6 @@ func (mg *RbacPolicyV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RbacPolicyV2.
-func (mg *RbacPolicyV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -779,7 +754,6 @@ func (mg *RbacPolicyV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RbacPolicyV2.
-func (mg *RbacPolicyV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -809,7 +783,6 @@ func (mg *RouterInterfaceV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RouterInterfaceV2.
-func (mg *RouterInterfaceV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -839,7 +812,6 @@ func (mg *RouterInterfaceV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RouterInterfaceV2.
-func (mg *RouterInterfaceV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -869,7 +841,6 @@ func (mg *RouterRouteV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RouterRouteV2.
-func (mg *RouterRouteV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -899,7 +870,6 @@ func (mg *RouterRouteV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RouterRouteV2.
-func (mg *RouterRouteV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -929,7 +899,6 @@ func (mg *RouterV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RouterV2.
-func (mg *RouterV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -959,7 +928,6 @@ func (mg *RouterV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RouterV2.
-func (mg *RouterV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -989,7 +957,6 @@ func (mg *SecgroupRuleV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this SecgroupRuleV2.
-func (mg *SecgroupRuleV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1019,7 +986,6 @@ func (mg *SecgroupRuleV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this SecgroupRuleV2.
-func (mg *SecgroupRuleV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -1049,7 +1015,6 @@ func (mg *SecgroupV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this SecgroupV2.
-func (mg *SecgroupV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1079,7 +1044,6 @@ func (mg *SecgroupV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this SecgroupV2.
-func (mg *SecgroupV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -1109,7 +1073,6 @@ func (mg *SubnetRouteV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this SubnetRouteV2.
-func (mg *SubnetRouteV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1139,7 +1102,6 @@ func (mg *SubnetRouteV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this SubnetRouteV2.
-func (mg *SubnetRouteV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -1169,7 +1131,6 @@ func (mg *SubnetV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this SubnetV2.
-func (mg *SubnetV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1199,7 +1160,6 @@ func (mg *SubnetV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this SubnetV2.
-func (mg *SubnetV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -1229,7 +1189,6 @@ func (mg *SubnetpoolV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this SubnetpoolV2.
-func (mg *SubnetpoolV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1259,7 +1218,6 @@ func (mg *SubnetpoolV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this SubnetpoolV2.
-func (mg *SubnetpoolV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -1289,7 +1247,6 @@ func (mg *TrunkV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this TrunkV2.
-func (mg *TrunkV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -1319,7 +1276,6 @@ func (mg *TrunkV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this TrunkV2.
-func (mg *TrunkV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
