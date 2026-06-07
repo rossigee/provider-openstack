@@ -3,8 +3,8 @@ kind: Provider
 metadata:
   name: provider-openstack
   annotations:
-    meta.crossplane.io/maintainer: Jakob Schlagenhaufer <jakob.schlagenhaufer@gmail.com>, Jan Dittrich <mail@jand.one>
-    meta.crossplane.io/source: github.com/crossplane-contrib/provider-openstack
+    meta.crossplane.io/maintainer: Ross Golder <ross@golder.org>
+    meta.crossplane.io/source: github.com/rossigee/provider-openstack
     meta.crossplane.io/description: |
       Crossplane provider to manage OpenStack resources in Kubernetes.
     meta.crossplane.io/readme: |
