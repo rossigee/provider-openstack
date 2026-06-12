@@ -43,6 +43,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Init build submodule
+        run: git submodule update --init --depth 1 build
+
       - name: Vendor Dependencies
         run: |
           go mod tidy
