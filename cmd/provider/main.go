@@ -90,7 +90,6 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 	log.Default().SetOutput(io.Discard)
 
-	shutdownTracing(context.Background())
 
 	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 
