@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type PortforwardingV2InitParameters struct {
 
@@ -196,6 +196,4 @@ var (
 	PortforwardingV2_GroupVersionKind = CRDGroupVersion.WithKind(PortforwardingV2_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&PortforwardingV2{}, &PortforwardingV2List{})
 }

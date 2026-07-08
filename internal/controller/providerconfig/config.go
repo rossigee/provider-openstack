@@ -5,13 +5,12 @@ Copyright 2021 Upbound Inc.
 package providerconfig
 
 import (
+	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/providerconfig"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/upjet/pkg/controller"
-	ctrl "sigs.k8s.io/controller-runtime"
-
-	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"sigs.k8s.io/controller-runtime"
 )
 
 // Setup adds a controller that reconciles ProviderConfigs by accounting for

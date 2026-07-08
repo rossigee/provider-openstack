@@ -8,23 +8,21 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package qosminimumbandwidthrulev2
 
 import (
-	"time"
-
+	"github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/internal/features"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/connection"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
-	xpfeature "github.com/crossplane/crossplane-runtime/v2/pkg/feature"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
-	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
-	tjcontroller "github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/handler"
 	"github.com/crossplane/upjet/pkg/metrics"
 	"github.com/pkg/errors"
-	ctrl "sigs.k8s.io/controller-runtime"
-
-	v1alpha1 "github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
-	features "github.com/crossplane-contrib/provider-openstack/internal/features"
+	"sigs.k8s.io/controller-runtime"
+	"time"
 )
 
 // Setup adds a controller that reconciles QosMinimumBandwidthRuleV2 managed resources.

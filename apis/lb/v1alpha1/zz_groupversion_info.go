@@ -11,8 +11,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"sigs.k8s.io/controller-runtime/pkg/scheme"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // Package type metadata.
@@ -26,8 +25,31 @@ var (
 	CRDGroupVersion = schema.GroupVersion{Group: CRDGroup, Version: CRDVersion}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
-	SchemeBuilder = &scheme.Builder{GroupVersion: CRDGroupVersion}
+	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 
 	// AddToScheme adds the types in this group-version to the given scheme.
 	AddToScheme = SchemeBuilder.AddToScheme
 )
+
+func addKnownTypes(s *runtime.Scheme) error {
+	s.AddKnownTypes(SchemeGroupVersion,
+		&L7RuleV2Parameters{},
+		&MonitorV2Parameters{},
+		&LoadbalancerV2Parameters{},
+		&PoolV2Parameters{},
+		&QuotaV2Parameters{},
+		&L7PolicyV2Parameters{},
+		&MembersV2Parameters{},
+		&ListenerV2Parameters{},
+		&MemberV2Parameters{},
+		&ListenerV2List{},
+		&ListenerV2{},
+		&PoolV2List{},
+		&PoolV2{},
+		&L7PolicyV2List{},
+		&L7PolicyV2{},
+		&LoadbalancerV2List{},
+		&LoadbalancerV2{},
+	)
+	return nil
+}

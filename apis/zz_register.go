@@ -9,25 +9,24 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package apis
 
 import (
+	"github.com/crossplane-contrib/provider-openstack/apis/blockstorage/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/compute/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/containerinfra/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/db/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/dns/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/fw/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/images/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/keymanager/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/lb/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/objectstorage/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/orchestration/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/sharedfilesystem/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"github.com/crossplane-contrib/provider-openstack/apis/vpnaas/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
-
-	v1alpha1 "github.com/crossplane-contrib/provider-openstack/apis/blockstorage/v1alpha1"
-	v1alpha1compute "github.com/crossplane-contrib/provider-openstack/apis/compute/v1alpha1"
-	v1alpha1containerinfra "github.com/crossplane-contrib/provider-openstack/apis/containerinfra/v1alpha1"
-	v1alpha1db "github.com/crossplane-contrib/provider-openstack/apis/db/v1alpha1"
-	v1alpha1dns "github.com/crossplane-contrib/provider-openstack/apis/dns/v1alpha1"
-	v1alpha1fw "github.com/crossplane-contrib/provider-openstack/apis/fw/v1alpha1"
-	v1alpha1identity "github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
-	v1alpha1images "github.com/crossplane-contrib/provider-openstack/apis/images/v1alpha1"
-	v1alpha1keymanager "github.com/crossplane-contrib/provider-openstack/apis/keymanager/v1alpha1"
-	v1alpha1lb "github.com/crossplane-contrib/provider-openstack/apis/lb/v1alpha1"
-	v1alpha1networking "github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
-	v1alpha1objectstorage "github.com/crossplane-contrib/provider-openstack/apis/objectstorage/v1alpha1"
-	v1alpha1orchestration "github.com/crossplane-contrib/provider-openstack/apis/orchestration/v1alpha1"
-	v1alpha1sharedfilesystem "github.com/crossplane-contrib/provider-openstack/apis/sharedfilesystem/v1alpha1"
-	v1alpha1apis "github.com/crossplane-contrib/provider-openstack/apis/v1alpha1"
-	v1beta1 "github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
-	v1alpha1vpnaas "github.com/crossplane-contrib/provider-openstack/apis/vpnaas/v1alpha1"
 )
 
 func init() {

@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type ClusterV1InitParameters struct {
 	ClusterTemplateID *string `json:"clusterTemplateId,omitempty" tf:"cluster_template_id,omitempty"`
@@ -306,6 +306,4 @@ var (
 	ClusterV1_GroupVersionKind = CRDGroupVersion.WithKind(ClusterV1_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&ClusterV1{}, &ClusterV1List{})
 }

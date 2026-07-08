@@ -3,19 +3,16 @@ package clients
 import (
 	"context"
 	"encoding/json"
-	"strconv"
-
+	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	"github.com/crossplane/upjet/pkg/terraform"
 	"github.com/hashicorp/go-cty/cty"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-
-	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	"github.com/crossplane/upjet/pkg/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"strconv"
 )
 
 const (

@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type IkePolicyV2InitParameters struct {
 
@@ -261,6 +261,4 @@ var (
 	IkePolicyV2_GroupVersionKind = CRDGroupVersion.WithKind(IkePolicyV2_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&IkePolicyV2{}, &IkePolicyV2List{})
 }

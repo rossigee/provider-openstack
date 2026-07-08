@@ -3,44 +3,42 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
-	"log"
-	"os"
-	"path/filepath"
-	"runtime"
-	"time"
-
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane-contrib/provider-openstack/apis"
+	"github.com/crossplane-contrib/provider-openstack/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/config"
+	"github.com/crossplane-contrib/provider-openstack/internal/apis"
+	"github.com/crossplane-contrib/provider-openstack/internal/clients"
+	"github.com/crossplane-contrib/provider-openstack/internal/controller"
+	"github.com/crossplane-contrib/provider-openstack/internal/features"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/certificates"
-	xpcontroller "github.com/crossplane/crossplane-runtime/v2/pkg/controller"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
-	tjcontroller "github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/conversion"
+	"github.com/rossigee/provider-openstack/internal/tracing"
+	"github.com/rossigee/provider-openstack/internal/version"
 	"gopkg.in/alecthomas/kingpin.v2"
-	kerrors "k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"io"
+	"k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
-	ctrl "sigs.k8s.io/controller-runtime"
+	"log"
+	"os"
+	"path/filepath"
+	"runtime"
+	"sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
-
-	"github.com/crossplane-contrib/provider-openstack/apis"
-	"github.com/crossplane-contrib/provider-openstack/apis/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/config"
-	resolverapis "github.com/crossplane-contrib/provider-openstack/internal/apis"
-	"github.com/crossplane-contrib/provider-openstack/internal/clients"
-	"github.com/crossplane-contrib/provider-openstack/internal/controller"
-	"github.com/crossplane-contrib/provider-openstack/internal/features"
-	"github.com/rossigee/provider-openstack/internal/tracing"
-	"github.com/rossigee/provider-openstack/internal/version"
+	"time"
 )
 
 const (
@@ -89,7 +87,6 @@ func main() {
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 	log.Default().SetOutput(io.Discard)
-
 
 	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 

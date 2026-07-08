@@ -3,8 +3,8 @@ package config
 import (
 	"context"
 	"strings"
-
-	// Note(turkenh): we are importing this to embed provider schema document
+)
+: we are importing this to embed provider schema document
 	_ "embed"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"

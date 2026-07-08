@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type SecurityserviceV2InitParameters struct {
 
@@ -211,6 +211,4 @@ var (
 	SecurityserviceV2_GroupVersionKind = CRDGroupVersion.WithKind(SecurityserviceV2_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&SecurityserviceV2{}, &SecurityserviceV2List{})
 }

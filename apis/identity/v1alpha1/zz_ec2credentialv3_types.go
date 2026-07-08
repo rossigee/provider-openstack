@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type EC2CredentialV3InitParameters struct {
 
@@ -139,6 +139,4 @@ var (
 	EC2CredentialV3_GroupVersionKind = CRDGroupVersion.WithKind(EC2CredentialV3_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&EC2CredentialV3{}, &EC2CredentialV3List{})
 }

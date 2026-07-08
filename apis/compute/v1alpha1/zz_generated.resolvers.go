@@ -8,13 +8,13 @@ package v1alpha1
 
 import (
 	"context"
-	v1alpha11 "github.com/crossplane-contrib/provider-openstack/apis/blockstorage/v1alpha1"
-	v1alpha1 "github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
-	v1alpha12 "github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
-	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	resource "github.com/crossplane/upjet/pkg/resource"
-	errors "github.com/pkg/errors"
-	client "sigs.k8s.io/controller-runtime/pkg/client"
+	"github.com/crossplane-contrib/provider-openstack/apis/blockstorage/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
+	"github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	"github.com/crossplane/upjet/pkg/resource"
+	"github.com/pkg/errors"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 // ResolveReferences of this FlavorAccessV2.

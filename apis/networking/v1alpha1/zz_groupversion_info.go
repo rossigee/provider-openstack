@@ -11,8 +11,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"sigs.k8s.io/controller-runtime/pkg/scheme"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // Package type metadata.
@@ -26,8 +25,48 @@ var (
 	CRDGroupVersion = schema.GroupVersion{Group: CRDGroup, Version: CRDVersion}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
-	SchemeBuilder = &scheme.Builder{GroupVersion: CRDGroupVersion}
+	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 
 	// AddToScheme adds the types in this group-version to the given scheme.
 	AddToScheme = SchemeBuilder.AddToScheme
 )
+
+func addKnownTypes(s *runtime.Scheme) error {
+	s.AddKnownTypes(SchemeGroupVersion,
+		&QosMinimumBandwidthRuleV2Parameters{},
+		&PortforwardingV2Parameters{},
+		&PortSecgroupAssociateV2Parameters{},
+		&PortV2Parameters{},
+		&SubnetV2Parameters{},
+		&SubnetpoolV2Parameters{},
+		&RouterRouteV2Parameters{},
+		&AddressscopeV2Parameters{},
+		&QuotaV2Parameters{},
+		&QosPolicyV2Parameters{},
+		&FloatingipAssociateV2Parameters{},
+		&RouterInterfaceV2Parameters{},
+		&RouterV2Parameters{},
+		&SecgroupV2Parameters{},
+		&QosBandwidthLimitRuleV2Parameters{},
+		&TrunkV2Parameters{},
+		&NetworkV2Parameters{},
+		&SecgroupRuleV2Parameters{},
+		&RbacPolicyV2Parameters{},
+		&SubnetRouteV2Parameters{},
+		&PortV2List{},
+		&PortV2{},
+		&SubnetV2List{},
+		&SubnetV2{},
+		&NetworkV2List{},
+		&NetworkV2{},
+		&QosPolicyV2List{},
+		&QosPolicyV2{},
+		&RouterV2List{},
+		&RouterV2{},
+		&SecgroupV2List{},
+		&SecgroupV2{},
+		&FloatingipV2Parameters{},
+		&QosDscpMarkingRuleV2Parameters{},
+	)
+	return nil
+}

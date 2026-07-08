@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type L7RuleV2InitParameters struct {
 
@@ -235,6 +235,4 @@ var (
 	L7RuleV2_GroupVersionKind = CRDGroupVersion.WithKind(L7RuleV2_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&L7RuleV2{}, &L7RuleV2List{})
 }

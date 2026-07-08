@@ -8,11 +8,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
+
 
 type UserV1InitParameters struct {
 
@@ -164,6 +164,4 @@ var (
 	UserV1_GroupVersionKind = CRDGroupVersion.WithKind(UserV1_Kind)
 )
 
-func init() {
-	SchemeBuilder.Register(&UserV1{}, &UserV1List{})
 }
