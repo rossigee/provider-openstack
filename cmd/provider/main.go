@@ -39,6 +39,7 @@ import (
 	"github.com/crossplane-contrib/provider-openstack/internal/clients"
 	"github.com/crossplane-contrib/provider-openstack/internal/controller"
 	"github.com/crossplane-contrib/provider-openstack/internal/features"
+	"github.com/rossigee/provider-openstack/internal/tracing"
 	"github.com/rossigee/provider-openstack/internal/version"
 )
 
@@ -88,6 +89,9 @@ func main() {
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 	log.Default().SetOutput(io.Discard)
+
+	shutdownTracing(context.Background())
+
 	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 
 	zl := zap.New(zap.UseDevMode(*debug))
