@@ -5,7 +5,7 @@
 package features
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
+	xpfeature "github.com/crossplane/crossplane-runtime/v2/pkg/feature"
 )
 
 // Feature flags.

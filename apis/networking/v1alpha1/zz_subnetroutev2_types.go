@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -38,11 +38,11 @@ type SubnetRouteV2InitParameters struct {
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetIDRef *xpv1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type SubnetRouteV2Observation struct {
@@ -96,16 +96,16 @@ type SubnetRouteV2Parameters struct {
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetIDRef *xpv1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 // SubnetRouteV2Spec defines the desired state of SubnetRouteV2
 type SubnetRouteV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SubnetRouteV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -122,7 +122,7 @@ type SubnetRouteV2Spec struct {
 
 // SubnetRouteV2Status defines the observed state of SubnetRouteV2.
 type SubnetRouteV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SubnetRouteV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -161,5 +161,3 @@ var (
 	SubnetRouteV2_KindAPIVersion   = SubnetRouteV2_Kind + "." + CRDGroupVersion.String()
 	SubnetRouteV2_GroupVersionKind = CRDGroupVersion.WithKind(SubnetRouteV2_Kind)
 )
-
-}

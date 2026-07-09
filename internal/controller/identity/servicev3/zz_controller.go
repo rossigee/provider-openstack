@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package servicev3
 
 import (
-	"github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/internal/features"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/connection"
+	"github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	"github.com/rossigee/provider-openstack/internal/features"
+	"github.com/crossplane/crossplane-runtime/pkg/connection"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"

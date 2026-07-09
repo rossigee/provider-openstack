@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -35,11 +35,11 @@ type QosBandwidthLimitRuleV2InitParameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS bandwidth limit rule. If omitted, the
@@ -97,11 +97,11 @@ type QosBandwidthLimitRuleV2Parameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS bandwidth limit rule. If omitted, the
@@ -112,7 +112,7 @@ type QosBandwidthLimitRuleV2Parameters struct {
 
 // QosBandwidthLimitRuleV2Spec defines the desired state of QosBandwidthLimitRuleV2
 type QosBandwidthLimitRuleV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     QosBandwidthLimitRuleV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -129,7 +129,7 @@ type QosBandwidthLimitRuleV2Spec struct {
 
 // QosBandwidthLimitRuleV2Status defines the observed state of QosBandwidthLimitRuleV2.
 type QosBandwidthLimitRuleV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        QosBandwidthLimitRuleV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -167,5 +167,3 @@ var (
 	QosBandwidthLimitRuleV2_KindAPIVersion   = QosBandwidthLimitRuleV2_Kind + "." + CRDGroupVersion.String()
 	QosBandwidthLimitRuleV2_GroupVersionKind = CRDGroupVersion.WithKind(QosBandwidthLimitRuleV2_Kind)
 )
-
-}

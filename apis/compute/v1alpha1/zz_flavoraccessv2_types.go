@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -23,11 +23,11 @@ type FlavorAccessV2InitParameters struct {
 
 	// Reference to a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDRef *v1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
+	FlavorIDRef *xpv1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *v1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Compute client.
 	// If omitted, the region argument of the provider is used.
@@ -42,11 +42,11 @@ type FlavorAccessV2InitParameters struct {
 
 	// Reference to a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDRef *v1.Reference `json:"tenantIdRef,omitempty" tf:"-"`
+	TenantIDRef *xpv1.Reference `json:"tenantIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDSelector *v1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
+	TenantIDSelector *metav1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
 }
 
 type FlavorAccessV2Observation struct {
@@ -76,11 +76,11 @@ type FlavorAccessV2Parameters struct {
 
 	// Reference to a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDRef *v1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
+	FlavorIDRef *xpv1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *v1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Compute client.
 	// If omitted, the region argument of the provider is used.
@@ -97,16 +97,16 @@ type FlavorAccessV2Parameters struct {
 
 	// Reference to a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDRef *v1.Reference `json:"tenantIdRef,omitempty" tf:"-"`
+	TenantIDRef *xpv1.Reference `json:"tenantIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDSelector *v1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
+	TenantIDSelector *metav1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
 }
 
 // FlavorAccessV2Spec defines the desired state of FlavorAccessV2
 type FlavorAccessV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     FlavorAccessV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -123,7 +123,7 @@ type FlavorAccessV2Spec struct {
 
 // FlavorAccessV2Status defines the observed state of FlavorAccessV2.
 type FlavorAccessV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        FlavorAccessV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -160,5 +160,3 @@ var (
 	FlavorAccessV2_KindAPIVersion   = FlavorAccessV2_Kind + "." + CRDGroupVersion.String()
 	FlavorAccessV2_GroupVersionKind = CRDGroupVersion.WithKind(FlavorAccessV2_Kind)
 )
-
-}

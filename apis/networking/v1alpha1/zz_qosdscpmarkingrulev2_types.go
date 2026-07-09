@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -27,11 +27,11 @@ type QosDscpMarkingRuleV2InitParameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS DSCP marking rule. If omitted, the
@@ -71,11 +71,11 @@ type QosDscpMarkingRuleV2Parameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS DSCP marking rule. If omitted, the
@@ -86,7 +86,7 @@ type QosDscpMarkingRuleV2Parameters struct {
 
 // QosDscpMarkingRuleV2Spec defines the desired state of QosDscpMarkingRuleV2
 type QosDscpMarkingRuleV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     QosDscpMarkingRuleV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -103,7 +103,7 @@ type QosDscpMarkingRuleV2Spec struct {
 
 // QosDscpMarkingRuleV2Status defines the observed state of QosDscpMarkingRuleV2.
 type QosDscpMarkingRuleV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        QosDscpMarkingRuleV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -141,5 +141,3 @@ var (
 	QosDscpMarkingRuleV2_KindAPIVersion   = QosDscpMarkingRuleV2_Kind + "." + CRDGroupVersion.String()
 	QosDscpMarkingRuleV2_GroupVersionKind = CRDGroupVersion.WithKind(QosDscpMarkingRuleV2_Kind)
 )
-
-}

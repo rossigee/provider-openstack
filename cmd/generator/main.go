@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/crossplane-contrib/provider-openstack/config"
+	"github.com/rossigee/provider-openstack/config"
 	"github.com/crossplane/upjet/pkg/config"
 	"github.com/crossplane/upjet/pkg/pipeline"
 	"gopkg.in/alecthomas/kingpin.v2"

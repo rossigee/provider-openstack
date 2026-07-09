@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -61,11 +61,11 @@ type RecordsetV2InitParameters struct {
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneIDRef *xpv1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 type RecordsetV2Observation struct {
@@ -172,16 +172,16 @@ type RecordsetV2Parameters struct {
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneIDRef *xpv1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 // RecordsetV2Spec defines the desired state of RecordsetV2
 type RecordsetV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     RecordsetV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -198,7 +198,7 @@ type RecordsetV2Spec struct {
 
 // RecordsetV2Status defines the observed state of RecordsetV2.
 type RecordsetV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        RecordsetV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -237,5 +237,3 @@ var (
 	RecordsetV2_KindAPIVersion   = RecordsetV2_Kind + "." + CRDGroupVersion.String()
 	RecordsetV2_GroupVersionKind = CRDGroupVersion.WithKind(RecordsetV2_Kind)
 )
-
-}

@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -316,7 +316,7 @@ type UserInitParameters struct {
 
 	// User's password. Changing this creates a
 	// new instance.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 }
 
 type UserObservation struct {
@@ -356,12 +356,12 @@ type UserParameters struct {
 	// User's password. Changing this creates a
 	// new instance.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 }
 
 // InstanceV1Spec defines the desired state of InstanceV1
 type InstanceV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     InstanceV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -378,7 +378,7 @@ type InstanceV1Spec struct {
 
 // InstanceV1Status defines the observed state of InstanceV1.
 type InstanceV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        InstanceV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -418,5 +418,3 @@ var (
 	InstanceV1_KindAPIVersion   = InstanceV1_Kind + "." + CRDGroupVersion.String()
 	InstanceV1_GroupVersionKind = CRDGroupVersion.WithKind(InstanceV1_Kind)
 )
-
-}

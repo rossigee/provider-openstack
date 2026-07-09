@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -206,7 +206,7 @@ type IpsecPolicyV2Parameters struct {
 
 // IpsecPolicyV2Spec defines the desired state of IpsecPolicyV2
 type IpsecPolicyV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     IpsecPolicyV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -223,7 +223,7 @@ type IpsecPolicyV2Spec struct {
 
 // IpsecPolicyV2Status defines the observed state of IpsecPolicyV2.
 type IpsecPolicyV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        IpsecPolicyV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -260,5 +260,3 @@ var (
 	IpsecPolicyV2_KindAPIVersion   = IpsecPolicyV2_Kind + "." + CRDGroupVersion.String()
 	IpsecPolicyV2_GroupVersionKind = CRDGroupVersion.WithKind(IpsecPolicyV2_Kind)
 )
-
-}

@@ -10,7 +10,7 @@ import (
 	"context"
 	"github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
 	"github.com/crossplane-contrib/provider-openstack/apis/keymanager/v1alpha1"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	"github.com/crossplane/crossplane-runtime/pkg/reference"
 	"github.com/crossplane/upjet/pkg/resource"
 	"github.com/pkg/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"

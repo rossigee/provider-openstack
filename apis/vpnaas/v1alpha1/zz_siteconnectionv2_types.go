@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -91,11 +91,11 @@ type SiteConnectionV2InitParameters struct {
 
 	// Reference to a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDRef *v1.Reference `json:"ikepolicyIdRef,omitempty" tf:"-"`
+	IkepolicyIDRef *xpv1.Reference `json:"ikepolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDSelector *v1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
+	IkepolicyIDSelector *metav1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
 
 	// A valid value is response-only or bi-directional. Default is bi-directional.
 	Initiator *string `json:"initiator,omitempty" tf:"initiator,omitempty"`
@@ -107,11 +107,11 @@ type SiteConnectionV2InitParameters struct {
 
 	// Reference to a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDRef *v1.Reference `json:"ipsecpolicyIdRef,omitempty" tf:"-"`
+	IpsecpolicyIDRef *xpv1.Reference `json:"ipsecpolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDSelector *v1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
+	IpsecpolicyIDSelector *metav1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
 
 	// The ID for the endpoint group that contains private subnets for the local side of the connection.
 	// You must specify this parameter with the peer_ep_group_id parameter unless
@@ -123,11 +123,11 @@ type SiteConnectionV2InitParameters struct {
 
 	// Reference to a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDRef *v1.Reference `json:"localEpGroupIdRef,omitempty" tf:"-"`
+	LocalEpGroupIDRef *xpv1.Reference `json:"localEpGroupIdRef,omitempty" tf:"-"`
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDSelector *v1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
+	LocalEpGroupIDSelector *metav1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
 
 	// An ID to be used instead of the external IP address for a virtual router used in traffic between instances on different networks in east-west traffic.
 	// Most often, local ID would be domain name, email address, etc.
@@ -157,11 +157,11 @@ type SiteConnectionV2InitParameters struct {
 
 	// Reference to a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDRef *v1.Reference `json:"peerEpGroupIdRef,omitempty" tf:"-"`
+	PeerEpGroupIDRef *xpv1.Reference `json:"peerEpGroupIdRef,omitempty" tf:"-"`
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDSelector *v1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
+	PeerEpGroupIDSelector *metav1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
 
 	// The peer router identity for authentication. A valid value is an IPv4 address, IPv6 address, e-mail address, key ID, or FQDN.
 	// Typically, this value matches the peer_address value.
@@ -192,11 +192,11 @@ type SiteConnectionV2InitParameters struct {
 
 	// Reference to a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDRef *v1.Reference `json:"vpnserviceIdRef,omitempty" tf:"-"`
+	VpnserviceIDRef *xpv1.Reference `json:"vpnserviceIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDSelector *v1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
+	VpnserviceIDSelector *metav1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
 }
 
 type SiteConnectionV2Observation struct {
@@ -303,11 +303,11 @@ type SiteConnectionV2Parameters struct {
 
 	// Reference to a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDRef *v1.Reference `json:"ikepolicyIdRef,omitempty" tf:"-"`
+	IkepolicyIDRef *xpv1.Reference `json:"ikepolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDSelector *v1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
+	IkepolicyIDSelector *metav1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
 
 	// A valid value is response-only or bi-directional. Default is bi-directional.
 	// +kubebuilder:validation:Optional
@@ -321,11 +321,11 @@ type SiteConnectionV2Parameters struct {
 
 	// Reference to a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDRef *v1.Reference `json:"ipsecpolicyIdRef,omitempty" tf:"-"`
+	IpsecpolicyIDRef *xpv1.Reference `json:"ipsecpolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDSelector *v1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
+	IpsecpolicyIDSelector *metav1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
 
 	// The ID for the endpoint group that contains private subnets for the local side of the connection.
 	// You must specify this parameter with the peer_ep_group_id parameter unless
@@ -338,11 +338,11 @@ type SiteConnectionV2Parameters struct {
 
 	// Reference to a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDRef *v1.Reference `json:"localEpGroupIdRef,omitempty" tf:"-"`
+	LocalEpGroupIDRef *xpv1.Reference `json:"localEpGroupIdRef,omitempty" tf:"-"`
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDSelector *v1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
+	LocalEpGroupIDSelector *metav1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
 
 	// An ID to be used instead of the external IP address for a virtual router used in traffic between instances on different networks in east-west traffic.
 	// Most often, local ID would be domain name, email address, etc.
@@ -378,11 +378,11 @@ type SiteConnectionV2Parameters struct {
 
 	// Reference to a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDRef *v1.Reference `json:"peerEpGroupIdRef,omitempty" tf:"-"`
+	PeerEpGroupIDRef *xpv1.Reference `json:"peerEpGroupIdRef,omitempty" tf:"-"`
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDSelector *v1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
+	PeerEpGroupIDSelector *metav1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
 
 	// The peer router identity for authentication. A valid value is an IPv4 address, IPv6 address, e-mail address, key ID, or FQDN.
 	// Typically, this value matches the peer_address value.
@@ -419,16 +419,16 @@ type SiteConnectionV2Parameters struct {
 
 	// Reference to a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDRef *v1.Reference `json:"vpnserviceIdRef,omitempty" tf:"-"`
+	VpnserviceIDRef *xpv1.Reference `json:"vpnserviceIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDSelector *v1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
+	VpnserviceIDSelector *metav1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
 }
 
 // SiteConnectionV2Spec defines the desired state of SiteConnectionV2
 type SiteConnectionV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SiteConnectionV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -445,7 +445,7 @@ type SiteConnectionV2Spec struct {
 
 // SiteConnectionV2Status defines the observed state of SiteConnectionV2.
 type SiteConnectionV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SiteConnectionV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -485,5 +485,3 @@ var (
 	SiteConnectionV2_KindAPIVersion   = SiteConnectionV2_Kind + "." + CRDGroupVersion.String()
 	SiteConnectionV2_GroupVersionKind = CRDGroupVersion.WithKind(SiteConnectionV2_Kind)
 )
-
-}

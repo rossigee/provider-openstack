@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -157,7 +157,7 @@ type QosPolicyV2Parameters struct {
 
 // QosPolicyV2Spec defines the desired state of QosPolicyV2
 type QosPolicyV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     QosPolicyV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -174,7 +174,7 @@ type QosPolicyV2Spec struct {
 
 // QosPolicyV2Status defines the observed state of QosPolicyV2.
 type QosPolicyV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        QosPolicyV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -211,5 +211,3 @@ var (
 	QosPolicyV2_KindAPIVersion   = QosPolicyV2_Kind + "." + CRDGroupVersion.String()
 	QosPolicyV2_GroupVersionKind = CRDGroupVersion.WithKind(QosPolicyV2_Kind)
 )
-
-}

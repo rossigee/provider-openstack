@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -131,7 +131,7 @@ type ProjectV3Parameters struct {
 
 // ProjectV3Spec defines the desired state of ProjectV3
 type ProjectV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ProjectV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -148,7 +148,7 @@ type ProjectV3Spec struct {
 
 // ProjectV3Status defines the observed state of ProjectV3.
 type ProjectV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ProjectV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -185,5 +185,3 @@ var (
 	ProjectV3_KindAPIVersion   = ProjectV3_Kind + "." + CRDGroupVersion.String()
 	ProjectV3_GroupVersionKind = CRDGroupVersion.WithKind(ProjectV3_Kind)
 )
-
-}

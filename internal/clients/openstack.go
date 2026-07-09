@@ -3,7 +3,7 @@ package clients
 import (
 	"context"
 	"encoding/json"
-	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/upjet/pkg/terraform"
 	"github.com/hashicorp/go-cty/cty"

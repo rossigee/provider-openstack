@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -46,7 +46,7 @@ type ImageV2InitParameters struct {
 
 	// The password of basic auth to download
 	// image_source_url.
-	ImageSourcePasswordSecretRef *v1.SecretKeySelector `json:"imageSourcePasswordSecretRef,omitempty" tf:"-"`
+	ImageSourcePasswordSecretRef *xpv1.SecretKeySelector `json:"imageSourcePasswordSecretRef,omitempty" tf:"-"`
 
 	// This is the url of the raw image. If
 	// web_download is not used, then the image will be downloaded in the
@@ -280,7 +280,7 @@ type ImageV2Parameters struct {
 	// The password of basic auth to download
 	// image_source_url.
 	// +kubebuilder:validation:Optional
-	ImageSourcePasswordSecretRef *v1.SecretKeySelector `json:"imageSourcePasswordSecretRef,omitempty" tf:"-"`
+	ImageSourcePasswordSecretRef *xpv1.SecretKeySelector `json:"imageSourcePasswordSecretRef,omitempty" tf:"-"`
 
 	// This is the url of the raw image. If
 	// web_download is not used, then the image will be downloaded in the
@@ -360,7 +360,7 @@ type ImageV2Parameters struct {
 
 // ImageV2Spec defines the desired state of ImageV2
 type ImageV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ImageV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -377,7 +377,7 @@ type ImageV2Spec struct {
 
 // ImageV2Status defines the observed state of ImageV2.
 type ImageV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ImageV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -417,5 +417,3 @@ var (
 	ImageV2_KindAPIVersion   = ImageV2_Kind + "." + CRDGroupVersion.String()
 	ImageV2_GroupVersionKind = CRDGroupVersion.WithKind(ImageV2_Kind)
 )
-
-}

@@ -6,11 +6,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-
 // GetItems of this StackV1List.
-func (l *StackV1List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *StackV1List) GetItems() []*StackV1 {
+	items := make([]*StackV1, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

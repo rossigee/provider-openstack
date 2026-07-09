@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -34,11 +34,11 @@ type GroupV2InitParameters struct {
 
 	// Reference to a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDRef *v1.Reference `json:"egressFirewallPolicyIdRef,omitempty" tf:"-"`
+	EgressFirewallPolicyIDRef *xpv1.Reference `json:"egressFirewallPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDSelector *v1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	EgressFirewallPolicyIDSelector *metav1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// The ingress firewall policy resource
 	// id for the firewall group. Changing this updates the
@@ -49,11 +49,11 @@ type GroupV2InitParameters struct {
 
 	// Reference to a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDRef *v1.Reference `json:"ingressFirewallPolicyIdRef,omitempty" tf:"-"`
+	IngressFirewallPolicyIDRef *xpv1.Reference `json:"ingressFirewallPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDSelector *v1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	IngressFirewallPolicyIDSelector *metav1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// A name for the firewall group. Changing this
 	// updates the name of an existing firewall.
@@ -176,11 +176,11 @@ type GroupV2Parameters struct {
 
 	// Reference to a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDRef *v1.Reference `json:"egressFirewallPolicyIdRef,omitempty" tf:"-"`
+	EgressFirewallPolicyIDRef *xpv1.Reference `json:"egressFirewallPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDSelector *v1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	EgressFirewallPolicyIDSelector *metav1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// The ingress firewall policy resource
 	// id for the firewall group. Changing this updates the
@@ -192,11 +192,11 @@ type GroupV2Parameters struct {
 
 	// Reference to a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDRef *v1.Reference `json:"ingressFirewallPolicyIdRef,omitempty" tf:"-"`
+	IngressFirewallPolicyIDRef *xpv1.Reference `json:"ingressFirewallPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDSelector *v1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	IngressFirewallPolicyIDSelector *metav1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// A name for the firewall group. Changing this
 	// updates the name of an existing firewall.
@@ -242,7 +242,7 @@ type GroupV2Parameters struct {
 
 // GroupV2Spec defines the desired state of GroupV2
 type GroupV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     GroupV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -259,7 +259,7 @@ type GroupV2Spec struct {
 
 // GroupV2Status defines the observed state of GroupV2.
 type GroupV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        GroupV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -296,5 +296,3 @@ var (
 	GroupV2_KindAPIVersion   = GroupV2_Kind + "." + CRDGroupVersion.String()
 	GroupV2_GroupVersionKind = CRDGroupVersion.WithKind(GroupV2_Kind)
 )
-
-}

@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -36,7 +36,7 @@ type SecurityserviceV2InitParameters struct {
 	Ou *string `json:"ou,omitempty" tf:"ou,omitempty"`
 
 	// The user password, if you specify a user.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Shared File System client.
 	// A Shared File System client is needed to create a security service. If omitted, the
@@ -129,7 +129,7 @@ type SecurityserviceV2Parameters struct {
 
 	// The user password, if you specify a user.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Shared File System client.
 	// A Shared File System client is needed to create a security service. If omitted, the
@@ -155,7 +155,7 @@ type SecurityserviceV2Parameters struct {
 
 // SecurityserviceV2Spec defines the desired state of SecurityserviceV2
 type SecurityserviceV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SecurityserviceV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -172,7 +172,7 @@ type SecurityserviceV2Spec struct {
 
 // SecurityserviceV2Status defines the observed state of SecurityserviceV2.
 type SecurityserviceV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SecurityserviceV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -210,5 +210,3 @@ var (
 	SecurityserviceV2_KindAPIVersion   = SecurityserviceV2_Kind + "." + CRDGroupVersion.String()
 	SecurityserviceV2_GroupVersionKind = CRDGroupVersion.WithKind(SecurityserviceV2_Kind)
 )
-
-}

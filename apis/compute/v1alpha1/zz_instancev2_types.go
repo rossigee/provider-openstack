@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -62,11 +62,11 @@ type BlockDeviceInitParameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+	UUIDRef *xpv1.Reference `json:"uuidRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
+	UUIDSelector *metav1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required
 	// in the following combinations: source=image and destination=volume,
@@ -195,11 +195,11 @@ type BlockDeviceParameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDRef *v1.Reference `json:"uuidRef,omitempty" tf:"-"`
+	UUIDRef *xpv1.Reference `json:"uuidRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDSelector *v1.Selector `json:"uuidSelector,omitempty" tf:"-"`
+	UUIDSelector *metav1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required
 	// in the following combinations: source=image and destination=volume,
@@ -220,7 +220,7 @@ type InstanceV2InitParameters struct {
 
 	// The administrative password to assign to the server.
 	// Changing this changes the root password on the existing server.
-	AdminPassSecretRef *v1.SecretKeySelector `json:"adminPassSecretRef,omitempty" tf:"-"`
+	AdminPassSecretRef *xpv1.SecretKeySelector `json:"adminPassSecretRef,omitempty" tf:"-"`
 
 	// The availability zone in which to create
 	// the server. Conflicts with availability_zone_hints. Changing this creates
@@ -255,11 +255,11 @@ type InstanceV2InitParameters struct {
 
 	// Reference to a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDRef *v1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
+	FlavorIDRef *xpv1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *v1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The name of the
 	// desired flavor for the server. Changing this resizes the existing server.
@@ -295,11 +295,11 @@ type InstanceV2InitParameters struct {
 
 	// Reference to a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
+	KeyPairRef *xpv1.Reference `json:"keyPairRef,omitempty" tf:"-"`
 
 	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
+	KeyPairSelector *metav1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Metadata key/value pairs to make available from
 	// within the instance. Changing this updates the existing server metadata.
@@ -353,11 +353,11 @@ type InstanceV2InitParameters struct {
 
 	// References to SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
+	SecurityGroupsRefs []xpv1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
+	SecurityGroupsSelector *metav1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully
 	// before destroying it, thus giving chance for guest OS daemons to stop correctly.
@@ -535,7 +535,7 @@ type InstanceV2Parameters struct {
 	// The administrative password to assign to the server.
 	// Changing this changes the root password on the existing server.
 	// +kubebuilder:validation:Optional
-	AdminPassSecretRef *v1.SecretKeySelector `json:"adminPassSecretRef,omitempty" tf:"-"`
+	AdminPassSecretRef *xpv1.SecretKeySelector `json:"adminPassSecretRef,omitempty" tf:"-"`
 
 	// The availability zone in which to create
 	// the server. Conflicts with availability_zone_hints. Changing this creates
@@ -575,11 +575,11 @@ type InstanceV2Parameters struct {
 
 	// Reference to a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDRef *v1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
+	FlavorIDRef *xpv1.Reference `json:"flavorIdRef,omitempty" tf:"-"`
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *v1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The name of the
 	// desired flavor for the server. Changing this resizes the existing server.
@@ -621,11 +621,11 @@ type InstanceV2Parameters struct {
 
 	// Reference to a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairRef *v1.Reference `json:"keyPairRef,omitempty" tf:"-"`
+	KeyPairRef *xpv1.Reference `json:"keyPairRef,omitempty" tf:"-"`
 
 	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairSelector *v1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
+	KeyPairSelector *metav1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Metadata key/value pairs to make available from
 	// within the instance. Changing this updates the existing server metadata.
@@ -688,11 +688,11 @@ type InstanceV2Parameters struct {
 
 	// References to SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsRefs []v1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
+	SecurityGroupsRefs []xpv1.Reference `json:"securityGroupsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *v1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
+	SecurityGroupsSelector *metav1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully
 	// before destroying it, thus giving chance for guest OS daemons to stop correctly.
@@ -741,11 +741,11 @@ type NetworkInitParameters struct {
 
 	// Reference to a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortRef *v1.Reference `json:"portRef,omitempty" tf:"-"`
+	PortRef *xpv1.Reference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortSelector *v1.Selector `json:"portSelector,omitempty" tf:"-"`
+	PortSelector *metav1.Selector `json:"portSelector,omitempty" tf:"-"`
 
 	// The network UUID to
 	// attach to the server. Changing this creates a new server.
@@ -808,11 +808,11 @@ type NetworkParameters struct {
 
 	// Reference to a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortRef *v1.Reference `json:"portRef,omitempty" tf:"-"`
+	PortRef *xpv1.Reference `json:"portRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortSelector *v1.Selector `json:"portSelector,omitempty" tf:"-"`
+	PortSelector *metav1.Selector `json:"portSelector,omitempty" tf:"-"`
 
 	// The network UUID to
 	// attach to the server. Changing this creates a new server.
@@ -1020,7 +1020,7 @@ type VendorOptionsParameters struct {
 
 // InstanceV2Spec defines the desired state of InstanceV2
 type InstanceV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     InstanceV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -1037,7 +1037,7 @@ type InstanceV2Spec struct {
 
 // InstanceV2Status defines the observed state of InstanceV2.
 type InstanceV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        InstanceV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -1075,5 +1075,3 @@ var (
 	InstanceV2_KindAPIVersion   = InstanceV2_Kind + "." + CRDGroupVersion.String()
 	InstanceV2_GroupVersionKind = CRDGroupVersion.WithKind(InstanceV2_Kind)
 )
-
-}

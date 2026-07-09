@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -29,11 +29,11 @@ type RbacPolicyV2InitParameters struct {
 
 	// Reference to a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDRef *v1.Reference `json:"objectIdRef,omitempty" tf:"-"`
+	ObjectIDRef *xpv1.Reference `json:"objectIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDSelector *v1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
+	ObjectIDSelector *metav1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
 
 	// The type of the object that the RBAC policy
 	// affects. Can be one of the following: address_scope, address_group,
@@ -99,11 +99,11 @@ type RbacPolicyV2Parameters struct {
 
 	// Reference to a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDRef *v1.Reference `json:"objectIdRef,omitempty" tf:"-"`
+	ObjectIDRef *xpv1.Reference `json:"objectIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDSelector *v1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
+	ObjectIDSelector *metav1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
 
 	// The type of the object that the RBAC policy
 	// affects. Can be one of the following: address_scope, address_group,
@@ -126,7 +126,7 @@ type RbacPolicyV2Parameters struct {
 
 // RbacPolicyV2Spec defines the desired state of RbacPolicyV2
 type RbacPolicyV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     RbacPolicyV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -143,7 +143,7 @@ type RbacPolicyV2Spec struct {
 
 // RbacPolicyV2Status defines the observed state of RbacPolicyV2.
 type RbacPolicyV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        RbacPolicyV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -183,5 +183,3 @@ var (
 	RbacPolicyV2_KindAPIVersion   = RbacPolicyV2_Kind + "." + CRDGroupVersion.String()
 	RbacPolicyV2_GroupVersionKind = CRDGroupVersion.WithKind(RbacPolicyV2_Kind)
 )
-
-}

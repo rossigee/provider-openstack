@@ -12,6 +12,8 @@ package v1alpha1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 // Package type metadata.
@@ -32,27 +34,23 @@ var (
 )
 
 func addKnownTypes(s *runtime.Scheme) error {
-	s.AddKnownTypes(SchemeGroupVersion,
-		&QosMinimumBandwidthRuleV2Parameters{},
-		&PortforwardingV2Parameters{},
-		&PortSecgroupAssociateV2Parameters{},
-		&PortV2Parameters{},
-		&SubnetV2Parameters{},
-		&SubnetpoolV2Parameters{},
-		&RouterRouteV2Parameters{},
-		&AddressscopeV2Parameters{},
-		&QuotaV2Parameters{},
-		&QosPolicyV2Parameters{},
-		&FloatingipAssociateV2Parameters{},
-		&RouterInterfaceV2Parameters{},
-		&RouterV2Parameters{},
-		&SecgroupV2Parameters{},
-		&QosBandwidthLimitRuleV2Parameters{},
-		&TrunkV2Parameters{},
-		&NetworkV2Parameters{},
-		&SecgroupRuleV2Parameters{},
-		&RbacPolicyV2Parameters{},
-		&SubnetRouteV2Parameters{},
+	s.AddKnownTypes(CRDGroupVersion,
+			&RouterInterfaceV2{},
+			&QosMinimumBandwidthRuleV2{},
+			&AddressscopeV2{},
+			&SecgroupRuleV2{},
+			&QuotaV2{},
+			&TrunkV2{},
+			&RouterRouteV2{},
+			&RbacPolicyV2{},
+			&FloatingipAssociateV2{},
+			&PortSecgroupAssociateV2{},
+			&QosBandwidthLimitRuleV2{},
+			&SubnetpoolV2{},
+			&SubnetRouteV2{},
+			&PortforwardingV2{},
+			&QosDscpMarkingRuleV2{},
+			&FloatingipV2{},
 		&PortV2List{},
 		&PortV2{},
 		&SubnetV2List{},
@@ -65,8 +63,6 @@ func addKnownTypes(s *runtime.Scheme) error {
 		&RouterV2{},
 		&SecgroupV2List{},
 		&SecgroupV2{},
-		&FloatingipV2Parameters{},
-		&QosDscpMarkingRuleV2Parameters{},
 	)
 	return nil
 }

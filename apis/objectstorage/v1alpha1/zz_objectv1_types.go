@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -28,11 +28,11 @@ type ObjectV1InitParameters struct {
 
 	// Reference to a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameRef *v1.Reference `json:"containerNameRef,omitempty" tf:"-"`
+	ContainerNameRef *xpv1.Reference `json:"containerNameRef,omitempty" tf:"-"`
 
 	// Selector for a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameSelector *v1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
+	ContainerNameSelector *metav1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
 
 	// A string representing the content of the object. Conflicts with
 	// source and copy_from.
@@ -208,11 +208,11 @@ type ObjectV1Parameters struct {
 
 	// Reference to a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameRef *v1.Reference `json:"containerNameRef,omitempty" tf:"-"`
+	ContainerNameRef *xpv1.Reference `json:"containerNameRef,omitempty" tf:"-"`
 
 	// Selector for a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameSelector *v1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
+	ContainerNameSelector *metav1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
 
 	// A string representing the content of the object. Conflicts with
 	// source and copy_from.
@@ -293,7 +293,7 @@ type ObjectV1Parameters struct {
 
 // ObjectV1Spec defines the desired state of ObjectV1
 type ObjectV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ObjectV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -310,7 +310,7 @@ type ObjectV1Spec struct {
 
 // ObjectV1Status defines the observed state of ObjectV1.
 type ObjectV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ObjectV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -348,5 +348,3 @@ var (
 	ObjectV1_KindAPIVersion   = ObjectV1_Kind + "." + CRDGroupVersion.String()
 	ObjectV1_GroupVersionKind = CRDGroupVersion.WithKind(ObjectV1_Kind)
 )
-
-}

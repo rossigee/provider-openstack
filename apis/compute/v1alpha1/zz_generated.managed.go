@@ -6,7 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this AggregateV2.
 func (mg *AggregateV2) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -29,6 +29,7 @@ func (mg *AggregateV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this AggregateV2.
+func (mg *AggregateV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -58,6 +59,7 @@ func (mg *AggregateV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this AggregateV2.
+func (mg *AggregateV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -87,6 +89,7 @@ func (mg *FlavorAccessV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this FlavorAccessV2.
+func (mg *FlavorAccessV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -116,6 +119,7 @@ func (mg *FlavorAccessV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this FlavorAccessV2.
+func (mg *FlavorAccessV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -145,6 +149,7 @@ func (mg *FlavorV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this FlavorV2.
+func (mg *FlavorV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -174,6 +179,7 @@ func (mg *FlavorV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this FlavorV2.
+func (mg *FlavorV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -203,6 +209,7 @@ func (mg *InstanceV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this InstanceV2.
+func (mg *InstanceV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -232,6 +239,7 @@ func (mg *InstanceV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this InstanceV2.
+func (mg *InstanceV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -261,6 +269,7 @@ func (mg *InterfaceAttachV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this InterfaceAttachV2.
+func (mg *InterfaceAttachV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -290,6 +299,7 @@ func (mg *InterfaceAttachV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this InterfaceAttachV2.
+func (mg *InterfaceAttachV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -319,6 +329,7 @@ func (mg *KeypairV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this KeypairV2.
+func (mg *KeypairV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -348,6 +359,7 @@ func (mg *KeypairV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this KeypairV2.
+func (mg *KeypairV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -377,6 +389,7 @@ func (mg *QuotasetV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this QuotasetV2.
+func (mg *QuotasetV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -406,6 +419,7 @@ func (mg *QuotasetV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this QuotasetV2.
+func (mg *QuotasetV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -435,6 +449,7 @@ func (mg *ServergroupV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this ServergroupV2.
+func (mg *ServergroupV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -464,6 +479,7 @@ func (mg *ServergroupV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this ServergroupV2.
+func (mg *ServergroupV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -493,6 +509,7 @@ func (mg *VolumeAttachV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this VolumeAttachV2.
+func (mg *VolumeAttachV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -522,6 +539,7 @@ func (mg *VolumeAttachV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this VolumeAttachV2.
+func (mg *VolumeAttachV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 

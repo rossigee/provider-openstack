@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -28,11 +28,11 @@ type TransferAcceptV2InitParameters struct {
 
 	// Reference to a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeyRef *v1.Reference `json:"keyRef,omitempty" tf:"-"`
+	KeyRef *xpv1.Reference `json:"keyRef,omitempty" tf:"-"`
 
 	// Selector for a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeySelector *v1.Selector `json:"keySelector,omitempty" tf:"-"`
+	KeySelector *metav1.Selector `json:"keySelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 DNS client.
 	// If omitted, the region argument of the provider is used.
@@ -51,11 +51,11 @@ type TransferAcceptV2InitParameters struct {
 
 	// Reference to a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDRef *v1.Reference `json:"zoneTransferRequestIdRef,omitempty" tf:"-"`
+	ZoneTransferRequestIDRef *xpv1.Reference `json:"zoneTransferRequestIdRef,omitempty" tf:"-"`
 
 	// Selector for a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDSelector *v1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
+	ZoneTransferRequestIDSelector *metav1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
 }
 
 type TransferAcceptV2Observation struct {
@@ -100,11 +100,11 @@ type TransferAcceptV2Parameters struct {
 
 	// Reference to a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeyRef *v1.Reference `json:"keyRef,omitempty" tf:"-"`
+	KeyRef *xpv1.Reference `json:"keyRef,omitempty" tf:"-"`
 
 	// Selector for a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeySelector *v1.Selector `json:"keySelector,omitempty" tf:"-"`
+	KeySelector *metav1.Selector `json:"keySelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 DNS client.
 	// If omitted, the region argument of the provider is used.
@@ -126,16 +126,16 @@ type TransferAcceptV2Parameters struct {
 
 	// Reference to a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDRef *v1.Reference `json:"zoneTransferRequestIdRef,omitempty" tf:"-"`
+	ZoneTransferRequestIDRef *xpv1.Reference `json:"zoneTransferRequestIdRef,omitempty" tf:"-"`
 
 	// Selector for a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDSelector *v1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
+	ZoneTransferRequestIDSelector *metav1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
 }
 
 // TransferAcceptV2Spec defines the desired state of TransferAcceptV2
 type TransferAcceptV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     TransferAcceptV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -152,7 +152,7 @@ type TransferAcceptV2Spec struct {
 
 // TransferAcceptV2Status defines the observed state of TransferAcceptV2.
 type TransferAcceptV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        TransferAcceptV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -189,5 +189,3 @@ var (
 	TransferAcceptV2_KindAPIVersion   = TransferAcceptV2_Kind + "." + CRDGroupVersion.String()
 	TransferAcceptV2_GroupVersionKind = CRDGroupVersion.WithKind(TransferAcceptV2_Kind)
 )
-
-}

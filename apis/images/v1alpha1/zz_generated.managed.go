@@ -6,7 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this ImageAccessAcceptV2.
 func (mg *ImageAccessAcceptV2) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -29,6 +29,7 @@ func (mg *ImageAccessAcceptV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this ImageAccessAcceptV2.
+func (mg *ImageAccessAcceptV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -58,6 +59,7 @@ func (mg *ImageAccessAcceptV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this ImageAccessAcceptV2.
+func (mg *ImageAccessAcceptV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -87,6 +89,7 @@ func (mg *ImageAccessV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this ImageAccessV2.
+func (mg *ImageAccessV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -116,6 +119,7 @@ func (mg *ImageAccessV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this ImageAccessV2.
+func (mg *ImageAccessV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -145,6 +149,7 @@ func (mg *ImageV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this ImageV2.
+func (mg *ImageV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -174,6 +179,7 @@ func (mg *ImageV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this ImageV2.
+func (mg *ImageV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 

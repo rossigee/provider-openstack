@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -57,11 +57,11 @@ type VolumeAttachV3InitParameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeIDRef *xpv1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 
 	// A wwnn name. Used for Fibre Channel connections.
 	Wwnn *string `json:"wwnn,omitempty" tf:"wwnn,omitempty"`
@@ -179,11 +179,11 @@ type VolumeAttachV3Parameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeIDRef *xpv1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 
 	// A wwnn name. Used for Fibre Channel connections.
 	// +kubebuilder:validation:Optional
@@ -197,7 +197,7 @@ type VolumeAttachV3Parameters struct {
 
 // VolumeAttachV3Spec defines the desired state of VolumeAttachV3
 type VolumeAttachV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     VolumeAttachV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -214,7 +214,7 @@ type VolumeAttachV3Spec struct {
 
 // VolumeAttachV3Status defines the observed state of VolumeAttachV3.
 type VolumeAttachV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        VolumeAttachV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -252,5 +252,3 @@ var (
 	VolumeAttachV3_KindAPIVersion   = VolumeAttachV3_Kind + "." + CRDGroupVersion.String()
 	VolumeAttachV3_GroupVersionKind = CRDGroupVersion.WithKind(VolumeAttachV3_Kind)
 )
-
-}

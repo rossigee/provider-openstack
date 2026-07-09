@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -106,7 +106,7 @@ type SecretV1InitParameters struct {
 	PayloadContentType *string `json:"payloadContentType,omitempty" tf:"payload_content_type,omitempty"`
 
 	// The secret's data to be stored. payload_content_type must also be supplied if payload is included.
-	PayloadSecretRef *v1.SecretKeySelector `json:"payloadSecretRef,omitempty" tf:"-"`
+	PayloadSecretRef *xpv1.SecretKeySelector `json:"payloadSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V1 KeyManager client.
 	// A KeyManager client is needed to create a secret. If omitted, the
@@ -231,7 +231,7 @@ type SecretV1Parameters struct {
 
 	// The secret's data to be stored. payload_content_type must also be supplied if payload is included.
 	// +kubebuilder:validation:Optional
-	PayloadSecretRef *v1.SecretKeySelector `json:"payloadSecretRef,omitempty" tf:"-"`
+	PayloadSecretRef *xpv1.SecretKeySelector `json:"payloadSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V1 KeyManager client.
 	// A KeyManager client is needed to create a secret. If omitted, the
@@ -247,7 +247,7 @@ type SecretV1Parameters struct {
 
 // SecretV1Spec defines the desired state of SecretV1
 type SecretV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SecretV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -264,7 +264,7 @@ type SecretV1Spec struct {
 
 // SecretV1Status defines the observed state of SecretV1.
 type SecretV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SecretV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -301,5 +301,3 @@ var (
 	SecretV1_KindAPIVersion   = SecretV1_Kind + "." + CRDGroupVersion.String()
 	SecretV1_GroupVersionKind = CRDGroupVersion.WithKind(SecretV1_Kind)
 )
-
-}

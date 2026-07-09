@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -23,11 +23,11 @@ type DatabaseV1InitParameters struct {
 
 	// Reference to a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -61,11 +61,11 @@ type DatabaseV1Parameters struct {
 
 	// Reference to a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	// +kubebuilder:validation:Optional
@@ -79,7 +79,7 @@ type DatabaseV1Parameters struct {
 
 // DatabaseV1Spec defines the desired state of DatabaseV1
 type DatabaseV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     DatabaseV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -96,7 +96,7 @@ type DatabaseV1Spec struct {
 
 // DatabaseV1Status defines the observed state of DatabaseV1.
 type DatabaseV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        DatabaseV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -134,5 +134,3 @@ var (
 	DatabaseV1_KindAPIVersion   = DatabaseV1_Kind + "." + CRDGroupVersion.String()
 	DatabaseV1_GroupVersionKind = CRDGroupVersion.WithKind(DatabaseV1_Kind)
 )
-
-}

@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this ApplicationCredentialV3List.
-func (l *ApplicationCredentialV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ApplicationCredentialV3List) GetItems() []*ApplicationCredentialV3 {
+	items := make([]*ApplicationCredentialV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *ApplicationCredentialV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this EC2CredentialV3List.
-func (l *EC2CredentialV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *EC2CredentialV3List) GetItems() []*EC2CredentialV3 {
+	items := make([]*EC2CredentialV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *EC2CredentialV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this EndpointV3List.
-func (l *EndpointV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *EndpointV3List) GetItems() []*EndpointV3 {
+	items := make([]*EndpointV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -36,8 +35,8 @@ func (l *EndpointV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this GroupV3List.
-func (l *GroupV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *GroupV3List) GetItems() []*GroupV3 {
+	items := make([]*GroupV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -45,8 +44,8 @@ func (l *GroupV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this InheritRoleAssignmentV3List.
-func (l *InheritRoleAssignmentV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *InheritRoleAssignmentV3List) GetItems() []*InheritRoleAssignmentV3 {
+	items := make([]*InheritRoleAssignmentV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -54,8 +53,8 @@ func (l *InheritRoleAssignmentV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ProjectV3List.
-func (l *ProjectV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ProjectV3List) GetItems() []*ProjectV3 {
+	items := make([]*ProjectV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -63,8 +62,8 @@ func (l *ProjectV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RoleAssignmentV3List.
-func (l *RoleAssignmentV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RoleAssignmentV3List) GetItems() []*RoleAssignmentV3 {
+	items := make([]*RoleAssignmentV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -72,8 +71,8 @@ func (l *RoleAssignmentV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RoleV3List.
-func (l *RoleV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RoleV3List) GetItems() []*RoleV3 {
+	items := make([]*RoleV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -81,8 +80,8 @@ func (l *RoleV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ServiceV3List.
-func (l *ServiceV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ServiceV3List) GetItems() []*ServiceV3 {
+	items := make([]*ServiceV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -90,8 +89,8 @@ func (l *ServiceV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this UserMembershipV3List.
-func (l *UserMembershipV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *UserMembershipV3List) GetItems() []*UserMembershipV3 {
+	items := make([]*UserMembershipV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -99,8 +98,8 @@ func (l *UserMembershipV3List) GetItems() []resource.Managed {
 }
 
 // GetItems of this UserV3List.
-func (l *UserV3List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *UserV3List) GetItems() []*UserV3 {
+	items := make([]*UserV3, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

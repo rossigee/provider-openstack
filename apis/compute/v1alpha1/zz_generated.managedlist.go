@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this AggregateV2List.
-func (l *AggregateV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *AggregateV2List) GetItems() []*AggregateV2 {
+	items := make([]*AggregateV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *AggregateV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this FlavorAccessV2List.
-func (l *FlavorAccessV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *FlavorAccessV2List) GetItems() []*FlavorAccessV2 {
+	items := make([]*FlavorAccessV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *FlavorAccessV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this FlavorV2List.
-func (l *FlavorV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *FlavorV2List) GetItems() []*FlavorV2 {
+	items := make([]*FlavorV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -36,8 +35,8 @@ func (l *FlavorV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this InstanceV2List.
-func (l *InstanceV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *InstanceV2List) GetItems() []*InstanceV2 {
+	items := make([]*InstanceV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -45,8 +44,8 @@ func (l *InstanceV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this InterfaceAttachV2List.
-func (l *InterfaceAttachV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *InterfaceAttachV2List) GetItems() []*InterfaceAttachV2 {
+	items := make([]*InterfaceAttachV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -54,8 +53,8 @@ func (l *InterfaceAttachV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this KeypairV2List.
-func (l *KeypairV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *KeypairV2List) GetItems() []*KeypairV2 {
+	items := make([]*KeypairV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -63,8 +62,8 @@ func (l *KeypairV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QuotasetV2List.
-func (l *QuotasetV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QuotasetV2List) GetItems() []*QuotasetV2 {
+	items := make([]*QuotasetV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -72,8 +71,8 @@ func (l *QuotasetV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ServergroupV2List.
-func (l *ServergroupV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ServergroupV2List) GetItems() []*ServergroupV2 {
+	items := make([]*ServergroupV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -81,8 +80,8 @@ func (l *ServergroupV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this VolumeAttachV2List.
-func (l *VolumeAttachV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *VolumeAttachV2List) GetItems() []*VolumeAttachV2 {
+	items := make([]*VolumeAttachV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

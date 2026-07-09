@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -155,11 +155,11 @@ type FixedIPInitParameters struct {
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetIDRef *xpv1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type FixedIPObservation struct {
@@ -195,11 +195,11 @@ type FixedIPParameters struct {
 
 	// Reference to a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+	SubnetIDRef *xpv1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type PortV2InitParameters struct {
@@ -259,11 +259,11 @@ type PortV2InitParameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Create a port with no fixed
 	// IP address. This will also remove any fixed IPs previously set on a port. true
@@ -504,11 +504,11 @@ type PortV2Parameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Create a port with no fixed
 	// IP address. This will also remove any fixed IPs previously set on a port. true
@@ -570,7 +570,7 @@ type PortV2Parameters struct {
 
 // PortV2Spec defines the desired state of PortV2
 type PortV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     PortV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -587,7 +587,7 @@ type PortV2Spec struct {
 
 // PortV2Status defines the observed state of PortV2.
 type PortV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        PortV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -624,5 +624,3 @@ var (
 	PortV2_KindAPIVersion   = PortV2_Kind + "." + CRDGroupVersion.String()
 	PortV2_GroupVersionKind = CRDGroupVersion.WithKind(PortV2_Kind)
 )
-
-}

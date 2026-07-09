@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -31,11 +31,11 @@ type QosMinimumBandwidthRuleV2InitParameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS minimum bandwidth rule. If omitted, the
@@ -84,11 +84,11 @@ type QosMinimumBandwidthRuleV2Parameters struct {
 
 	// Reference to a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDRef *v1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
+	QosPolicyIDRef *xpv1.Reference `json:"qosPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *v1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS minimum bandwidth rule. If omitted, the
@@ -99,7 +99,7 @@ type QosMinimumBandwidthRuleV2Parameters struct {
 
 // QosMinimumBandwidthRuleV2Spec defines the desired state of QosMinimumBandwidthRuleV2
 type QosMinimumBandwidthRuleV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     QosMinimumBandwidthRuleV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -116,7 +116,7 @@ type QosMinimumBandwidthRuleV2Spec struct {
 
 // QosMinimumBandwidthRuleV2Status defines the observed state of QosMinimumBandwidthRuleV2.
 type QosMinimumBandwidthRuleV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        QosMinimumBandwidthRuleV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -154,5 +154,3 @@ var (
 	QosMinimumBandwidthRuleV2_KindAPIVersion   = QosMinimumBandwidthRuleV2_Kind + "." + CRDGroupVersion.String()
 	QosMinimumBandwidthRuleV2_GroupVersionKind = CRDGroupVersion.WithKind(QosMinimumBandwidthRuleV2_Kind)
 )
-
-}

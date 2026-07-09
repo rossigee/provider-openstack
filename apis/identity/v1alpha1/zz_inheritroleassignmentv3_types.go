@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -38,11 +38,11 @@ type InheritRoleAssignmentV3InitParameters struct {
 
 	// Reference to a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDRef *v1.Reference `json:"roleIdRef,omitempty" tf:"-"`
+	RoleIDRef *xpv1.Reference `json:"roleIdRef,omitempty" tf:"-"`
 
 	// Selector for a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDSelector *v1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
+	RoleIDSelector *metav1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
 
 	// The user to assign the role to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1.UserV3
@@ -51,11 +51,11 @@ type InheritRoleAssignmentV3InitParameters struct {
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *xpv1.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type InheritRoleAssignmentV3Observation struct {
@@ -113,11 +113,11 @@ type InheritRoleAssignmentV3Parameters struct {
 
 	// Reference to a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDRef *v1.Reference `json:"roleIdRef,omitempty" tf:"-"`
+	RoleIDRef *xpv1.Reference `json:"roleIdRef,omitempty" tf:"-"`
 
 	// Selector for a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDSelector *v1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
+	RoleIDSelector *metav1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
 
 	// The user to assign the role to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1.UserV3
@@ -127,16 +127,16 @@ type InheritRoleAssignmentV3Parameters struct {
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *xpv1.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // InheritRoleAssignmentV3Spec defines the desired state of InheritRoleAssignmentV3
 type InheritRoleAssignmentV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     InheritRoleAssignmentV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -153,7 +153,7 @@ type InheritRoleAssignmentV3Spec struct {
 
 // InheritRoleAssignmentV3Status defines the observed state of InheritRoleAssignmentV3.
 type InheritRoleAssignmentV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        InheritRoleAssignmentV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -190,5 +190,3 @@ var (
 	InheritRoleAssignmentV3_KindAPIVersion   = InheritRoleAssignmentV3_Kind + "." + CRDGroupVersion.String()
 	InheritRoleAssignmentV3_GroupVersionKind = CRDGroupVersion.WithKind(InheritRoleAssignmentV3_Kind)
 )
-
-}

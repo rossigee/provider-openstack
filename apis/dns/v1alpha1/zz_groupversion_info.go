@@ -12,6 +12,8 @@ package v1alpha1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 // Package type metadata.
@@ -32,11 +34,9 @@ var (
 )
 
 func addKnownTypes(s *runtime.Scheme) error {
-	s.AddKnownTypes(SchemeGroupVersion,
-		&RecordsetV2Parameters{},
-		&ZoneV2Parameters{},
-		&TransferRequestV2Parameters{},
-		&TransferAcceptV2Parameters{},
+	s.AddKnownTypes(CRDGroupVersion,
+			&RecordsetV2{},
+			&TransferAcceptV2{},
 		&ZoneV2List{},
 		&ZoneV2{},
 		&TransferRequestV2List{},

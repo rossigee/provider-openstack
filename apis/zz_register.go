@@ -9,30 +9,30 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package apis
 
 import (
-	"github.com/crossplane-contrib/provider-openstack/apis/blockstorage/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/compute/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/containerinfra/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/db/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/dns/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/fw/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/images/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/keymanager/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/lb/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/objectstorage/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/orchestration/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/sharedfilesystem/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/v1alpha1"
-	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
-	"github.com/crossplane-contrib/provider-openstack/apis/vpnaas/v1alpha1"
+	v1alpha1apis "github.com/rossigee/provider-openstack/apis/v1alpha1"
+	v1alpha1blockstorage "github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
+	v1alpha1compute "github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
+	v1alpha1containerinfra "github.com/rossigee/provider-openstack/apis/containerinfra/v1alpha1"
+	v1alpha1db "github.com/rossigee/provider-openstack/apis/db/v1alpha1"
+	v1alpha1dns "github.com/rossigee/provider-openstack/apis/dns/v1alpha1"
+	v1alpha1fw "github.com/rossigee/provider-openstack/apis/fw/v1alpha1"
+	v1alpha1identity "github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	v1alpha1images "github.com/rossigee/provider-openstack/apis/images/v1alpha1"
+	v1alpha1keymanager "github.com/rossigee/provider-openstack/apis/keymanager/v1alpha1"
+	v1alpha1lb "github.com/rossigee/provider-openstack/apis/lb/v1alpha1"
+	v1alpha1networking "github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	v1alpha1objectstorage "github.com/rossigee/provider-openstack/apis/objectstorage/v1alpha1"
+	v1alpha1orchestration "github.com/rossigee/provider-openstack/apis/orchestration/v1alpha1"
+	v1alpha1sharedfilesystem "github.com/rossigee/provider-openstack/apis/sharedfilesystem/v1alpha1"
+	v1alpha1vpnaas "github.com/rossigee/provider-openstack/apis/vpnaas/v1alpha1"
+	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
 func init() {
-	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1apis.SchemeBuilder.AddToScheme,
+		v1alpha1blockstorage.SchemeBuilder.AddToScheme,
 		v1alpha1compute.SchemeBuilder.AddToScheme,
 		v1alpha1containerinfra.SchemeBuilder.AddToScheme,
 		v1alpha1db.SchemeBuilder.AddToScheme,
@@ -46,9 +46,8 @@ func init() {
 		v1alpha1objectstorage.SchemeBuilder.AddToScheme,
 		v1alpha1orchestration.SchemeBuilder.AddToScheme,
 		v1alpha1sharedfilesystem.SchemeBuilder.AddToScheme,
-		v1alpha1apis.SchemeBuilder.AddToScheme,
-		v1beta1.SchemeBuilder.AddToScheme,
 		v1alpha1vpnaas.SchemeBuilder.AddToScheme,
+		v1beta1.SchemeBuilder.AddToScheme,
 	)
 }
 

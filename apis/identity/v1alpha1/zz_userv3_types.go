@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -45,11 +45,11 @@ type UserV3InitParameters struct {
 
 	// Reference to a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDRef *v1.Reference `json:"defaultProjectIdRef,omitempty" tf:"-"`
+	DefaultProjectIDRef *xpv1.Reference `json:"defaultProjectIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDSelector *v1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
+	DefaultProjectIDSelector *metav1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
 
 	// A description of the user.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -91,7 +91,7 @@ type UserV3InitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The password for the user.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Keystone client.
 	// If omitted, the region argument of the provider is used. Changing this
@@ -161,11 +161,11 @@ type UserV3Parameters struct {
 
 	// Reference to a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDRef *v1.Reference `json:"defaultProjectIdRef,omitempty" tf:"-"`
+	DefaultProjectIDRef *xpv1.Reference `json:"defaultProjectIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDSelector *v1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
+	DefaultProjectIDSelector *metav1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
 
 	// A description of the user.
 	// +kubebuilder:validation:Optional
@@ -218,7 +218,7 @@ type UserV3Parameters struct {
 
 	// The password for the user.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *xpv1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Keystone client.
 	// If omitted, the region argument of the provider is used. Changing this
@@ -229,7 +229,7 @@ type UserV3Parameters struct {
 
 // UserV3Spec defines the desired state of UserV3
 type UserV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     UserV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -246,7 +246,7 @@ type UserV3Spec struct {
 
 // UserV3Status defines the observed state of UserV3.
 type UserV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        UserV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -283,5 +283,3 @@ var (
 	UserV3_KindAPIVersion   = UserV3_Kind + "." + CRDGroupVersion.String()
 	UserV3_GroupVersionKind = CRDGroupVersion.WithKind(UserV3_Kind)
 )
-
-}

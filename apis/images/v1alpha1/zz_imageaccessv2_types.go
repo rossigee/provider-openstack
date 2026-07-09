@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -23,11 +23,11 @@ type ImageAccessV2InitParameters struct {
 
 	// Reference to a ImageV2 in images to populate imageId.
 	// +kubebuilder:validation:Optional
-	ImageIDRef *v1.Reference `json:"imageIdRef,omitempty" tf:"-"`
+	ImageIDRef *xpv1.Reference `json:"imageIdRef,omitempty" tf:"-"`
 
 	// Selector for a ImageV2 in images to populate imageId.
 	// +kubebuilder:validation:Optional
-	ImageIDSelector *v1.Selector `json:"imageIdSelector,omitempty" tf:"-"`
+	ImageIDSelector *xpv1.Selector `json:"imageIdSelector,omitempty" tf:"-"`
 
 	// The member ID, e.g. the target project ID.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
@@ -83,11 +83,11 @@ type ImageAccessV2Parameters struct {
 
 	// Reference to a ImageV2 in images to populate imageId.
 	// +kubebuilder:validation:Optional
-	ImageIDRef *v1.Reference `json:"imageIdRef,omitempty" tf:"-"`
+	ImageIDRef *xpv1.Reference `json:"imageIdRef,omitempty" tf:"-"`
 
 	// Selector for a ImageV2 in images to populate imageId.
 	// +kubebuilder:validation:Optional
-	ImageIDSelector *v1.Selector `json:"imageIdSelector,omitempty" tf:"-"`
+	ImageIDSelector *xpv1.Selector `json:"imageIdSelector,omitempty" tf:"-"`
 
 	// The member ID, e.g. the target project ID.
 	// +kubebuilder:validation:Optional
@@ -108,7 +108,7 @@ type ImageAccessV2Parameters struct {
 
 // ImageAccessV2Spec defines the desired state of ImageAccessV2
 type ImageAccessV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ImageAccessV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -125,7 +125,7 @@ type ImageAccessV2Spec struct {
 
 // ImageAccessV2Status defines the observed state of ImageAccessV2.
 type ImageAccessV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ImageAccessV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -163,5 +163,3 @@ var (
 	ImageAccessV2_KindAPIVersion   = ImageAccessV2_Kind + "." + CRDGroupVersion.String()
 	ImageAccessV2_GroupVersionKind = CRDGroupVersion.WithKind(ImageAccessV2_Kind)
 )
-
-}

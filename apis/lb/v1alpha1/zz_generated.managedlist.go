@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this L7PolicyV2List.
-func (l *L7PolicyV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *L7PolicyV2List) GetItems() []*L7PolicyV2 {
+	items := make([]*L7PolicyV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *L7PolicyV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this L7RuleV2List.
-func (l *L7RuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *L7RuleV2List) GetItems() []*L7RuleV2 {
+	items := make([]*L7RuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *L7RuleV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ListenerV2List.
-func (l *ListenerV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ListenerV2List) GetItems() []*enerV2 {
+	items := make([]*enerV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -36,8 +35,8 @@ func (l *ListenerV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this LoadbalancerV2List.
-func (l *LoadbalancerV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *LoadbalancerV2List) GetItems() []*LoadbalancerV2 {
+	items := make([]*LoadbalancerV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -45,8 +44,8 @@ func (l *LoadbalancerV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this MemberV2List.
-func (l *MemberV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *MemberV2List) GetItems() []*MemberV2 {
+	items := make([]*MemberV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -54,8 +53,8 @@ func (l *MemberV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this MembersV2List.
-func (l *MembersV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *MembersV2List) GetItems() []*MembersV2 {
+	items := make([]*MembersV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -63,8 +62,8 @@ func (l *MembersV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this MonitorV2List.
-func (l *MonitorV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *MonitorV2List) GetItems() []*MonitorV2 {
+	items := make([]*MonitorV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -72,8 +71,8 @@ func (l *MonitorV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this PoolV2List.
-func (l *PoolV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *PoolV2List) GetItems() []*PoolV2 {
+	items := make([]*PoolV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -81,8 +80,8 @@ func (l *PoolV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QuotaV2List.
-func (l *QuotaV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QuotaV2List) GetItems() []*QuotaV2 {
+	items := make([]*QuotaV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

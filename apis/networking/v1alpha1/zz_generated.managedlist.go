@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this AddressscopeV2List.
-func (l *AddressscopeV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *AddressscopeV2List) GetItems() []*AddressscopeV2 {
+	items := make([]*AddressscopeV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *AddressscopeV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this FloatingipAssociateV2List.
-func (l *FloatingipAssociateV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *FloatingipAssociateV2List) GetItems() []*FloatingipAssociateV2 {
+	items := make([]*FloatingipAssociateV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *FloatingipAssociateV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this FloatingipV2List.
-func (l *FloatingipV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *FloatingipV2List) GetItems() []*FloatingipV2 {
+	items := make([]*FloatingipV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -36,8 +35,8 @@ func (l *FloatingipV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this NetworkV2List.
-func (l *NetworkV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *NetworkV2List) GetItems() []*NetworkV2 {
+	items := make([]*NetworkV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -45,8 +44,8 @@ func (l *NetworkV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this PortSecgroupAssociateV2List.
-func (l *PortSecgroupAssociateV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *PortSecgroupAssociateV2List) GetItems() []*PortSecgroupAssociateV2 {
+	items := make([]*PortSecgroupAssociateV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -54,8 +53,8 @@ func (l *PortSecgroupAssociateV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this PortV2List.
-func (l *PortV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *PortV2List) GetItems() []*PortV2 {
+	items := make([]*PortV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -63,8 +62,8 @@ func (l *PortV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this PortforwardingV2List.
-func (l *PortforwardingV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *PortforwardingV2List) GetItems() []*PortforwardingV2 {
+	items := make([]*PortforwardingV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -72,8 +71,8 @@ func (l *PortforwardingV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QosBandwidthLimitRuleV2List.
-func (l *QosBandwidthLimitRuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QosBandwidthLimitRuleV2List) GetItems() []*QosBandwidthLimitRuleV2 {
+	items := make([]*QosBandwidthLimitRuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -81,8 +80,8 @@ func (l *QosBandwidthLimitRuleV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QosDscpMarkingRuleV2List.
-func (l *QosDscpMarkingRuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QosDscpMarkingRuleV2List) GetItems() []*QosDscpMarkingRuleV2 {
+	items := make([]*QosDscpMarkingRuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -90,8 +89,8 @@ func (l *QosDscpMarkingRuleV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QosMinimumBandwidthRuleV2List.
-func (l *QosMinimumBandwidthRuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QosMinimumBandwidthRuleV2List) GetItems() []*QosMinimumBandwidthRuleV2 {
+	items := make([]*QosMinimumBandwidthRuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -99,8 +98,8 @@ func (l *QosMinimumBandwidthRuleV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QosPolicyV2List.
-func (l *QosPolicyV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QosPolicyV2List) GetItems() []*QosPolicyV2 {
+	items := make([]*QosPolicyV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -108,8 +107,8 @@ func (l *QosPolicyV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this QuotaV2List.
-func (l *QuotaV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *QuotaV2List) GetItems() []*QuotaV2 {
+	items := make([]*QuotaV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -117,8 +116,8 @@ func (l *QuotaV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RbacPolicyV2List.
-func (l *RbacPolicyV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RbacPolicyV2List) GetItems() []*RbacPolicyV2 {
+	items := make([]*RbacPolicyV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -126,8 +125,8 @@ func (l *RbacPolicyV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RouterInterfaceV2List.
-func (l *RouterInterfaceV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RouterInterfaceV2List) GetItems() []*RouterInterfaceV2 {
+	items := make([]*RouterInterfaceV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -135,8 +134,8 @@ func (l *RouterInterfaceV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RouterRouteV2List.
-func (l *RouterRouteV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RouterRouteV2List) GetItems() []*RouterRouteV2 {
+	items := make([]*RouterRouteV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -144,8 +143,8 @@ func (l *RouterRouteV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RouterV2List.
-func (l *RouterV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RouterV2List) GetItems() []*RouterV2 {
+	items := make([]*RouterV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -153,8 +152,8 @@ func (l *RouterV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SecgroupRuleV2List.
-func (l *SecgroupRuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SecgroupRuleV2List) GetItems() []*SecgroupRuleV2 {
+	items := make([]*SecgroupRuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -162,8 +161,8 @@ func (l *SecgroupRuleV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SecgroupV2List.
-func (l *SecgroupV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SecgroupV2List) GetItems() []*SecgroupV2 {
+	items := make([]*SecgroupV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -171,8 +170,8 @@ func (l *SecgroupV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SubnetRouteV2List.
-func (l *SubnetRouteV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SubnetRouteV2List) GetItems() []*SubnetRouteV2 {
+	items := make([]*SubnetRouteV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -180,8 +179,8 @@ func (l *SubnetRouteV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SubnetV2List.
-func (l *SubnetV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SubnetV2List) GetItems() []*SubnetV2 {
+	items := make([]*SubnetV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -189,8 +188,8 @@ func (l *SubnetV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SubnetpoolV2List.
-func (l *SubnetpoolV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SubnetpoolV2List) GetItems() []*SubnetpoolV2 {
+	items := make([]*SubnetpoolV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -198,8 +197,8 @@ func (l *SubnetpoolV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this TrunkV2List.
-func (l *TrunkV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *TrunkV2List) GetItems() []*TrunkV2 {
+	items := make([]*TrunkV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

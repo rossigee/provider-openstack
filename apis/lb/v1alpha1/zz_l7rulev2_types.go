@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -40,11 +40,11 @@ type L7RuleV2InitParameters struct {
 
 	// Reference to a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDRef *v1.Reference `json:"l7policyIdRef,omitempty" tf:"-"`
+	L7PolicyIDRef *xpv1.Reference `json:"l7policyIdRef,omitempty" tf:"-"`
 
 	// Selector for a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDSelector *v1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
+	L7PolicyIDSelector *metav1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create an L7 rule. If omitted, the
@@ -145,11 +145,11 @@ type L7RuleV2Parameters struct {
 
 	// Reference to a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDRef *v1.Reference `json:"l7policyIdRef,omitempty" tf:"-"`
+	L7PolicyIDRef *xpv1.Reference `json:"l7policyIdRef,omitempty" tf:"-"`
 
 	// Selector for a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDSelector *v1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
+	L7PolicyIDSelector *metav1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create an L7 rule. If omitted, the
@@ -177,7 +177,7 @@ type L7RuleV2Parameters struct {
 
 // L7RuleV2Spec defines the desired state of L7RuleV2
 type L7RuleV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     L7RuleV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -194,7 +194,7 @@ type L7RuleV2Spec struct {
 
 // L7RuleV2Status defines the observed state of L7RuleV2.
 type L7RuleV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        L7RuleV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -234,5 +234,3 @@ var (
 	L7RuleV2_KindAPIVersion   = L7RuleV2_Kind + "." + CRDGroupVersion.String()
 	L7RuleV2_GroupVersionKind = CRDGroupVersion.WithKind(L7RuleV2_Kind)
 )
-
-}

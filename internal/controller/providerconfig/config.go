@@ -5,7 +5,7 @@ Copyright 2021 Upbound Inc.
 package providerconfig
 
 import (
-	"github.com/crossplane-contrib/provider-openstack/apis/v1beta1"
+	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/providerconfig"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"

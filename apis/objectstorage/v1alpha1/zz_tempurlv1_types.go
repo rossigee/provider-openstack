@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -23,11 +23,11 @@ type TempurlV1InitParameters struct {
 
 	// Reference to a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerRef *v1.Reference `json:"containerRef,omitempty" tf:"-"`
+	ContainerRef *xpv1.Reference `json:"containerRef,omitempty" tf:"-"`
 
 	// Selector for a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerSelector *v1.Selector `json:"containerSelector,omitempty" tf:"-"`
+	ContainerSelector *metav1.Selector `json:"containerSelector,omitempty" tf:"-"`
 
 	// The digest to use when generating the tempurl.
 	// Supported values are sha1, sha256 and sha512. Default is sha1.
@@ -35,7 +35,7 @@ type TempurlV1InitParameters struct {
 
 	// The key to use when generating the tempurl. If not
 	// provided, the key will be read from the container or account metadata.
-	KeySecretRef *v1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
+	KeySecretRef *xpv1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
 
 	// The method allowed when accessing this URL.
 	// Valid values are GET, and POST. Default is GET.
@@ -48,11 +48,11 @@ type TempurlV1InitParameters struct {
 
 	// Reference to a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectRef *v1.Reference `json:"objectRef,omitempty" tf:"-"`
+	ObjectRef *xpv1.Reference `json:"objectRef,omitempty" tf:"-"`
 
 	// Selector for a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectSelector *v1.Selector `json:"objectSelector,omitempty" tf:"-"`
+	ObjectSelector *metav1.Selector `json:"objectSelector,omitempty" tf:"-"`
 
 	// Whether to automatically regenerate the URL when
 	// it has expired. If set to true, this will create a new resource with a new
@@ -117,11 +117,11 @@ type TempurlV1Parameters struct {
 
 	// Reference to a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerRef *v1.Reference `json:"containerRef,omitempty" tf:"-"`
+	ContainerRef *xpv1.Reference `json:"containerRef,omitempty" tf:"-"`
 
 	// Selector for a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerSelector *v1.Selector `json:"containerSelector,omitempty" tf:"-"`
+	ContainerSelector *metav1.Selector `json:"containerSelector,omitempty" tf:"-"`
 
 	// The digest to use when generating the tempurl.
 	// Supported values are sha1, sha256 and sha512. Default is sha1.
@@ -131,7 +131,7 @@ type TempurlV1Parameters struct {
 	// The key to use when generating the tempurl. If not
 	// provided, the key will be read from the container or account metadata.
 	// +kubebuilder:validation:Optional
-	KeySecretRef *v1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
+	KeySecretRef *xpv1.SecretKeySelector `json:"keySecretRef,omitempty" tf:"-"`
 
 	// The method allowed when accessing this URL.
 	// Valid values are GET, and POST. Default is GET.
@@ -146,11 +146,11 @@ type TempurlV1Parameters struct {
 
 	// Reference to a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectRef *v1.Reference `json:"objectRef,omitempty" tf:"-"`
+	ObjectRef *xpv1.Reference `json:"objectRef,omitempty" tf:"-"`
 
 	// Selector for a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectSelector *v1.Selector `json:"objectSelector,omitempty" tf:"-"`
+	ObjectSelector *metav1.Selector `json:"objectSelector,omitempty" tf:"-"`
 
 	// Whether to automatically regenerate the URL when
 	// it has expired. If set to true, this will create a new resource with a new
@@ -175,7 +175,7 @@ type TempurlV1Parameters struct {
 
 // TempurlV1Spec defines the desired state of TempurlV1
 type TempurlV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     TempurlV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -192,7 +192,7 @@ type TempurlV1Spec struct {
 
 // TempurlV1Status defines the observed state of TempurlV1.
 type TempurlV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        TempurlV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -230,5 +230,3 @@ var (
 	TempurlV1_KindAPIVersion   = TempurlV1_Kind + "." + CRDGroupVersion.String()
 	TempurlV1_GroupVersionKind = CRDGroupVersion.WithKind(TempurlV1_Kind)
 )
-
-}

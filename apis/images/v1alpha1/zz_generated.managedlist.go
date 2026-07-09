@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this ImageAccessAcceptV2List.
-func (l *ImageAccessAcceptV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ImageAccessAcceptV2List) GetItems() []*ImageAccessAcceptV2 {
+	items := make([]*ImageAccessAcceptV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *ImageAccessAcceptV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ImageAccessV2List.
-func (l *ImageAccessV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ImageAccessV2List) GetItems() []*ImageAccessV2 {
+	items := make([]*ImageAccessV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *ImageAccessV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ImageV2List.
-func (l *ImageV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ImageV2List) GetItems() []*ImageV2 {
+	items := make([]*ImageV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

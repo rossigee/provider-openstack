@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -64,11 +64,11 @@ type ShareV2InitParameters struct {
 
 	// Reference to a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDRef *v1.Reference `json:"shareNetworkIdRef,omitempty" tf:"-"`
+	ShareNetworkIDRef *xpv1.Reference `json:"shareNetworkIdRef,omitempty" tf:"-"`
 
 	// Selector for a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDSelector *v1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
+	ShareNetworkIDSelector *metav1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
 
 	// The share protocol - can either be NFS, CIFS,
 	// CEPHFS, GLUSTERFS, HDFS or MAPRFS. Changing this creates a new share.
@@ -210,11 +210,11 @@ type ShareV2Parameters struct {
 
 	// Reference to a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDRef *v1.Reference `json:"shareNetworkIdRef,omitempty" tf:"-"`
+	ShareNetworkIDRef *xpv1.Reference `json:"shareNetworkIdRef,omitempty" tf:"-"`
 
 	// Selector for a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDSelector *v1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
+	ShareNetworkIDSelector *metav1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
 
 	// The share protocol - can either be NFS, CIFS,
 	// CEPHFS, GLUSTERFS, HDFS or MAPRFS. Changing this creates a new share.
@@ -239,7 +239,7 @@ type ShareV2Parameters struct {
 
 // ShareV2Spec defines the desired state of ShareV2
 type ShareV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ShareV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -256,7 +256,7 @@ type ShareV2Spec struct {
 
 // ShareV2Status defines the observed state of ShareV2.
 type ShareV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ShareV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -296,5 +296,3 @@ var (
 	ShareV2_KindAPIVersion   = ShareV2_Kind + "." + CRDGroupVersion.String()
 	ShareV2_GroupVersionKind = CRDGroupVersion.WithKind(ShareV2_Kind)
 )
-
-}

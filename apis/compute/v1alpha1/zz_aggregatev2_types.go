@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -98,7 +98,7 @@ type AggregateV2Parameters struct {
 
 // AggregateV2Spec defines the desired state of AggregateV2
 type AggregateV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     AggregateV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -115,7 +115,7 @@ type AggregateV2Spec struct {
 
 // AggregateV2Status defines the observed state of AggregateV2.
 type AggregateV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        AggregateV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -153,5 +153,3 @@ var (
 	AggregateV2_KindAPIVersion   = AggregateV2_Kind + "." + CRDGroupVersion.String()
 	AggregateV2_GroupVersionKind = CRDGroupVersion.WithKind(AggregateV2_Kind)
 )
-
-}

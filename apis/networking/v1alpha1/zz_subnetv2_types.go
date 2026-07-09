@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -105,11 +105,11 @@ type SubnetV2InitParameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Do not set a gateway IP on this subnet. Changing
 	// this removes or adds a default gateway IP of the existing subnet.
@@ -333,11 +333,11 @@ type SubnetV2Parameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Do not set a gateway IP on this subnet. Changing
 	// this removes or adds a default gateway IP of the existing subnet.
@@ -391,7 +391,7 @@ type SubnetV2Parameters struct {
 
 // SubnetV2Spec defines the desired state of SubnetV2
 type SubnetV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SubnetV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -408,7 +408,7 @@ type SubnetV2Spec struct {
 
 // SubnetV2Status defines the observed state of SubnetV2.
 type SubnetV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SubnetV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -445,5 +445,3 @@ var (
 	SubnetV2_KindAPIVersion   = SubnetV2_Kind + "." + CRDGroupVersion.String()
 	SubnetV2_GroupVersionKind = CRDGroupVersion.WithKind(SubnetV2_Kind)
 )
-
-}

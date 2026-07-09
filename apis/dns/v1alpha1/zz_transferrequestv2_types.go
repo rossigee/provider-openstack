@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -47,11 +47,11 @@ type TransferRequestV2InitParameters struct {
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneIDRef *xpv1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 type TransferRequestV2Observation struct {
@@ -126,16 +126,16 @@ type TransferRequestV2Parameters struct {
 
 	// Reference to a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDRef *v1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
+	ZoneIDRef *xpv1.Reference `json:"zoneIdRef,omitempty" tf:"-"`
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *v1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 // TransferRequestV2Spec defines the desired state of TransferRequestV2
 type TransferRequestV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     TransferRequestV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -152,7 +152,7 @@ type TransferRequestV2Spec struct {
 
 // TransferRequestV2Status defines the observed state of TransferRequestV2.
 type TransferRequestV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        TransferRequestV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -189,5 +189,3 @@ var (
 	TransferRequestV2_KindAPIVersion   = TransferRequestV2_Kind + "." + CRDGroupVersion.String()
 	TransferRequestV2_GroupVersionKind = CRDGroupVersion.WithKind(TransferRequestV2_Kind)
 )
-
-}

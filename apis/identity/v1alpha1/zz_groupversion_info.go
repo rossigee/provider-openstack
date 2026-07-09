@@ -12,6 +12,8 @@ package v1alpha1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 // Package type metadata.
@@ -32,17 +34,13 @@ var (
 )
 
 func addKnownTypes(s *runtime.Scheme) error {
-	s.AddKnownTypes(SchemeGroupVersion,
-		&RoleV3Parameters{},
-		&UserV3Parameters{},
-		&InheritRoleAssignmentV3Parameters{},
-		&ApplicationCredentialV3Parameters{},
-		&EndpointV3Parameters{},
-		&UserMembershipV3Parameters{},
-		&ServiceV3Parameters{},
-		&RoleAssignmentV3Parameters{},
-		&EC2CredentialV3Parameters{},
-		&GroupV3Parameters{},
+	s.AddKnownTypes(CRDGroupVersion,
+			&EC2CredentialV3{},
+			&UserMembershipV3{},
+			&ApplicationCredentialV3{},
+			&EndpointV3{},
+			&RoleAssignmentV3{},
+			&InheritRoleAssignmentV3{},
 		&ServiceV3List{},
 		&ServiceV3{},
 		&RoleV3List{},
@@ -53,7 +51,6 @@ func addKnownTypes(s *runtime.Scheme) error {
 		&ProjectV3{},
 		&GroupV3List{},
 		&GroupV3{},
-		&ProjectV3Parameters{},
 	)
 	return nil
 }

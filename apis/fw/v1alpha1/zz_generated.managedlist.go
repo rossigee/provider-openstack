@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this GroupV2List.
-func (l *GroupV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *GroupV2List) GetItems() []*GroupV2 {
+	items := make([]*GroupV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *GroupV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this PolicyV2List.
-func (l *PolicyV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *PolicyV2List) GetItems() []*PolicyV2 {
+	items := make([]*PolicyV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *PolicyV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this RuleV2List.
-func (l *RuleV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *RuleV2List) GetItems() []*RuleV2 {
+	items := make([]*RuleV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

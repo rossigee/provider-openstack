@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -275,7 +275,7 @@ type SubnetpoolV2Parameters struct {
 
 // SubnetpoolV2Spec defines the desired state of SubnetpoolV2
 type SubnetpoolV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     SubnetpoolV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -292,7 +292,7 @@ type SubnetpoolV2Spec struct {
 
 // SubnetpoolV2Status defines the observed state of SubnetpoolV2.
 type SubnetpoolV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        SubnetpoolV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -331,5 +331,3 @@ var (
 	SubnetpoolV2_KindAPIVersion   = SubnetpoolV2_Kind + "." + CRDGroupVersion.String()
 	SubnetpoolV2_GroupVersionKind = CRDGroupVersion.WithKind(SubnetpoolV2_Kind)
 )
-
-}

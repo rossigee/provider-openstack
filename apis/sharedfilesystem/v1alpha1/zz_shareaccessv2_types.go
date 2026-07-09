@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -40,11 +40,11 @@ type ShareAccessV2InitParameters struct {
 
 	// Reference to a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDRef *v1.Reference `json:"shareIdRef,omitempty" tf:"-"`
+	ShareIDRef *xpv1.Reference `json:"shareIdRef,omitempty" tf:"-"`
 
 	// Selector for a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDSelector *v1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
+	ShareIDSelector *metav1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 }
 
 type ShareAccessV2Observation struct {
@@ -107,16 +107,16 @@ type ShareAccessV2Parameters struct {
 
 	// Reference to a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDRef *v1.Reference `json:"shareIdRef,omitempty" tf:"-"`
+	ShareIDRef *xpv1.Reference `json:"shareIdRef,omitempty" tf:"-"`
 
 	// Selector for a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDSelector *v1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
+	ShareIDSelector *metav1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 }
 
 // ShareAccessV2Spec defines the desired state of ShareAccessV2
 type ShareAccessV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     ShareAccessV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -133,7 +133,7 @@ type ShareAccessV2Spec struct {
 
 // ShareAccessV2Status defines the observed state of ShareAccessV2.
 type ShareAccessV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        ShareAccessV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -173,5 +173,3 @@ var (
 	ShareAccessV2_KindAPIVersion   = ShareAccessV2_Kind + "." + CRDGroupVersion.String()
 	ShareAccessV2_GroupVersionKind = CRDGroupVersion.WithKind(ShareAccessV2_Kind)
 )
-
-}

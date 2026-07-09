@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -27,11 +27,11 @@ type InterfaceAttachV2InitParameters struct {
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// The ID of the Network to attach to an Instance. A port will be created automatically.
 	// NOTE: This option and port_id are mutually exclusive.
@@ -41,11 +41,11 @@ type InterfaceAttachV2InitParameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// The ID of the Port to attach to an Instance.
 	// NOTE: This option and network_id are mutually exclusive.
@@ -55,11 +55,11 @@ type InterfaceAttachV2InitParameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the interface attachment.
 	// If omitted, the region argument of the provider is used. Changing this
@@ -107,11 +107,11 @@ type InterfaceAttachV2Parameters struct {
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// The ID of the Network to attach to an Instance. A port will be created automatically.
 	// NOTE: This option and port_id are mutually exclusive.
@@ -122,11 +122,11 @@ type InterfaceAttachV2Parameters struct {
 
 	// Reference to a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *xpv1.Reference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// The ID of the Port to attach to an Instance.
 	// NOTE: This option and network_id are mutually exclusive.
@@ -137,11 +137,11 @@ type InterfaceAttachV2Parameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the interface attachment.
 	// If omitted, the region argument of the provider is used. Changing this
@@ -152,7 +152,7 @@ type InterfaceAttachV2Parameters struct {
 
 // InterfaceAttachV2Spec defines the desired state of InterfaceAttachV2
 type InterfaceAttachV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     InterfaceAttachV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -169,7 +169,7 @@ type InterfaceAttachV2Spec struct {
 
 // InterfaceAttachV2Status defines the observed state of InterfaceAttachV2.
 type InterfaceAttachV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        InterfaceAttachV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -206,5 +206,3 @@ var (
 	InterfaceAttachV2_KindAPIVersion   = InterfaceAttachV2_Kind + "." + CRDGroupVersion.String()
 	InterfaceAttachV2_GroupVersionKind = CRDGroupVersion.WithKind(InterfaceAttachV2_Kind)
 )
-
-}

@@ -6,11 +6,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
 // GetItems of this SecurityserviceV2List.
-func (l *SecurityserviceV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SecurityserviceV2List) GetItems() []*SecurityserviceV2 {
+	items := make([]*SecurityserviceV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +17,8 @@ func (l *SecurityserviceV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ShareAccessV2List.
-func (l *ShareAccessV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ShareAccessV2List) GetItems() []*ShareAccessV2 {
+	items := make([]*ShareAccessV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +26,8 @@ func (l *ShareAccessV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this ShareV2List.
-func (l *ShareV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ShareV2List) GetItems() []*ShareV2 {
+	items := make([]*ShareV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -36,8 +35,8 @@ func (l *ShareV2List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SharenetworkV2List.
-func (l *SharenetworkV2List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SharenetworkV2List) GetItems() []*SharenetworkV2 {
+	items := make([]*SharenetworkV2, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

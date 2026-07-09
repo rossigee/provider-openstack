@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -361,7 +361,7 @@ type VolumeV3Parameters struct {
 
 // VolumeV3Spec defines the desired state of VolumeV3
 type VolumeV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     VolumeV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -378,7 +378,7 @@ type VolumeV3Spec struct {
 
 // VolumeV3Status defines the observed state of VolumeV3.
 type VolumeV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        VolumeV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -416,5 +416,3 @@ var (
 	VolumeV3_KindAPIVersion   = VolumeV3_Kind + "." + CRDGroupVersion.String()
 	VolumeV3_GroupVersionKind = CRDGroupVersion.WithKind(VolumeV3_Kind)
 )
-
-}

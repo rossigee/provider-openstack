@@ -6,11 +6,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-
 // GetItems of this ContainerV1List.
-func (l *ContainerV1List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *ContainerV1List) GetItems() []*ContainerV1 {
+	items := make([]*ContainerV1, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -18,8 +16,8 @@ func (l *ContainerV1List) GetItems() []resource.Managed {
 }
 
 // GetItems of this OrderV1List.
-func (l *OrderV1List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *OrderV1List) GetItems() []*OrderV1 {
+	items := make([]*OrderV1, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -27,8 +25,8 @@ func (l *OrderV1List) GetItems() []resource.Managed {
 }
 
 // GetItems of this SecretV1List.
-func (l *SecretV1List) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
+func (l *SecretV1List) GetItems() []*SecretV1 {
+	items := make([]*SecretV1, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

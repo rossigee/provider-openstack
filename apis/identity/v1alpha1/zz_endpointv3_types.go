@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -24,11 +24,11 @@ type EndpointV3InitParameters struct {
 
 	// Reference to a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionRef *v1.Reference `json:"endpointRegionRef,omitempty" tf:"-"`
+	EndpointRegionRef *xpv1.Reference `json:"endpointRegionRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionSelector *v1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
+	EndpointRegionSelector *metav1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
 
 	// The endpoint interface. Valid values are public,
 	// internal and admin. Default value is public
@@ -48,11 +48,11 @@ type EndpointV3InitParameters struct {
 
 	// Reference to a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDRef *v1.Reference `json:"serviceIdRef,omitempty" tf:"-"`
+	ServiceIDRef *xpv1.Reference `json:"serviceIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDSelector *v1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
+	ServiceIDSelector *metav1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
 
 	// The endpoint url.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -101,11 +101,11 @@ type EndpointV3Parameters struct {
 
 	// Reference to a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionRef *v1.Reference `json:"endpointRegionRef,omitempty" tf:"-"`
+	EndpointRegionRef *xpv1.Reference `json:"endpointRegionRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionSelector *v1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
+	EndpointRegionSelector *metav1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
 
 	// The endpoint interface. Valid values are public,
 	// internal and admin. Default value is public
@@ -129,11 +129,11 @@ type EndpointV3Parameters struct {
 
 	// Reference to a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDRef *v1.Reference `json:"serviceIdRef,omitempty" tf:"-"`
+	ServiceIDRef *xpv1.Reference `json:"serviceIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDSelector *v1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
+	ServiceIDSelector *metav1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
 
 	// The endpoint url.
 	// +kubebuilder:validation:Optional
@@ -142,7 +142,7 @@ type EndpointV3Parameters struct {
 
 // EndpointV3Spec defines the desired state of EndpointV3
 type EndpointV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     EndpointV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -159,7 +159,7 @@ type EndpointV3Spec struct {
 
 // EndpointV3Status defines the observed state of EndpointV3.
 type EndpointV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        EndpointV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -197,5 +197,3 @@ var (
 	EndpointV3_KindAPIVersion   = EndpointV3_Kind + "." + CRDGroupVersion.String()
 	EndpointV3_GroupVersionKind = CRDGroupVersion.WithKind(EndpointV3_Kind)
 )
-
-}

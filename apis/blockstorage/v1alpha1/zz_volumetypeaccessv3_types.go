@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -24,11 +24,11 @@ type VolumeTypeAccessV3InitParameters struct {
 
 	// Reference to a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *xpv1.Reference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this
@@ -43,11 +43,11 @@ type VolumeTypeAccessV3InitParameters struct {
 
 	// Reference to a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDRef *v1.Reference `json:"volumeTypeIdRef,omitempty" tf:"-"`
+	VolumeTypeIDRef *xpv1.Reference `json:"volumeTypeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *v1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeTypeAccessV3Observation struct {
@@ -78,11 +78,11 @@ type VolumeTypeAccessV3Parameters struct {
 
 	// Reference to a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *xpv1.Reference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this
@@ -99,16 +99,16 @@ type VolumeTypeAccessV3Parameters struct {
 
 	// Reference to a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDRef *v1.Reference `json:"volumeTypeIdRef,omitempty" tf:"-"`
+	VolumeTypeIDRef *xpv1.Reference `json:"volumeTypeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *v1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 // VolumeTypeAccessV3Spec defines the desired state of VolumeTypeAccessV3
 type VolumeTypeAccessV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     VolumeTypeAccessV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -125,7 +125,7 @@ type VolumeTypeAccessV3Spec struct {
 
 // VolumeTypeAccessV3Status defines the observed state of VolumeTypeAccessV3.
 type VolumeTypeAccessV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        VolumeTypeAccessV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -162,5 +162,3 @@ var (
 	VolumeTypeAccessV3_KindAPIVersion   = VolumeTypeAccessV3_Kind + "." + CRDGroupVersion.String()
 	VolumeTypeAccessV3_GroupVersionKind = CRDGroupVersion.WithKind(VolumeTypeAccessV3_Kind)
 )
-
-}

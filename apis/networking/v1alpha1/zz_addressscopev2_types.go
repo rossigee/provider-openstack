@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -103,7 +103,7 @@ type AddressscopeV2Parameters struct {
 
 // AddressscopeV2Spec defines the desired state of AddressscopeV2
 type AddressscopeV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     AddressscopeV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -120,7 +120,7 @@ type AddressscopeV2Spec struct {
 
 // AddressscopeV2Status defines the observed state of AddressscopeV2.
 type AddressscopeV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        AddressscopeV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -158,5 +158,3 @@ var (
 	AddressscopeV2_KindAPIVersion   = AddressscopeV2_Kind + "." + CRDGroupVersion.String()
 	AddressscopeV2_GroupVersionKind = CRDGroupVersion.WithKind(AddressscopeV2_Kind)
 )
-
-}

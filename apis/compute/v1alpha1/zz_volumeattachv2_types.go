@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -28,11 +28,11 @@ type VolumeAttachV2InitParameters struct {
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Enable attachment of multiattach-capable volumes.
 	Multiattach *bool `json:"multiattach,omitempty" tf:"multiattach,omitempty"`
@@ -59,11 +59,11 @@ type VolumeAttachV2InitParameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeIDRef *xpv1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeAttachV2Observation struct {
@@ -116,11 +116,11 @@ type VolumeAttachV2Parameters struct {
 
 	// Reference to a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Enable attachment of multiattach-capable volumes.
 	// +kubebuilder:validation:Optional
@@ -152,11 +152,11 @@ type VolumeAttachV2Parameters struct {
 
 	// Reference to a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDRef *v1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
+	VolumeIDRef *xpv1.Reference `json:"volumeIdRef,omitempty" tf:"-"`
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *v1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeAttachV2VendorOptionsInitParameters struct {
@@ -186,7 +186,7 @@ type VolumeAttachV2VendorOptionsParameters struct {
 
 // VolumeAttachV2Spec defines the desired state of VolumeAttachV2
 type VolumeAttachV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     VolumeAttachV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -203,7 +203,7 @@ type VolumeAttachV2Spec struct {
 
 // VolumeAttachV2Status defines the observed state of VolumeAttachV2.
 type VolumeAttachV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        VolumeAttachV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -240,5 +240,3 @@ var (
 	VolumeAttachV2_KindAPIVersion   = VolumeAttachV2_Kind + "." + CRDGroupVersion.String()
 	VolumeAttachV2_GroupVersionKind = CRDGroupVersion.WithKind(VolumeAttachV2_Kind)
 )
-
-}

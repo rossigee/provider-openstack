@@ -2,10 +2,8 @@ package config
 
 import (
 	"context"
-	"strings"
-)
-: we are importing this to embed provider schema document
 	_ "embed"
+	"strings"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 	"github.com/crossplane/upjet/pkg/registry/reference"
@@ -16,18 +14,18 @@ import (
 	"github.com/pkg/errors"
 	"github.com/terraform-provider-openstack/terraform-provider-openstack/v3/openstack"
 
-	"github.com/crossplane-contrib/provider-openstack/config/blockstorage"
-	"github.com/crossplane-contrib/provider-openstack/config/compute"
-	"github.com/crossplane-contrib/provider-openstack/config/containerinfra"
-	"github.com/crossplane-contrib/provider-openstack/config/dns"
-	"github.com/crossplane-contrib/provider-openstack/config/identity"
-	"github.com/crossplane-contrib/provider-openstack/config/lb"
-	"github.com/crossplane-contrib/provider-openstack/config/networking"
+	"github.com/rossigee/provider-openstack/config/blockstorage"
+	"github.com/rossigee/provider-openstack/config/compute"
+	"github.com/rossigee/provider-openstack/config/containerinfra"
+	"github.com/rossigee/provider-openstack/config/dns"
+	"github.com/rossigee/provider-openstack/config/identity"
+	"github.com/rossigee/provider-openstack/config/lb"
+	"github.com/rossigee/provider-openstack/config/networking"
 )
 
 const (
 	resourcePrefix = "openstack"
-	modulePath     = "github.com/crossplane-contrib/provider-openstack"
+	modulePath     = "github.com/rossigee/provider-openstack"
 )
 
 //go:embed schema.json

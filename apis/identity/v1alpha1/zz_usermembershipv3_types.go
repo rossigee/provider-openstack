@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -24,11 +24,11 @@ type UserMembershipV3InitParameters struct {
 
 	// Reference to a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *xpv1.Reference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *metav1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Identity client.
 	// If omitted, the region argument of the provider is used.
@@ -42,11 +42,11 @@ type UserMembershipV3InitParameters struct {
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *xpv1.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserMembershipV3Observation struct {
@@ -77,11 +77,11 @@ type UserMembershipV3Parameters struct {
 
 	// Reference to a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *xpv1.Reference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *metav1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Identity client.
 	// If omitted, the region argument of the provider is used.
@@ -97,16 +97,16 @@ type UserMembershipV3Parameters struct {
 
 	// Reference to a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *xpv1.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // UserMembershipV3Spec defines the desired state of UserMembershipV3
 type UserMembershipV3Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     UserMembershipV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -123,7 +123,7 @@ type UserMembershipV3Spec struct {
 
 // UserMembershipV3Status defines the observed state of UserMembershipV3.
 type UserMembershipV3Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        UserMembershipV3Observation `json:"atProvider,omitempty"`
 }
 
@@ -160,5 +160,3 @@ var (
 	UserMembershipV3_KindAPIVersion   = UserMembershipV3_Kind + "." + CRDGroupVersion.String()
 	UserMembershipV3_GroupVersionKind = CRDGroupVersion.WithKind(UserMembershipV3_Kind)
 )
-
-}

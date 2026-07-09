@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -29,17 +29,17 @@ type UserV1InitParameters struct {
 
 	// Reference to a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// User's password.
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef xpv1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// The region in which to create the db user. Changing
 	// this creates a new user.
@@ -85,11 +85,11 @@ type UserV1Parameters struct {
 
 	// Reference to a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+	InstanceIDRef *xpv1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	// +kubebuilder:validation:Optional
@@ -97,7 +97,7 @@ type UserV1Parameters struct {
 
 	// User's password.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef xpv1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// The region in which to create the db user. Changing
 	// this creates a new user.
@@ -107,7 +107,7 @@ type UserV1Parameters struct {
 
 // UserV1Spec defines the desired state of UserV1
 type UserV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     UserV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -124,7 +124,7 @@ type UserV1Spec struct {
 
 // UserV1Status defines the observed state of UserV1.
 type UserV1Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        UserV1Observation `json:"atProvider,omitempty"`
 }
 
@@ -163,5 +163,3 @@ var (
 	UserV1_KindAPIVersion   = UserV1_Kind + "." + CRDGroupVersion.String()
 	UserV1_GroupVersionKind = CRDGroupVersion.WithKind(UserV1_Kind)
 )
-
-}

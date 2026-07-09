@@ -8,9 +8,9 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 
@@ -23,11 +23,11 @@ type SubPortInitParameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The numeric id of the subport segment.
 	SegmentationID *float64 `json:"segmentationId,omitempty" tf:"segmentation_id,omitempty"`
@@ -58,11 +58,11 @@ type SubPortParameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The numeric id of the subport segment.
 	// +kubebuilder:validation:Optional
@@ -97,11 +97,11 @@ type TrunkV2InitParameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to create a trunk. If omitted, the
@@ -196,11 +196,11 @@ type TrunkV2Parameters struct {
 
 	// Reference to a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDRef *v1.Reference `json:"portIdRef,omitempty" tf:"-"`
+	PortIDRef *xpv1.Reference `json:"portIdRef,omitempty" tf:"-"`
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *v1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to create a trunk. If omitted, the
@@ -227,7 +227,7 @@ type TrunkV2Parameters struct {
 
 // TrunkV2Spec defines the desired state of TrunkV2
 type TrunkV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
+	xpv1.ResourceSpec `json:",inline"`
 	ForProvider     TrunkV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
@@ -244,7 +244,7 @@ type TrunkV2Spec struct {
 
 // TrunkV2Status defines the observed state of TrunkV2.
 type TrunkV2Status struct {
-	v1.ResourceStatus `json:",inline"`
+	xpv1.ResourceStatus `json:",inline"`
 	AtProvider        TrunkV2Observation `json:"atProvider,omitempty"`
 }
 
@@ -281,5 +281,3 @@ var (
 	TrunkV2_KindAPIVersion   = TrunkV2_Kind + "." + CRDGroupVersion.String()
 	TrunkV2_GroupVersionKind = CRDGroupVersion.WithKind(TrunkV2_Kind)
 )
-
-}

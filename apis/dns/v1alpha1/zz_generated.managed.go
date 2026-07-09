@@ -6,7 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this RecordsetV2.
 func (mg *RecordsetV2) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -29,6 +29,7 @@ func (mg *RecordsetV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RecordsetV2.
+func (mg *RecordsetV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -58,6 +59,7 @@ func (mg *RecordsetV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RecordsetV2.
+func (mg *RecordsetV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -87,6 +89,7 @@ func (mg *TransferAcceptV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this TransferAcceptV2.
+func (mg *TransferAcceptV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -116,6 +119,7 @@ func (mg *TransferAcceptV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this TransferAcceptV2.
+func (mg *TransferAcceptV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -145,6 +149,7 @@ func (mg *TransferRequestV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this TransferRequestV2.
+func (mg *TransferRequestV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -174,6 +179,7 @@ func (mg *TransferRequestV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this TransferRequestV2.
+func (mg *TransferRequestV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -203,6 +209,7 @@ func (mg *ZoneV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this ZoneV2.
+func (mg *ZoneV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -232,6 +239,7 @@ func (mg *ZoneV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this ZoneV2.
+func (mg *ZoneV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 

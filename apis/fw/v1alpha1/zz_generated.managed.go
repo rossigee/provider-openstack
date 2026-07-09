@@ -6,7 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this GroupV2.
 func (mg *GroupV2) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -29,6 +29,7 @@ func (mg *GroupV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this GroupV2.
+func (mg *GroupV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -58,6 +59,7 @@ func (mg *GroupV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this GroupV2.
+func (mg *GroupV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -87,6 +89,7 @@ func (mg *PolicyV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this PolicyV2.
+func (mg *PolicyV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -116,6 +119,7 @@ func (mg *PolicyV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this PolicyV2.
+func (mg *PolicyV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
@@ -145,6 +149,7 @@ func (mg *RuleV2) GetProviderConfigReference() *xpv1.Reference {
 }
 
 // GetPublishConnectionDetailsTo of this RuleV2.
+func (mg *RuleV2) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
@@ -174,6 +179,7 @@ func (mg *RuleV2) SetProviderConfigReference(r *xpv1.Reference) {
 }
 
 // SetPublishConnectionDetailsTo of this RuleV2.
+func (mg *RuleV2) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
