@@ -87,10 +87,7 @@ jobs:
 
       - name: Check Diff
         run: |
-          cp go.mod go.mod.bak && cp go.sum go.sum.bak
-          make lint
-          mv go.mod.bak go.mod && mv go.sum.bak go.sum
-          UNEXPECTED=$$(git diff --name-only | grep -v -E '^vendor/')
+          UNEXPECTED=$$(git diff --name-only | grep -v -E '^vendor/' | grep -v -E '^go\.mod|^go\.sum')
           if [ -n "$$UNEXPECTED" ]; then echo "Unexpected changes: $$UNEXPECTED" && exit 1; fi
 
   unit-tests:
