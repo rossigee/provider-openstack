@@ -6,10 +6,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
+import "github.com/crossplane/crossplane-runtime/pkg/resource"
 
 // GetItems of this EndpointGroupV2List.
-func (l *EndpointGroupV2List) GetItems() []*EndpointGroupV2 {
-	items := make([]*EndpointGroupV2, len(l.Items))
+func (l *EndpointGroupV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -17,8 +18,8 @@ func (l *EndpointGroupV2List) GetItems() []*EndpointGroupV2 {
 }
 
 // GetItems of this IkePolicyV2List.
-func (l *IkePolicyV2List) GetItems() []*IkePolicyV2 {
-	items := make([]*IkePolicyV2, len(l.Items))
+func (l *IkePolicyV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -26,8 +27,8 @@ func (l *IkePolicyV2List) GetItems() []*IkePolicyV2 {
 }
 
 // GetItems of this IpsecPolicyV2List.
-func (l *IpsecPolicyV2List) GetItems() []*IpsecPolicyV2 {
-	items := make([]*IpsecPolicyV2, len(l.Items))
+func (l *IpsecPolicyV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -35,8 +36,8 @@ func (l *IpsecPolicyV2List) GetItems() []*IpsecPolicyV2 {
 }
 
 // GetItems of this ServiceV2List.
-func (l *ServiceV2List) GetItems() []*ServiceV2 {
-	items := make([]*ServiceV2, len(l.Items))
+func (l *ServiceV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -44,8 +45,8 @@ func (l *ServiceV2List) GetItems() []*ServiceV2 {
 }
 
 // GetItems of this SiteConnectionV2List.
-func (l *SiteConnectionV2List) GetItems() []*SiteConnectionV2 {
-	items := make([]*SiteConnectionV2, len(l.Items))
+func (l *SiteConnectionV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

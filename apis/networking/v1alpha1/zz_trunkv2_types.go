@@ -27,7 +27,7 @@ type SubPortInitParameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The numeric id of the subport segment.
 	SegmentationID *float64 `json:"segmentationId,omitempty" tf:"segmentation_id,omitempty"`
@@ -62,7 +62,7 @@ type SubPortParameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The numeric id of the subport segment.
 	// +kubebuilder:validation:Optional
@@ -101,7 +101,7 @@ type TrunkV2InitParameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to create a trunk. If omitted, the
@@ -200,7 +200,7 @@ type TrunkV2Parameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 networking client.
 	// A networking client is needed to create a trunk. If omitted, the

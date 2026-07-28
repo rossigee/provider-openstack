@@ -6,10 +6,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
+import "github.com/crossplane/crossplane-runtime/pkg/resource"
 
 // GetItems of this QosAssociationV3List.
-func (l *QosAssociationV3List) GetItems() []*QosAssociationV3 {
-	items := make([]*QosAssociationV3, len(l.Items))
+func (l *QosAssociationV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -17,8 +18,8 @@ func (l *QosAssociationV3List) GetItems() []*QosAssociationV3 {
 }
 
 // GetItems of this QosV3List.
-func (l *QosV3List) GetItems() []*QosV3 {
-	items := make([]*QosV3, len(l.Items))
+func (l *QosV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -26,8 +27,8 @@ func (l *QosV3List) GetItems() []*QosV3 {
 }
 
 // GetItems of this QuotasetV3List.
-func (l *QuotasetV3List) GetItems() []*QuotasetV3 {
-	items := make([]*QuotasetV3, len(l.Items))
+func (l *QuotasetV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -35,8 +36,8 @@ func (l *QuotasetV3List) GetItems() []*QuotasetV3 {
 }
 
 // GetItems of this VolumeAttachV3List.
-func (l *VolumeAttachV3List) GetItems() []*VolumeAttachV3 {
-	items := make([]*VolumeAttachV3, len(l.Items))
+func (l *VolumeAttachV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -44,8 +45,8 @@ func (l *VolumeAttachV3List) GetItems() []*VolumeAttachV3 {
 }
 
 // GetItems of this VolumeTypeAccessV3List.
-func (l *VolumeTypeAccessV3List) GetItems() []*VolumeTypeAccessV3 {
-	items := make([]*VolumeTypeAccessV3, len(l.Items))
+func (l *VolumeTypeAccessV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -53,8 +54,8 @@ func (l *VolumeTypeAccessV3List) GetItems() []*VolumeTypeAccessV3 {
 }
 
 // GetItems of this VolumeTypeV3List.
-func (l *VolumeTypeV3List) GetItems() []*VolumeTypeV3 {
-	items := make([]*VolumeTypeV3, len(l.Items))
+func (l *VolumeTypeV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -62,8 +63,8 @@ func (l *VolumeTypeV3List) GetItems() []*VolumeTypeV3 {
 }
 
 // GetItems of this VolumeV3List.
-func (l *VolumeV3List) GetItems() []*VolumeV3 {
-	items := make([]*VolumeV3, len(l.Items))
+func (l *VolumeV3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

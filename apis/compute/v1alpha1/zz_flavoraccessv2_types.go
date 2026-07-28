@@ -27,7 +27,7 @@ type FlavorAccessV2InitParameters struct {
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *xpv1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Compute client.
 	// If omitted, the region argument of the provider is used.
@@ -46,7 +46,7 @@ type FlavorAccessV2InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDSelector *metav1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
+	TenantIDSelector *xpv1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
 }
 
 type FlavorAccessV2Observation struct {
@@ -80,7 +80,7 @@ type FlavorAccessV2Parameters struct {
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *xpv1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Compute client.
 	// If omitted, the region argument of the provider is used.
@@ -101,7 +101,7 @@ type FlavorAccessV2Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate tenantId.
 	// +kubebuilder:validation:Optional
-	TenantIDSelector *metav1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
+	TenantIDSelector *xpv1.Selector `json:"tenantIdSelector,omitempty" tf:"-"`
 }
 
 // FlavorAccessV2Spec defines the desired state of FlavorAccessV2

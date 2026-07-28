@@ -63,7 +63,7 @@ type QuotasetV2InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Quota value for RAM.
 	// Changing this updates the existing quotaset.
@@ -220,7 +220,7 @@ type QuotasetV2Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Quota value for RAM.
 	// Changing this updates the existing quotaset.

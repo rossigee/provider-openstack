@@ -8,10 +8,10 @@ package v1alpha1
 
 import (
 	"context"
-	"github.com/crossplane/crossplane-runtime/pkg/reference"
-	"github.com/crossplane/upjet/pkg/resource"
-	"github.com/pkg/errors"
-	"sigs.k8s.io/controller-runtime/pkg/client"
+	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	resource "github.com/crossplane/upjet/pkg/resource"
+	errors "github.com/pkg/errors"
+	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 // ResolveReferences of this RecordsetV2.

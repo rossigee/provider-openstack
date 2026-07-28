@@ -67,7 +67,7 @@ type MonitorV2InitParameters struct {
 
 	// Selector for a PoolV2 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *metav1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolIDSelector *xpv1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a monitor. If omitted, the
@@ -232,7 +232,7 @@ type MonitorV2Parameters struct {
 
 	// Selector for a PoolV2 in lb to populate poolId.
 	// +kubebuilder:validation:Optional
-	PoolIDSelector *metav1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
+	PoolIDSelector *xpv1.Selector `json:"poolIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a monitor. If omitted, the

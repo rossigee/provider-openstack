@@ -32,7 +32,7 @@ type TransferAcceptV2InitParameters struct {
 
 	// Selector for a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeySelector *metav1.Selector `json:"keySelector,omitempty" tf:"-"`
+	KeySelector *xpv1.Selector `json:"keySelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 DNS client.
 	// If omitted, the region argument of the provider is used.
@@ -55,7 +55,7 @@ type TransferAcceptV2InitParameters struct {
 
 	// Selector for a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDSelector *metav1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
+	ZoneTransferRequestIDSelector *xpv1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
 }
 
 type TransferAcceptV2Observation struct {
@@ -104,7 +104,7 @@ type TransferAcceptV2Parameters struct {
 
 	// Selector for a TransferRequestV2 in dns to populate key.
 	// +kubebuilder:validation:Optional
-	KeySelector *metav1.Selector `json:"keySelector,omitempty" tf:"-"`
+	KeySelector *xpv1.Selector `json:"keySelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 DNS client.
 	// If omitted, the region argument of the provider is used.
@@ -130,7 +130,7 @@ type TransferAcceptV2Parameters struct {
 
 	// Selector for a TransferRequestV2 in dns to populate zoneTransferRequestId.
 	// +kubebuilder:validation:Optional
-	ZoneTransferRequestIDSelector *metav1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
+	ZoneTransferRequestIDSelector *xpv1.Selector `json:"zoneTransferRequestIdSelector,omitempty" tf:"-"`
 }
 
 // TransferAcceptV2Spec defines the desired state of TransferAcceptV2

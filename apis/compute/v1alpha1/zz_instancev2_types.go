@@ -66,7 +66,7 @@ type BlockDeviceInitParameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDSelector *metav1.Selector `json:"uuidSelector,omitempty" tf:"-"`
+	UUIDSelector *xpv1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required
 	// in the following combinations: source=image and destination=volume,
@@ -199,7 +199,7 @@ type BlockDeviceParameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate uuid.
 	// +kubebuilder:validation:Optional
-	UUIDSelector *metav1.Selector `json:"uuidSelector,omitempty" tf:"-"`
+	UUIDSelector *xpv1.Selector `json:"uuidSelector,omitempty" tf:"-"`
 
 	// The size of the volume to create (in gigabytes). Required
 	// in the following combinations: source=image and destination=volume,
@@ -259,7 +259,7 @@ type InstanceV2InitParameters struct {
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *xpv1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The name of the
 	// desired flavor for the server. Changing this resizes the existing server.
@@ -299,7 +299,7 @@ type InstanceV2InitParameters struct {
 
 	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairSelector *metav1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
+	KeyPairSelector *xpv1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Metadata key/value pairs to make available from
 	// within the instance. Changing this updates the existing server metadata.
@@ -357,7 +357,7 @@ type InstanceV2InitParameters struct {
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *metav1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
+	SecurityGroupsSelector *xpv1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully
 	// before destroying it, thus giving chance for guest OS daemons to stop correctly.
@@ -579,7 +579,7 @@ type InstanceV2Parameters struct {
 
 	// Selector for a FlavorV2 in compute to populate flavorId.
 	// +kubebuilder:validation:Optional
-	FlavorIDSelector *metav1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
+	FlavorIDSelector *xpv1.Selector `json:"flavorIdSelector,omitempty" tf:"-"`
 
 	// The name of the
 	// desired flavor for the server. Changing this resizes the existing server.
@@ -625,7 +625,7 @@ type InstanceV2Parameters struct {
 
 	// Selector for a KeypairV2 in compute to populate keyPair.
 	// +kubebuilder:validation:Optional
-	KeyPairSelector *metav1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
+	KeyPairSelector *xpv1.Selector `json:"keyPairSelector,omitempty" tf:"-"`
 
 	// Metadata key/value pairs to make available from
 	// within the instance. Changing this updates the existing server metadata.
@@ -692,7 +692,7 @@ type InstanceV2Parameters struct {
 
 	// Selector for a list of SecgroupV2 in networking to populate securityGroups.
 	// +kubebuilder:validation:Optional
-	SecurityGroupsSelector *metav1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
+	SecurityGroupsSelector *xpv1.Selector `json:"securityGroupsSelector,omitempty" tf:"-"`
 
 	// Whether to try stop instance gracefully
 	// before destroying it, thus giving chance for guest OS daemons to stop correctly.
@@ -745,7 +745,7 @@ type NetworkInitParameters struct {
 
 	// Selector for a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortSelector *metav1.Selector `json:"portSelector,omitempty" tf:"-"`
+	PortSelector *xpv1.Selector `json:"portSelector,omitempty" tf:"-"`
 
 	// The network UUID to
 	// attach to the server. Changing this creates a new server.
@@ -812,7 +812,7 @@ type NetworkParameters struct {
 
 	// Selector for a PortV2 in networking to populate port.
 	// +kubebuilder:validation:Optional
-	PortSelector *metav1.Selector `json:"portSelector,omitempty" tf:"-"`
+	PortSelector *xpv1.Selector `json:"portSelector,omitempty" tf:"-"`
 
 	// The network UUID to
 	// attach to the server. Changing this creates a new server.

@@ -52,7 +52,7 @@ type ListenerV2InitParameters struct {
 
 	// Selector for a SecretV1 in keymanager to populate clientCaTlsContainerRef.
 	// +kubebuilder:validation:Optional
-	ClientCATLSContainerRefSelector *metav1.Selector `json:"clientCaTlsContainerRefSelector,omitempty" tf:"-"`
+	ClientCATLSContainerRefSelector *xpv1.Selector `json:"clientCaTlsContainerRefSelector,omitempty" tf:"-"`
 
 	// The URI of the key manager service
 	// secret containing a PEM format CA revocation list file for TERMINATED_HTTPS
@@ -117,7 +117,7 @@ type ListenerV2InitParameters struct {
 
 	// Selector for a LoadbalancerV2 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *metav1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadbalancerIDSelector *xpv1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Human-readable name for the Listener. Does not have to be
 	// unique.
@@ -376,7 +376,7 @@ type ListenerV2Parameters struct {
 
 	// Selector for a SecretV1 in keymanager to populate clientCaTlsContainerRef.
 	// +kubebuilder:validation:Optional
-	ClientCATLSContainerRefSelector *metav1.Selector `json:"clientCaTlsContainerRefSelector,omitempty" tf:"-"`
+	ClientCATLSContainerRefSelector *xpv1.Selector `json:"clientCaTlsContainerRefSelector,omitempty" tf:"-"`
 
 	// The URI of the key manager service
 	// secret containing a PEM format CA revocation list file for TERMINATED_HTTPS
@@ -451,7 +451,7 @@ type ListenerV2Parameters struct {
 
 	// Selector for a LoadbalancerV2 in lb to populate loadbalancerId.
 	// +kubebuilder:validation:Optional
-	LoadbalancerIDSelector *metav1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
+	LoadbalancerIDSelector *xpv1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
 	// Human-readable name for the Listener. Does not have to be
 	// unique.

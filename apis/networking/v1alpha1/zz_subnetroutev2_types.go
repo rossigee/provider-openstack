@@ -42,7 +42,7 @@ type SubnetRouteV2InitParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type SubnetRouteV2Observation struct {
@@ -100,7 +100,7 @@ type SubnetRouteV2Parameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 // SubnetRouteV2Spec defines the desired state of SubnetRouteV2

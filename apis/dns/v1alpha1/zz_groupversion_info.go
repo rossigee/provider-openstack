@@ -36,7 +36,9 @@ var (
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
 			&RecordsetV2{},
+			&RecordsetV2List{},
 			&TransferAcceptV2{},
+			&TransferAcceptV2List{},
 		&ZoneV2List{},
 		&ZoneV2{},
 		&TransferRequestV2List{},

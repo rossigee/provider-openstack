@@ -36,8 +36,11 @@ var (
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
 			&ClustertemplateV1{},
+			&ClustertemplateV1List{},
 			&ClusterV1{},
+			&ClusterV1List{},
 			&NodegroupV1{},
+			&NodegroupV1List{},
 	)
 	return nil
 }

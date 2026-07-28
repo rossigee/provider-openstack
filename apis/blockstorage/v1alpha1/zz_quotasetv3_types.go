@@ -47,7 +47,7 @@ type QuotasetV3InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this
@@ -156,7 +156,7 @@ type QuotasetV3Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this

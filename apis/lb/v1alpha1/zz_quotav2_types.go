@@ -57,7 +57,7 @@ type QuotaV2InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Region in which to manage quotas. Changing this
 	// creates a new quota. If ommited, the region of the credentials is used.
@@ -158,7 +158,7 @@ type QuotaV2Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Region in which to manage quotas. Changing this
 	// creates a new quota. If ommited, the region of the credentials is used.

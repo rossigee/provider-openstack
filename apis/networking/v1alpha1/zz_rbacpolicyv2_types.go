@@ -33,7 +33,7 @@ type RbacPolicyV2InitParameters struct {
 
 	// Selector for a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDSelector *metav1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
+	ObjectIDSelector *xpv1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
 
 	// The type of the object that the RBAC policy
 	// affects. Can be one of the following: address_scope, address_group,
@@ -103,7 +103,7 @@ type RbacPolicyV2Parameters struct {
 
 	// Selector for a NetworkV2 in networking to populate objectId.
 	// +kubebuilder:validation:Optional
-	ObjectIDSelector *metav1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
+	ObjectIDSelector *xpv1.Selector `json:"objectIdSelector,omitempty" tf:"-"`
 
 	// The type of the object that the RBAC policy
 	// affects. Can be one of the following: address_scope, address_group,

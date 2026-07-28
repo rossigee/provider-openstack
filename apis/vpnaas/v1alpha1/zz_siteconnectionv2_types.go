@@ -95,7 +95,7 @@ type SiteConnectionV2InitParameters struct {
 
 	// Selector for a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDSelector *metav1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
+	IkepolicyIDSelector *xpv1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
 
 	// A valid value is response-only or bi-directional. Default is bi-directional.
 	Initiator *string `json:"initiator,omitempty" tf:"initiator,omitempty"`
@@ -111,7 +111,7 @@ type SiteConnectionV2InitParameters struct {
 
 	// Selector for a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDSelector *metav1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
+	IpsecpolicyIDSelector *xpv1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
 
 	// The ID for the endpoint group that contains private subnets for the local side of the connection.
 	// You must specify this parameter with the peer_ep_group_id parameter unless
@@ -127,7 +127,7 @@ type SiteConnectionV2InitParameters struct {
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDSelector *metav1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
+	LocalEpGroupIDSelector *xpv1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
 
 	// An ID to be used instead of the external IP address for a virtual router used in traffic between instances on different networks in east-west traffic.
 	// Most often, local ID would be domain name, email address, etc.
@@ -161,7 +161,7 @@ type SiteConnectionV2InitParameters struct {
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDSelector *metav1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
+	PeerEpGroupIDSelector *xpv1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
 
 	// The peer router identity for authentication. A valid value is an IPv4 address, IPv6 address, e-mail address, key ID, or FQDN.
 	// Typically, this value matches the peer_address value.
@@ -196,7 +196,7 @@ type SiteConnectionV2InitParameters struct {
 
 	// Selector for a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDSelector *metav1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
+	VpnserviceIDSelector *xpv1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
 }
 
 type SiteConnectionV2Observation struct {
@@ -307,7 +307,7 @@ type SiteConnectionV2Parameters struct {
 
 	// Selector for a IkePolicyV2 in vpnaas to populate ikepolicyId.
 	// +kubebuilder:validation:Optional
-	IkepolicyIDSelector *metav1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
+	IkepolicyIDSelector *xpv1.Selector `json:"ikepolicyIdSelector,omitempty" tf:"-"`
 
 	// A valid value is response-only or bi-directional. Default is bi-directional.
 	// +kubebuilder:validation:Optional
@@ -325,7 +325,7 @@ type SiteConnectionV2Parameters struct {
 
 	// Selector for a IpsecPolicyV2 in vpnaas to populate ipsecpolicyId.
 	// +kubebuilder:validation:Optional
-	IpsecpolicyIDSelector *metav1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
+	IpsecpolicyIDSelector *xpv1.Selector `json:"ipsecpolicyIdSelector,omitempty" tf:"-"`
 
 	// The ID for the endpoint group that contains private subnets for the local side of the connection.
 	// You must specify this parameter with the peer_ep_group_id parameter unless
@@ -342,7 +342,7 @@ type SiteConnectionV2Parameters struct {
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate localEpGroupId.
 	// +kubebuilder:validation:Optional
-	LocalEpGroupIDSelector *metav1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
+	LocalEpGroupIDSelector *xpv1.Selector `json:"localEpGroupIdSelector,omitempty" tf:"-"`
 
 	// An ID to be used instead of the external IP address for a virtual router used in traffic between instances on different networks in east-west traffic.
 	// Most often, local ID would be domain name, email address, etc.
@@ -382,7 +382,7 @@ type SiteConnectionV2Parameters struct {
 
 	// Selector for a EndpointGroupV2 in vpnaas to populate peerEpGroupId.
 	// +kubebuilder:validation:Optional
-	PeerEpGroupIDSelector *metav1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
+	PeerEpGroupIDSelector *xpv1.Selector `json:"peerEpGroupIdSelector,omitempty" tf:"-"`
 
 	// The peer router identity for authentication. A valid value is an IPv4 address, IPv6 address, e-mail address, key ID, or FQDN.
 	// Typically, this value matches the peer_address value.
@@ -423,7 +423,7 @@ type SiteConnectionV2Parameters struct {
 
 	// Selector for a ServiceV2 in vpnaas to populate vpnserviceId.
 	// +kubebuilder:validation:Optional
-	VpnserviceIDSelector *metav1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
+	VpnserviceIDSelector *xpv1.Selector `json:"vpnserviceIdSelector,omitempty" tf:"-"`
 }
 
 // SiteConnectionV2Spec defines the desired state of SiteConnectionV2

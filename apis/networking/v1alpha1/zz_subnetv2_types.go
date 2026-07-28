@@ -109,7 +109,7 @@ type SubnetV2InitParameters struct {
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *xpv1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Do not set a gateway IP on this subnet. Changing
 	// this removes or adds a default gateway IP of the existing subnet.
@@ -337,7 +337,7 @@ type SubnetV2Parameters struct {
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *xpv1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Do not set a gateway IP on this subnet. Changing
 	// this removes or adds a default gateway IP of the existing subnet.

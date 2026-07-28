@@ -50,7 +50,7 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/images/imageaccessacceptv2"
 	"github.com/rossigee/provider-openstack/internal/controller/images/imageaccessv2"
 	"github.com/rossigee/provider-openstack/internal/controller/images/imagev2"
-	"github.com/rossigee/provider-openstack/internal/controller/keymanager/containerv1"
+	containerv1keymanager "github.com/rossigee/provider-openstack/internal/controller/keymanager/containerv1"
 	"github.com/rossigee/provider-openstack/internal/controller/keymanager/orderv1"
 	"github.com/rossigee/provider-openstack/internal/controller/keymanager/secretv1"
 	"github.com/rossigee/provider-openstack/internal/controller/lb/l7policyv2"
@@ -61,7 +61,7 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/lb/memberv2"
 	"github.com/rossigee/provider-openstack/internal/controller/lb/monitorv2"
 	"github.com/rossigee/provider-openstack/internal/controller/lb/poolv2"
-	"github.com/rossigee/provider-openstack/internal/controller/lb/quotav2"
+	quotav2lb "github.com/rossigee/provider-openstack/internal/controller/lb/quotav2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/addressscopev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/floatingipassociatev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/floatingipv2"
@@ -73,7 +73,7 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/networking/qosdscpmarkingrulev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/qosminimumbandwidthrulev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/qospolicyv2"
-	"github.com/rossigee/provider-openstack/internal/controller/networking/quotav2"
+	quotav2networking "github.com/rossigee/provider-openstack/internal/controller/networking/quotav2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/rbacpolicyv2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/routerinterfacev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/routerroutev2"
@@ -84,7 +84,7 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/networking/subnetroutev2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/subnetv2"
 	"github.com/rossigee/provider-openstack/internal/controller/networking/trunkv2"
-	"github.com/rossigee/provider-openstack/internal/controller/objectstorage/containerv1"
+	containerv1objectstorage "github.com/rossigee/provider-openstack/internal/controller/objectstorage/containerv1"
 	"github.com/rossigee/provider-openstack/internal/controller/objectstorage/objectv1"
 	"github.com/rossigee/provider-openstack/internal/controller/objectstorage/tempurlv1"
 	"github.com/rossigee/provider-openstack/internal/controller/orchestration/stackv1"
@@ -99,7 +99,7 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/vpnaas/servicev2"
 	"github.com/rossigee/provider-openstack/internal/controller/vpnaas/siteconnectionv2"
 	"github.com/crossplane/upjet/pkg/controller"
-	"sigs.k8s.io/controller-runtime"
+	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -150,7 +150,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		imageaccessacceptv2.Setup,
 		imageaccessv2.Setup,
 		imagev2.Setup,
-		containerv1.Setup,
+		containerv1keymanager.Setup,
 		orderv1.Setup,
 		secretv1.Setup,
 		l7policyv2.Setup,
@@ -161,7 +161,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		memberv2.Setup,
 		monitorv2.Setup,
 		poolv2.Setup,
-		quotav2.Setup,
+		quotav2lb.Setup,
 		addressscopev2.Setup,
 		floatingipassociatev2.Setup,
 		floatingipv2.Setup,

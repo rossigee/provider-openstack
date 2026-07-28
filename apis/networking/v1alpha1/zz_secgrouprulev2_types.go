@@ -76,7 +76,7 @@ type SecgroupRuleV2InitParameters struct {
 
 	// Selector for a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *metav1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupIDSelector *xpv1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new
@@ -219,7 +219,7 @@ type SecgroupRuleV2Parameters struct {
 
 	// Selector for a SecgroupV2 in networking to populate securityGroupId.
 	// +kubebuilder:validation:Optional
-	SecurityGroupIDSelector *metav1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
+	SecurityGroupIDSelector *xpv1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// The owner of the security group. Required if admin
 	// wants to create a port for another tenant. Changing this creates a new

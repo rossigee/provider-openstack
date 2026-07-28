@@ -159,7 +159,7 @@ type FixedIPInitParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type FixedIPObservation struct {
@@ -199,7 +199,7 @@ type FixedIPParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type PortV2InitParameters struct {
@@ -263,7 +263,7 @@ type PortV2InitParameters struct {
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *xpv1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Create a port with no fixed
 	// IP address. This will also remove any fixed IPs previously set on a port. true
@@ -508,7 +508,7 @@ type PortV2Parameters struct {
 
 	// Selector for a NetworkV2 in networking to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *metav1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *xpv1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// Create a port with no fixed
 	// IP address. This will also remove any fixed IPs previously set on a port. true

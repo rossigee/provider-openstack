@@ -36,6 +36,7 @@ var (
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
 			&TempurlV1{},
+			&TempurlV1List{},
 		&ContainerV1List{},
 		&ContainerV1{},
 		&ObjectV1List{},

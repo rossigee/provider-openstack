@@ -38,7 +38,7 @@ type GroupV2InitParameters struct {
 
 	// Selector for a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDSelector *metav1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	EgressFirewallPolicyIDSelector *xpv1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// The ingress firewall policy resource
 	// id for the firewall group. Changing this updates the
@@ -53,7 +53,7 @@ type GroupV2InitParameters struct {
 
 	// Selector for a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDSelector *metav1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	IngressFirewallPolicyIDSelector *xpv1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// A name for the firewall group. Changing this
 	// updates the name of an existing firewall.
@@ -180,7 +180,7 @@ type GroupV2Parameters struct {
 
 	// Selector for a PolicyV2 in fw to populate egressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	EgressFirewallPolicyIDSelector *metav1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	EgressFirewallPolicyIDSelector *xpv1.Selector `json:"egressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// The ingress firewall policy resource
 	// id for the firewall group. Changing this updates the
@@ -196,7 +196,7 @@ type GroupV2Parameters struct {
 
 	// Selector for a PolicyV2 in fw to populate ingressFirewallPolicyId.
 	// +kubebuilder:validation:Optional
-	IngressFirewallPolicyIDSelector *metav1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
+	IngressFirewallPolicyIDSelector *xpv1.Selector `json:"ingressFirewallPolicyIdSelector,omitempty" tf:"-"`
 
 	// A name for the firewall group. Changing this
 	// updates the name of an existing firewall.

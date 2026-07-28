@@ -32,7 +32,7 @@ type ObjectV1InitParameters struct {
 
 	// Selector for a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameSelector *metav1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
+	ContainerNameSelector *xpv1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
 
 	// A string representing the content of the object. Conflicts with
 	// source and copy_from.
@@ -212,7 +212,7 @@ type ObjectV1Parameters struct {
 
 	// Selector for a ContainerV1 in objectstorage to populate containerName.
 	// +kubebuilder:validation:Optional
-	ContainerNameSelector *metav1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
+	ContainerNameSelector *xpv1.Selector `json:"containerNameSelector,omitempty" tf:"-"`
 
 	// A string representing the content of the object. Conflicts with
 	// source and copy_from.

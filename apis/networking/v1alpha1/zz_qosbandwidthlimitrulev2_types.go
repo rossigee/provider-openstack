@@ -39,7 +39,7 @@ type QosBandwidthLimitRuleV2InitParameters struct {
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *xpv1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS bandwidth limit rule. If omitted, the
@@ -101,7 +101,7 @@ type QosBandwidthLimitRuleV2Parameters struct {
 
 	// Selector for a QosPolicyV2 in networking to populate qosPolicyId.
 	// +kubebuilder:validation:Optional
-	QosPolicyIDSelector *metav1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
+	QosPolicyIDSelector *xpv1.Selector `json:"qosPolicyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a Neutron QoS bandwidth limit rule. If omitted, the

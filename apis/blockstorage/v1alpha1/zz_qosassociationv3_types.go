@@ -28,7 +28,7 @@ type QosAssociationV3InitParameters struct {
 
 	// Selector for a QosV3 in blockstorage to populate qosId.
 	// +kubebuilder:validation:Optional
-	QosIDSelector *metav1.Selector `json:"qosIdSelector,omitempty" tf:"-"`
+	QosIDSelector *xpv1.Selector `json:"qosIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the qos association.
 	// If omitted, the region argument of the provider is used. Changing
@@ -47,7 +47,7 @@ type QosAssociationV3InitParameters struct {
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *xpv1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 type QosAssociationV3Observation struct {
@@ -82,7 +82,7 @@ type QosAssociationV3Parameters struct {
 
 	// Selector for a QosV3 in blockstorage to populate qosId.
 	// +kubebuilder:validation:Optional
-	QosIDSelector *metav1.Selector `json:"qosIdSelector,omitempty" tf:"-"`
+	QosIDSelector *xpv1.Selector `json:"qosIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the qos association.
 	// If omitted, the region argument of the provider is used. Changing
@@ -103,7 +103,7 @@ type QosAssociationV3Parameters struct {
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *xpv1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 // QosAssociationV3Spec defines the desired state of QosAssociationV3

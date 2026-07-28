@@ -42,7 +42,7 @@ type RouterInterfaceV2InitParameters struct {
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *metav1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterIDSelector *xpv1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
@@ -55,7 +55,7 @@ type RouterInterfaceV2InitParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 type RouterInterfaceV2Observation struct {
@@ -118,7 +118,7 @@ type RouterInterfaceV2Parameters struct {
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *metav1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterIDSelector *xpv1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 
 	// ID of the subnet this interface connects to. Changing
 	// this creates a new router interface.
@@ -132,7 +132,7 @@ type RouterInterfaceV2Parameters struct {
 
 	// Selector for a SubnetV2 in networking to populate subnetId.
 	// +kubebuilder:validation:Optional
-	SubnetIDSelector *metav1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+	SubnetIDSelector *xpv1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 }
 
 // RouterInterfaceV2Spec defines the desired state of RouterInterfaceV2

@@ -21,6 +21,9 @@ limitations under the License.
 package v1beta1
 
 import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"reflect"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -34,14 +37,32 @@ var (
 	SchemeGroupVersion = schema.GroupVersion{Group: Group, Version: Version}
 	SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
 	AddToScheme        = SchemeBuilder.AddToScheme
+
+	ProviderConfigGroupKind             = schema.GroupKind{Group: Group, Kind: reflect.TypeOf(ProviderConfig{}).Name()}
+	ProviderConfigGroupVersionKind      = schema.GroupVersionKind{
+		Group:   Group,
+		Version: Version,
+		Kind:    reflect.TypeOf(ProviderConfig{}).Name(),
+	}
+	ProviderConfigUsageListGroupVersionKind = schema.GroupVersionKind{
+		Group:   Group,
+		Version: Version,
+		Kind:    reflect.TypeOf(ProviderConfigUsage{}).Name() + "List",
+	}
+	ProviderConfigUsageGroupVersionKind = schema.GroupVersionKind{
+		Group:   Group,
+		Version: Version,
+		Kind:    reflect.TypeOf(ProviderConfigUsage{}).Name(),
+	}
 )
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(SchemeGroupVersion,
+		&ProviderConfig{},
 		&ProviderConfigList{},
 		&ProviderConfigUsage{},
 		&ProviderConfigUsageList{},
-
 	)
+		metav1.AddToGroupVersion(s, SchemeGroupVersion)
 	return nil
 }

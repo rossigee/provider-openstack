@@ -4,7 +4,6 @@ go 1.26.5
 
 require (
 	dario.cat/mergo v1.0.2
-	github.com/crossplane-contrib/provider-openstack v0.9.0
 	github.com/crossplane/crossplane-runtime v1.20.10
 	github.com/crossplane/crossplane-runtime/v2 v2.3.3
 	github.com/crossplane/crossplane-tools v0.0.0-20260719180100-659f1dc036c5
@@ -132,7 +131,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.28.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/mod v0.38.0 // indirect
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
@@ -169,3 +168,5 @@ require (
 replace github.com/crossplane/crossplane-runtime => ./hack/crossplane-runtime
 
 replace github.com/crossplane-contrib/provider-openstack => ./
+
+replace github.com/crossplane/crossplane-runtime/v2 => github.com/rossigee/crossplane-runtime/v2 v2.4.0-rc.0.0.20260708064937-d99a640775a8

@@ -32,7 +32,7 @@ type VolumeAttachV2InitParameters struct {
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *xpv1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Enable attachment of multiattach-capable volumes.
 	Multiattach *bool `json:"multiattach,omitempty" tf:"multiattach,omitempty"`
@@ -63,7 +63,7 @@ type VolumeAttachV2InitParameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *xpv1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeAttachV2Observation struct {
@@ -120,7 +120,7 @@ type VolumeAttachV2Parameters struct {
 
 	// Selector for a InstanceV2 in compute to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *xpv1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Enable attachment of multiattach-capable volumes.
 	// +kubebuilder:validation:Optional
@@ -156,7 +156,7 @@ type VolumeAttachV2Parameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *xpv1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeAttachV2VendorOptionsInitParameters struct {

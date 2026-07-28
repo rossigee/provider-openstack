@@ -34,7 +34,7 @@ type ClusterV1InitParameters struct {
 
 	// Selector for a NetworkV2 in networking to populate fixedNetwork.
 	// +kubebuilder:validation:Optional
-	FixedNetworkSelector *metav1.Selector `json:"fixedNetworkSelector,omitempty" tf:"-"`
+	FixedNetworkSelector *xpv1.Selector `json:"fixedNetworkSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1.SubnetV2
 	FixedSubnet *string `json:"fixedSubnet,omitempty" tf:"fixed_subnet,omitempty"`
@@ -45,7 +45,7 @@ type ClusterV1InitParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate fixedSubnet.
 	// +kubebuilder:validation:Optional
-	FixedSubnetSelector *metav1.Selector `json:"fixedSubnetSelector,omitempty" tf:"-"`
+	FixedSubnetSelector *xpv1.Selector `json:"fixedSubnetSelector,omitempty" tf:"-"`
 
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
@@ -187,7 +187,7 @@ type ClusterV1Parameters struct {
 
 	// Selector for a NetworkV2 in networking to populate fixedNetwork.
 	// +kubebuilder:validation:Optional
-	FixedNetworkSelector *metav1.Selector `json:"fixedNetworkSelector,omitempty" tf:"-"`
+	FixedNetworkSelector *xpv1.Selector `json:"fixedNetworkSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/networking/v1alpha1.SubnetV2
 	// +kubebuilder:validation:Optional
@@ -199,7 +199,7 @@ type ClusterV1Parameters struct {
 
 	// Selector for a SubnetV2 in networking to populate fixedSubnet.
 	// +kubebuilder:validation:Optional
-	FixedSubnetSelector *metav1.Selector `json:"fixedSubnetSelector,omitempty" tf:"-"`
+	FixedSubnetSelector *xpv1.Selector `json:"fixedSubnetSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`

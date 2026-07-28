@@ -203,7 +203,7 @@ type SecretRefsInitParameters struct {
 
 	// Selector for a SecretV1 in keymanager to populate secretRef.
 	// +kubebuilder:validation:Optional
-	SecretRefSelector *metav1.Selector `json:"secretRefSelector,omitempty" tf:"-"`
+	SecretRefSelector *xpv1.Selector `json:"secretRefSelector,omitempty" tf:"-"`
 }
 
 type SecretRefsObservation struct {
@@ -233,7 +233,7 @@ type SecretRefsParameters struct {
 
 	// Selector for a SecretV1 in keymanager to populate secretRef.
 	// +kubebuilder:validation:Optional
-	SecretRefSelector *metav1.Selector `json:"secretRefSelector,omitempty" tf:"-"`
+	SecretRefSelector *xpv1.Selector `json:"secretRefSelector,omitempty" tf:"-"`
 }
 
 // ContainerV1Spec defines the desired state of ContainerV1

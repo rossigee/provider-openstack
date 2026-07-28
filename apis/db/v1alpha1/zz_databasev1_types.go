@@ -27,7 +27,7 @@ type DatabaseV1InitParameters struct {
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *xpv1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -65,7 +65,7 @@ type DatabaseV1Parameters struct {
 
 	// Selector for a InstanceV1 in db to populate instanceId.
 	// +kubebuilder:validation:Optional
-	InstanceIDSelector *metav1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+	InstanceIDSelector *xpv1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// A unique name for the resource.
 	// +kubebuilder:validation:Optional

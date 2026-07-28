@@ -28,7 +28,7 @@ type UserMembershipV3InitParameters struct {
 
 	// Selector for a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *metav1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *xpv1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Identity client.
 	// If omitted, the region argument of the provider is used.
@@ -46,7 +46,7 @@ type UserMembershipV3InitParameters struct {
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *xpv1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserMembershipV3Observation struct {
@@ -81,7 +81,7 @@ type UserMembershipV3Parameters struct {
 
 	// Selector for a GroupV3 in identity to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *metav1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *xpv1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V3 Identity client.
 	// If omitted, the region argument of the provider is used.
@@ -101,7 +101,7 @@ type UserMembershipV3Parameters struct {
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *xpv1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // UserMembershipV3Spec defines the desired state of UserMembershipV3

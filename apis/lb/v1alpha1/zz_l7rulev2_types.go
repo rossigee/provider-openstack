@@ -44,7 +44,7 @@ type L7RuleV2InitParameters struct {
 
 	// Selector for a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDSelector *metav1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
+	L7PolicyIDSelector *xpv1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create an L7 rule. If omitted, the
@@ -149,7 +149,7 @@ type L7RuleV2Parameters struct {
 
 	// Selector for a L7PolicyV2 in lb to populate l7policyId.
 	// +kubebuilder:validation:Optional
-	L7PolicyIDSelector *metav1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
+	L7PolicyIDSelector *xpv1.Selector `json:"l7policyIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create an L7 rule. If omitted, the

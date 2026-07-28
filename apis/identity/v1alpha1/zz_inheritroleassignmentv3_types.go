@@ -42,7 +42,7 @@ type InheritRoleAssignmentV3InitParameters struct {
 
 	// Selector for a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDSelector *metav1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
+	RoleIDSelector *xpv1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
 
 	// The user to assign the role to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1.UserV3
@@ -55,7 +55,7 @@ type InheritRoleAssignmentV3InitParameters struct {
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *xpv1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type InheritRoleAssignmentV3Observation struct {
@@ -117,7 +117,7 @@ type InheritRoleAssignmentV3Parameters struct {
 
 	// Selector for a RoleV3 in identity to populate roleId.
 	// +kubebuilder:validation:Optional
-	RoleIDSelector *metav1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
+	RoleIDSelector *xpv1.Selector `json:"roleIdSelector,omitempty" tf:"-"`
 
 	// The user to assign the role to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-openstack/apis/identity/v1alpha1.UserV3
@@ -131,7 +131,7 @@ type InheritRoleAssignmentV3Parameters struct {
 
 	// Selector for a UserV3 in identity to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *metav1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *xpv1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // InheritRoleAssignmentV3Spec defines the desired state of InheritRoleAssignmentV3

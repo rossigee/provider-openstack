@@ -6,10 +6,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
+import "github.com/crossplane/crossplane-runtime/pkg/resource"
 
 // GetItems of this ClusterV1List.
-func (l *ClusterV1List) GetItems() []*ClusterV1 {
-	items := make([]*ClusterV1, len(l.Items))
+func (l *ClusterV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -17,8 +18,8 @@ func (l *ClusterV1List) GetItems() []*ClusterV1 {
 }
 
 // GetItems of this ClustertemplateV1List.
-func (l *ClustertemplateV1List) GetItems() []*ClustertemplateV1 {
-	items := make([]*ClustertemplateV1, len(l.Items))
+func (l *ClustertemplateV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -26,8 +27,8 @@ func (l *ClustertemplateV1List) GetItems() []*ClustertemplateV1 {
 }
 
 // GetItems of this NodegroupV1List.
-func (l *NodegroupV1List) GetItems() []*NodegroupV1 {
-	items := make([]*NodegroupV1, len(l.Items))
+func (l *NodegroupV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}

@@ -39,7 +39,7 @@ type QuotaV2InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Quota value for RBAC policies.
 	// Changing this updates the existing quota.
@@ -150,7 +150,7 @@ type QuotaV2Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// Quota value for RBAC policies.
 	// Changing this updates the existing quota.

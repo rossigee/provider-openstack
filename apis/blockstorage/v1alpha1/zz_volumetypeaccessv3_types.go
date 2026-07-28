@@ -28,7 +28,7 @@ type VolumeTypeAccessV3InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this
@@ -47,7 +47,7 @@ type VolumeTypeAccessV3InitParameters struct {
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *xpv1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 type VolumeTypeAccessV3Observation struct {
@@ -82,7 +82,7 @@ type VolumeTypeAccessV3Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *metav1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *xpv1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the volume. If
 	// omitted, the region argument of the provider is used. Changing this
@@ -103,7 +103,7 @@ type VolumeTypeAccessV3Parameters struct {
 
 	// Selector for a VolumeTypeV3 in blockstorage to populate volumeTypeId.
 	// +kubebuilder:validation:Optional
-	VolumeTypeIDSelector *metav1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
+	VolumeTypeIDSelector *xpv1.Selector `json:"volumeTypeIdSelector,omitempty" tf:"-"`
 }
 
 // VolumeTypeAccessV3Spec defines the desired state of VolumeTypeAccessV3

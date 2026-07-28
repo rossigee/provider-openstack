@@ -203,12 +203,10 @@ type Managed interface { //nolint:interfacebloat // This interface has to be big
 }
 
 // ManagedList is a list of managed resources.
-// GetItems returns []any for compatibility with generated list types
-// that return []*TypeName (which satisfies []any).
 type ManagedList interface {
 	client.ObjectList
 
-	GetItems() []any
+	GetItems() []Managed
 }
 
 // A ProviderConfig configures a Crossplane provider.

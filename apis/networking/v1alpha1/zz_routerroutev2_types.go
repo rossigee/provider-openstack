@@ -42,7 +42,7 @@ type RouterRouteV2InitParameters struct {
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *metav1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterIDSelector *xpv1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 }
 
 type RouterRouteV2Observation struct {
@@ -100,7 +100,7 @@ type RouterRouteV2Parameters struct {
 
 	// Selector for a RouterV2 in networking to populate routerId.
 	// +kubebuilder:validation:Optional
-	RouterIDSelector *metav1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
+	RouterIDSelector *xpv1.Selector `json:"routerIdSelector,omitempty" tf:"-"`
 }
 
 // RouterRouteV2Spec defines the desired state of RouterRouteV2

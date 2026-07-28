@@ -28,7 +28,7 @@ type EndpointV3InitParameters struct {
 
 	// Selector for a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionSelector *metav1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
+	EndpointRegionSelector *xpv1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
 
 	// The endpoint interface. Valid values are public,
 	// internal and admin. Default value is public
@@ -52,7 +52,7 @@ type EndpointV3InitParameters struct {
 
 	// Selector for a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDSelector *metav1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
+	ServiceIDSelector *xpv1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
 
 	// The endpoint url.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -105,7 +105,7 @@ type EndpointV3Parameters struct {
 
 	// Selector for a ServiceV3 in identity to populate endpointRegion.
 	// +kubebuilder:validation:Optional
-	EndpointRegionSelector *metav1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
+	EndpointRegionSelector *xpv1.Selector `json:"endpointRegionSelector,omitempty" tf:"-"`
 
 	// The endpoint interface. Valid values are public,
 	// internal and admin. Default value is public
@@ -133,7 +133,7 @@ type EndpointV3Parameters struct {
 
 	// Selector for a ServiceV3 in identity to populate serviceId.
 	// +kubebuilder:validation:Optional
-	ServiceIDSelector *metav1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
+	ServiceIDSelector *xpv1.Selector `json:"serviceIdSelector,omitempty" tf:"-"`
 
 	// The endpoint url.
 	// +kubebuilder:validation:Optional

@@ -27,7 +27,7 @@ type TempurlV1InitParameters struct {
 
 	// Selector for a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerSelector *metav1.Selector `json:"containerSelector,omitempty" tf:"-"`
+	ContainerSelector *xpv1.Selector `json:"containerSelector,omitempty" tf:"-"`
 
 	// The digest to use when generating the tempurl.
 	// Supported values are sha1, sha256 and sha512. Default is sha1.
@@ -52,7 +52,7 @@ type TempurlV1InitParameters struct {
 
 	// Selector for a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectSelector *metav1.Selector `json:"objectSelector,omitempty" tf:"-"`
+	ObjectSelector *xpv1.Selector `json:"objectSelector,omitempty" tf:"-"`
 
 	// Whether to automatically regenerate the URL when
 	// it has expired. If set to true, this will create a new resource with a new
@@ -121,7 +121,7 @@ type TempurlV1Parameters struct {
 
 	// Selector for a ContainerV1 in objectstorage to populate container.
 	// +kubebuilder:validation:Optional
-	ContainerSelector *metav1.Selector `json:"containerSelector,omitempty" tf:"-"`
+	ContainerSelector *xpv1.Selector `json:"containerSelector,omitempty" tf:"-"`
 
 	// The digest to use when generating the tempurl.
 	// Supported values are sha1, sha256 and sha512. Default is sha1.
@@ -150,7 +150,7 @@ type TempurlV1Parameters struct {
 
 	// Selector for a ObjectV1 in objectstorage to populate object.
 	// +kubebuilder:validation:Optional
-	ObjectSelector *metav1.Selector `json:"objectSelector,omitempty" tf:"-"`
+	ObjectSelector *xpv1.Selector `json:"objectSelector,omitempty" tf:"-"`
 
 	// Whether to automatically regenerate the URL when
 	// it has expired. If set to true, this will create a new resource with a new

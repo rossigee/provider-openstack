@@ -39,7 +39,7 @@ type L7PolicyV2InitParameters struct {
 
 	// Selector for a ListenerV2 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *metav1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
+	ListenerIDSelector *xpv1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
 
 	// Human-readable name for the L7 Policy. Does not have
 	// to be unique.
@@ -66,7 +66,7 @@ type L7PolicyV2InitParameters struct {
 
 	// Selector for a PoolV2 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDSelector *metav1.Selector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
+	RedirectPoolIDSelector *xpv1.Selector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
 
 	// Requests matching this policy will be redirected to
 	// this Prefix URL. Only valid if action is REDIRECT_PREFIX.
@@ -174,7 +174,7 @@ type L7PolicyV2Parameters struct {
 
 	// Selector for a ListenerV2 in lb to populate listenerId.
 	// +kubebuilder:validation:Optional
-	ListenerIDSelector *metav1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
+	ListenerIDSelector *xpv1.Selector `json:"listenerIdSelector,omitempty" tf:"-"`
 
 	// Human-readable name for the L7 Policy. Does not have
 	// to be unique.
@@ -205,7 +205,7 @@ type L7PolicyV2Parameters struct {
 
 	// Selector for a PoolV2 in lb to populate redirectPoolId.
 	// +kubebuilder:validation:Optional
-	RedirectPoolIDSelector *metav1.Selector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
+	RedirectPoolIDSelector *xpv1.Selector `json:"redirectPoolIdSelector,omitempty" tf:"-"`
 
 	// Requests matching this policy will be redirected to
 	// this Prefix URL. Only valid if action is REDIRECT_PREFIX.

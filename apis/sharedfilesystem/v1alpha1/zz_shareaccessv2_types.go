@@ -44,7 +44,7 @@ type ShareAccessV2InitParameters struct {
 
 	// Selector for a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDSelector *metav1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
+	ShareIDSelector *xpv1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 }
 
 type ShareAccessV2Observation struct {
@@ -111,7 +111,7 @@ type ShareAccessV2Parameters struct {
 
 	// Selector for a ShareV2 in sharedfilesystem to populate shareId.
 	// +kubebuilder:validation:Optional
-	ShareIDSelector *metav1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
+	ShareIDSelector *xpv1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 }
 
 // ShareAccessV2Spec defines the desired state of ShareAccessV2

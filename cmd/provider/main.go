@@ -3,42 +3,44 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/rossigee/provider-openstack/apis"
-	"github.com/rossigee/provider-openstack/apis/v1alpha1"
-	"github.com/rossigee/provider-openstack/config"
-	"github.com/rossigee/provider-openstack/internal/apis"
-	"github.com/rossigee/provider-openstack/internal/clients"
-	"github.com/rossigee/provider-openstack/internal/controller"
-	"github.com/rossigee/provider-openstack/internal/features"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/certificates"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/logging"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
-	"github.com/crossplane/upjet/pkg/controller"
-	"github.com/crossplane/upjet/pkg/controller/conversion"
-	"github.com/rossigee/provider-openstack/internal/tracing"
-	"github.com/rossigee/provider-openstack/internal/version"
-	"gopkg.in/alecthomas/kingpin.v2"
 	"io"
-	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	"log"
 	"os"
 	"path/filepath"
 	"runtime"
-	"sigs.k8s.io/controller-runtime"
+	"time"
+
+	"github.com/rossigee/provider-openstack/apis"
+	apisv1alpha1 "github.com/rossigee/provider-openstack/apis/v1alpha1"
+	"github.com/rossigee/provider-openstack/config"
+	resolverapis "github.com/rossigee/provider-openstack/internal/apis"
+	"github.com/rossigee/provider-openstack/internal/clients"
+	internalcontroller "github.com/rossigee/provider-openstack/internal/controller"
+	"github.com/rossigee/provider-openstack/internal/features"
+	"github.com/rossigee/provider-openstack/internal/version"
+
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/pkg/controller"
+	"github.com/crossplane/crossplane-runtime/pkg/feature"
+	"github.com/crossplane/crossplane-runtime/pkg/logging"
+	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
+	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
+	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/certificates"
+	tjcontroller "github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/pkg/controller/conversion"
+
+		kerrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/tools/leaderelection/resourcelock"
+	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
-	"time"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 const (
@@ -168,13 +170,13 @@ func main() {
 	provider, err := config.GetProvider(ctx, false)
 	kingpin.FatalIfError(err, "Cannot initialize the provider configuration")
 	o := tjcontroller.Options{
-		Options: xpcontroller.Options{
+		Options: controller.Options{
 			Logger:                  logr,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                &feature.Flags{},
-			MetricOptions: &xpcontroller.MetricOptions{
+			MetricOptions: &controller.MetricOptions{
 				PollStateMetricInterval: *pollStateMetricInterval,
 				MRMetrics:               metricRecorder,
 				MRStateMetrics:          stateMetrics,
@@ -193,7 +195,7 @@ func main() {
 	}
 
 	if *enableExternalSecretStores {
-		o.SecretStoreConfigGVK = &v1alpha1.StoreConfigGroupVersionKind
+		o.SecretStoreConfigGVK = &apisv1alpha1.StoreConfigGroupVersionKind
 		logr.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
 
 		o.ESSOptions = &tjcontroller.ESSOptions{}
@@ -206,11 +208,11 @@ func main() {
 		}
 
 		// Ensure default store config exists.
-		kingpin.FatalIfError(resource.Ignore(kerrors.IsAlreadyExists, mgr.GetClient().Create(ctx, &v1alpha1.StoreConfig{
+		kingpin.FatalIfError(resource.Ignore(kerrors.IsAlreadyExists, mgr.GetClient().Create(ctx, &apisv1alpha1.StoreConfig{
 			ObjectMeta: metav1.ObjectMeta{
 				Name: "default",
 			},
-			Spec: v1alpha1.StoreConfigSpec{
+			Spec: apisv1alpha1.StoreConfigSpec{
 				// NOTE(turkenh): We only set required spec and expect optional
 				// ones to properly be initialized with CRD level default values.
 				SecretStoreConfig: xpv1.SecretStoreConfig{
@@ -221,7 +223,7 @@ func main() {
 	}
 
 	kingpin.FatalIfError(conversion.RegisterConversions(o.Provider, mgr.GetScheme()), "Cannot initialize the webhook conversion registry")
-	kingpin.FatalIfError(controller.Setup(mgr, o), "Cannot setup Azuread controllers")
+	kingpin.FatalIfError(internalcontroller.Setup(mgr, o), "Cannot setup Azuread controllers")
 
 	kingpin.FatalIfError(mgr.AddHealthzCheck("healthz", healthz.Ping), "Cannot add health check")
 	kingpin.FatalIfError(mgr.AddReadyzCheck("readyz", healthz.Ping), "Cannot add ready check")

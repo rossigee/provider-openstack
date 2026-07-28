@@ -61,7 +61,7 @@ type VolumeAttachV3InitParameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *xpv1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 
 	// A wwnn name. Used for Fibre Channel connections.
 	Wwnn *string `json:"wwnn,omitempty" tf:"wwnn,omitempty"`
@@ -183,7 +183,7 @@ type VolumeAttachV3Parameters struct {
 
 	// Selector for a VolumeV3 in blockstorage to populate volumeId.
 	// +kubebuilder:validation:Optional
-	VolumeIDSelector *metav1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
+	VolumeIDSelector *xpv1.Selector `json:"volumeIdSelector,omitempty" tf:"-"`
 
 	// A wwnn name. Used for Fibre Channel connections.
 	// +kubebuilder:validation:Optional

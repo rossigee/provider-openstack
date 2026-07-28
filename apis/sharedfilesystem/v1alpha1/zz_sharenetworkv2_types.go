@@ -37,7 +37,7 @@ type SharenetworkV2InitParameters struct {
 
 	// Selector for a NetworkV2 in networking to populate neutronNetId.
 	// +kubebuilder:validation:Optional
-	NeutronNetIDSelector *metav1.Selector `json:"neutronNetIdSelector,omitempty" tf:"-"`
+	NeutronNetIDSelector *xpv1.Selector `json:"neutronNetIdSelector,omitempty" tf:"-"`
 
 	// The UUID of the neutron subnet when setting up or
 	// updating a share network. Changing this updates the existing share network if it's
@@ -52,7 +52,7 @@ type SharenetworkV2InitParameters struct {
 
 	// Selector for a SubnetV2 in networking to populate neutronSubnetId.
 	// +kubebuilder:validation:Optional
-	NeutronSubnetIDSelector *metav1.Selector `json:"neutronSubnetIdSelector,omitempty" tf:"-"`
+	NeutronSubnetIDSelector *xpv1.Selector `json:"neutronSubnetIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Shared File System client.
 	// A Shared File System client is needed to create a share network. If omitted, the
@@ -73,7 +73,7 @@ type SharenetworkV2InitParameters struct {
 
 	// Selector for a list of SecurityserviceV2 in sharedfilesystem to populate securityServiceIds.
 	// +kubebuilder:validation:Optional
-	SecurityServiceIdsSelector *metav1.Selector `json:"securityServiceIdsSelector,omitempty" tf:"-"`
+	SecurityServiceIdsSelector *xpv1.Selector `json:"securityServiceIdsSelector,omitempty" tf:"-"`
 }
 
 type SharenetworkV2Observation struct {
@@ -152,7 +152,7 @@ type SharenetworkV2Parameters struct {
 
 	// Selector for a NetworkV2 in networking to populate neutronNetId.
 	// +kubebuilder:validation:Optional
-	NeutronNetIDSelector *metav1.Selector `json:"neutronNetIdSelector,omitempty" tf:"-"`
+	NeutronNetIDSelector *xpv1.Selector `json:"neutronNetIdSelector,omitempty" tf:"-"`
 
 	// The UUID of the neutron subnet when setting up or
 	// updating a share network. Changing this updates the existing share network if it's
@@ -168,7 +168,7 @@ type SharenetworkV2Parameters struct {
 
 	// Selector for a SubnetV2 in networking to populate neutronSubnetId.
 	// +kubebuilder:validation:Optional
-	NeutronSubnetIDSelector *metav1.Selector `json:"neutronSubnetIdSelector,omitempty" tf:"-"`
+	NeutronSubnetIDSelector *xpv1.Selector `json:"neutronSubnetIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Shared File System client.
 	// A Shared File System client is needed to create a share network. If omitted, the
@@ -191,7 +191,7 @@ type SharenetworkV2Parameters struct {
 
 	// Selector for a list of SecurityserviceV2 in sharedfilesystem to populate securityServiceIds.
 	// +kubebuilder:validation:Optional
-	SecurityServiceIdsSelector *metav1.Selector `json:"securityServiceIdsSelector,omitempty" tf:"-"`
+	SecurityServiceIdsSelector *xpv1.Selector `json:"securityServiceIdsSelector,omitempty" tf:"-"`
 }
 
 // SharenetworkV2Spec defines the desired state of SharenetworkV2

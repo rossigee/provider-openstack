@@ -51,7 +51,7 @@ type TransferRequestV2InitParameters struct {
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *xpv1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 type TransferRequestV2Observation struct {
@@ -130,7 +130,7 @@ type TransferRequestV2Parameters struct {
 
 	// Selector for a ZoneV2 in dns to populate zoneId.
 	// +kubebuilder:validation:Optional
-	ZoneIDSelector *metav1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
+	ZoneIDSelector *xpv1.Selector `json:"zoneIdSelector,omitempty" tf:"-"`
 }
 
 // TransferRequestV2Spec defines the desired state of TransferRequestV2

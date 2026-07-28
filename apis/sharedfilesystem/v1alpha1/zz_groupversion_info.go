@@ -36,6 +36,7 @@ var (
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
 			&ShareAccessV2{},
+			&ShareAccessV2List{},
 		&ShareV2List{},
 		&ShareV2{},
 		&SharenetworkV2List{},

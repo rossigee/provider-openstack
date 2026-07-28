@@ -11,17 +11,18 @@ import (
 	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	"github.com/rossigee/provider-openstack/internal/features"
 	"github.com/crossplane/crossplane-runtime/pkg/connection"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/feature"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
-	"github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/crossplane-runtime/pkg/event"
+	xpfeature "github.com/crossplane/crossplane-runtime/pkg/feature"
+	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
+	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
+	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
+	tjcontroller "github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/handler"
 	"github.com/crossplane/upjet/pkg/metrics"
 	"github.com/pkg/errors"
-	"sigs.k8s.io/controller-runtime"
+	record "k8s.io/client-go/tools/record"
+	ctrl "sigs.k8s.io/controller-runtime"
 	"time"
 )
 
@@ -44,7 +45,7 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 				tjcontroller.WithTerraformPluginSDKAsyncMetricRecorder(metrics.NewMetricRecorder(v1alpha1.SubnetV2_GroupVersionKind, mgr, o.PollInterval)),
 				tjcontroller.WithTerraformPluginSDKAsyncManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
-		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorder(name))),
+		managed.WithRecorder(event.NewAPIRecorder(mgr.(interface{ GetEventRecorderFor(string) record.EventRecorder }).GetEventRecorderFor(name))),
 		managed.WithFinalizer(tjcontroller.NewOperationTrackerFinalizer(o.OperationTrackerStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),
 		managed.WithTimeout(3 * time.Minute),
 		managed.WithInitializers(initializers),
@@ -64,8 +65,7 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	// register webhooks for the kind v1alpha1.SubnetV2
 	// if they're enabled.
 	if o.StartWebhooks {
-		if err := ctrl.NewWebhookManagedBy(mgr).
-			For(&v1alpha1.SubnetV2{}).
+		if err := ctrl.NewWebhookManagedBy(mgr, &v1alpha1.SubnetV2{}).
 			Complete(); err != nil {
 			return errors.Wrap(err, "cannot register webhook for the kind v1alpha1.SubnetV2")
 		}

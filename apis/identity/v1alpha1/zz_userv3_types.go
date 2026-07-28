@@ -49,7 +49,7 @@ type UserV3InitParameters struct {
 
 	// Selector for a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDSelector *metav1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
+	DefaultProjectIDSelector *xpv1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
 
 	// A description of the user.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -165,7 +165,7 @@ type UserV3Parameters struct {
 
 	// Selector for a ProjectV3 in identity to populate defaultProjectId.
 	// +kubebuilder:validation:Optional
-	DefaultProjectIDSelector *metav1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
+	DefaultProjectIDSelector *xpv1.Selector `json:"defaultProjectIdSelector,omitempty" tf:"-"`
 
 	// A description of the user.
 	// +kubebuilder:validation:Optional

@@ -56,7 +56,7 @@ type PolicyV2InitParameters struct {
 
 	// Selector for a list of RuleV2 in fw to populate rules.
 	// +kubebuilder:validation:Optional
-	RulesSelector *metav1.Selector `json:"rulesSelector,omitempty" tf:"-"`
+	RulesSelector *xpv1.Selector `json:"rulesSelector,omitempty" tf:"-"`
 
 	// Sharing status of the firewall policy (must be "true"
 	// or "false" if provided). If this is "true" the policy is visible to, and
@@ -170,7 +170,7 @@ type PolicyV2Parameters struct {
 
 	// Selector for a list of RuleV2 in fw to populate rules.
 	// +kubebuilder:validation:Optional
-	RulesSelector *metav1.Selector `json:"rulesSelector,omitempty" tf:"-"`
+	RulesSelector *xpv1.Selector `json:"rulesSelector,omitempty" tf:"-"`
 
 	// Sharing status of the firewall policy (must be "true"
 	// or "false" if provided). If this is "true" the policy is visible to, and

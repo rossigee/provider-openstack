@@ -32,7 +32,7 @@ type FloatingipAssociateV2InitParameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a floating IP that can be used with
@@ -84,7 +84,7 @@ type FloatingipAssociateV2Parameters struct {
 
 	// Selector for a PortV2 in networking to populate portId.
 	// +kubebuilder:validation:Optional
-	PortIDSelector *metav1.Selector `json:"portIdSelector,omitempty" tf:"-"`
+	PortIDSelector *xpv1.Selector `json:"portIdSelector,omitempty" tf:"-"`
 
 	// The region in which to obtain the V2 Networking client.
 	// A Networking client is needed to create a floating IP that can be used with

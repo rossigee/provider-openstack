@@ -68,7 +68,7 @@ type ShareV2InitParameters struct {
 
 	// Selector for a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDSelector *metav1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
+	ShareNetworkIDSelector *xpv1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
 
 	// The share protocol - can either be NFS, CIFS,
 	// CEPHFS, GLUSTERFS, HDFS or MAPRFS. Changing this creates a new share.
@@ -214,7 +214,7 @@ type ShareV2Parameters struct {
 
 	// Selector for a SharenetworkV2 in sharedfilesystem to populate shareNetworkId.
 	// +kubebuilder:validation:Optional
-	ShareNetworkIDSelector *metav1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
+	ShareNetworkIDSelector *xpv1.Selector `json:"shareNetworkIdSelector,omitempty" tf:"-"`
 
 	// The share protocol - can either be NFS, CIFS,
 	// CEPHFS, GLUSTERFS, HDFS or MAPRFS. Changing this creates a new share.

@@ -6,10 +6,11 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 
 package v1alpha1
 
+import "github.com/crossplane/crossplane-runtime/pkg/resource"
 
 // GetItems of this ConfigurationV1List.
-func (l *ConfigurationV1List) GetItems() []*ConfigurationV1 {
-	items := make([]*ConfigurationV1, len(l.Items))
+func (l *ConfigurationV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -17,8 +18,8 @@ func (l *ConfigurationV1List) GetItems() []*ConfigurationV1 {
 }
 
 // GetItems of this DatabaseV1List.
-func (l *DatabaseV1List) GetItems() []*DatabaseV1 {
-	items := make([]*DatabaseV1, len(l.Items))
+func (l *DatabaseV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -26,8 +27,8 @@ func (l *DatabaseV1List) GetItems() []*DatabaseV1 {
 }
 
 // GetItems of this InstanceV1List.
-func (l *InstanceV1List) GetItems() []*InstanceV1 {
-	items := make([]*InstanceV1, len(l.Items))
+func (l *InstanceV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
@@ -35,8 +36,8 @@ func (l *InstanceV1List) GetItems() []*InstanceV1 {
 }
 
 // GetItems of this UserV1List.
-func (l *UserV1List) GetItems() []*UserV1 {
-	items := make([]*UserV1, len(l.Items))
+func (l *UserV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
 	}
