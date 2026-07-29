@@ -4,7 +4,6 @@ go 1.26.5
 
 require (
 	dario.cat/mergo v1.0.2
-	github.com/crossplane/crossplane-runtime v1.20.10
 	github.com/crossplane/crossplane-runtime/v2 v2.3.3
 	github.com/crossplane/crossplane-tools v0.0.0-20260719180100-659f1dc036c5
 	github.com/crossplane/upjet v1.11.1
@@ -164,8 +163,6 @@ require (
 	sigs.k8s.io/structured-merge-diff/v6 v6.4.2 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
-
-replace github.com/crossplane/crossplane-runtime => ./hack/crossplane-runtime
 
 replace github.com/crossplane-contrib/provider-openstack => ./
 
