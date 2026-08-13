@@ -24,6 +24,30 @@ A Crossplane provider for managing OpenStack resources.
 - **Storage**: Block and object storage management
 - **Identity**: Keystone authentication and authorization
 
+## Resource Types
+
+This is an [upjet](https://github.com/crossplane/upjet)-generated provider covering the following OpenStack service categories, each with multiple resource kinds:
+
+| Category | API Group prefix | Examples |
+|----------|-------------------|----------|
+| Compute | `compute.openstack.crossplane.io` | InstanceV2, FlavorV2, AggregateV2 |
+| Networking | `networking.openstack.crossplane.io` | Network, Subnet, Port |
+| Firewall (FWaaS) | `fw.openstack.crossplane.io` | Firewall groups, policies, rules |
+| VPN-as-a-Service | `vpnaas.openstack.crossplane.io` | IPSec/IKE policies, VPN services |
+| Load Balancer (Octavia) | `lb.openstack.crossplane.io` | Load balancers, listeners, pools, monitors |
+| Block Storage (Cinder) | `blockstorage.openstack.crossplane.io` | Volumes, volume types, snapshots |
+| Object Storage (Swift) | `objectstorage.openstack.crossplane.io` | Containers |
+| Shared File System (Manila) | `sharedfilesystem.openstack.crossplane.io` | Shares, share networks |
+| Images (Glance) | `images.openstack.crossplane.io` | Images |
+| Identity (Keystone) | `identity.openstack.crossplane.io` | Projects, users, roles |
+| Key Manager (Barbican) | `keymanager.openstack.crossplane.io` | Secrets, containers |
+| DNS (Designate) | `dns.openstack.crossplane.io` | Zones, recordsets |
+| Orchestration (Heat) | `orchestration.openstack.crossplane.io` | Stacks |
+| Database (Trove) | `db.openstack.crossplane.io` | Database instances |
+| Container Infrastructure (Magnum) | `containerinfra.openstack.crossplane.io` | Clusters, cluster templates |
+
+See `apis/` for the full generated CRD list and `examples/` for per-resource usage examples.
+
 ## Getting Started
 
 ### Installation
@@ -129,7 +153,7 @@ spec:
     name: provider-openstack
 ```
 
-## Developing
+## Development
 
 Install the required submodules to build and run:
 
@@ -162,13 +186,17 @@ Build binary:
 make build
 ```
 
-## Release a new version (Maintainer)
+### Release a new version (Maintainer)
 
 - Update Changelog (Add new Version & Date)
 - Create or merge to existing release branch (release-v(major).(minor))
 - Run Release pipeline on release branch, using specific version as parameter
 
-## Report a Bug
+## Contributing
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/crossplane-contrib/provider-openstack/issues).
+
+## License
+
+provider-openstack is under the Apache 2.0 license.
