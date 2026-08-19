@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type RouterInterfaceV2InitParameters struct {
 
@@ -138,7 +137,7 @@ type RouterInterfaceV2Parameters struct {
 // RouterInterfaceV2Spec defines the desired state of RouterInterfaceV2
 type RouterInterfaceV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     RouterInterfaceV2Parameters `json:"forProvider"`
+	ForProvider       RouterInterfaceV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -155,7 +154,7 @@ type RouterInterfaceV2Spec struct {
 // RouterInterfaceV2Status defines the observed state of RouterInterfaceV2.
 type RouterInterfaceV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        RouterInterfaceV2Observation `json:"atProvider,omitempty"`
+	AtProvider          RouterInterfaceV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

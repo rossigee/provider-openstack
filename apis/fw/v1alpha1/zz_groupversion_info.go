@@ -35,8 +35,8 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
-			&GroupV2{},
-			&GroupV2List{},
+		&GroupV2{},
+		&GroupV2List{},
 		&PolicyV2List{},
 		&PolicyV2{},
 		&RuleV2List{},

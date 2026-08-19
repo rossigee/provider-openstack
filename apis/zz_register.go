@@ -9,7 +9,6 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package apis
 
 import (
-	v1alpha1apis "github.com/rossigee/provider-openstack/apis/v1alpha1"
 	v1alpha1blockstorage "github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
 	v1alpha1compute "github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
 	v1alpha1containerinfra "github.com/rossigee/provider-openstack/apis/containerinfra/v1alpha1"
@@ -24,8 +23,9 @@ import (
 	v1alpha1objectstorage "github.com/rossigee/provider-openstack/apis/objectstorage/v1alpha1"
 	v1alpha1orchestration "github.com/rossigee/provider-openstack/apis/orchestration/v1alpha1"
 	v1alpha1sharedfilesystem "github.com/rossigee/provider-openstack/apis/sharedfilesystem/v1alpha1"
-	v1alpha1vpnaas "github.com/rossigee/provider-openstack/apis/vpnaas/v1alpha1"
+	v1alpha1apis "github.com/rossigee/provider-openstack/apis/v1alpha1"
 	"github.com/rossigee/provider-openstack/apis/v1beta1"
+	v1alpha1vpnaas "github.com/rossigee/provider-openstack/apis/vpnaas/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 

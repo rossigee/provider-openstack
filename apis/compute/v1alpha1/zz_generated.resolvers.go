@@ -8,12 +8,12 @@ package v1alpha1
 
 import (
 	"context"
-	v1alpha11 "github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
-	v1alpha1 "github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
-	v1alpha12 "github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	resource "github.com/crossplane/upjet/pkg/resource"
 	errors "github.com/pkg/errors"
+	v1alpha11 "github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
+	v1alpha1 "github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	v1alpha12 "github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 

@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type ImageAccessAcceptV2InitParameters struct {
 
@@ -92,7 +91,7 @@ type ImageAccessAcceptV2Parameters struct {
 // ImageAccessAcceptV2Spec defines the desired state of ImageAccessAcceptV2
 type ImageAccessAcceptV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     ImageAccessAcceptV2Parameters `json:"forProvider"`
+	ForProvider       ImageAccessAcceptV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -109,7 +108,7 @@ type ImageAccessAcceptV2Spec struct {
 // ImageAccessAcceptV2Status defines the observed state of ImageAccessAcceptV2.
 type ImageAccessAcceptV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        ImageAccessAcceptV2Observation `json:"atProvider,omitempty"`
+	AtProvider          ImageAccessAcceptV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

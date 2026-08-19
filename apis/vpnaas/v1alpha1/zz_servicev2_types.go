@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type ServiceV2InitParameters struct {
 
@@ -141,7 +140,7 @@ type ServiceV2Parameters struct {
 // ServiceV2Spec defines the desired state of ServiceV2
 type ServiceV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     ServiceV2Parameters `json:"forProvider"`
+	ForProvider       ServiceV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -158,7 +157,7 @@ type ServiceV2Spec struct {
 // ServiceV2Status defines the observed state of ServiceV2.
 type ServiceV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceV2Observation `json:"atProvider,omitempty"`
+	AtProvider          ServiceV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

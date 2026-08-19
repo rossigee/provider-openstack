@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type VolumeAttachV3InitParameters struct {
 
@@ -198,7 +197,7 @@ type VolumeAttachV3Parameters struct {
 // VolumeAttachV3Spec defines the desired state of VolumeAttachV3
 type VolumeAttachV3Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     VolumeAttachV3Parameters `json:"forProvider"`
+	ForProvider       VolumeAttachV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -215,7 +214,7 @@ type VolumeAttachV3Spec struct {
 // VolumeAttachV3Status defines the observed state of VolumeAttachV3.
 type VolumeAttachV3Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        VolumeAttachV3Observation `json:"atProvider,omitempty"`
+	AtProvider          VolumeAttachV3Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -6,6 +6,7 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package controller
 
 import (
+	"github.com/crossplane/upjet/pkg/controller"
 	"github.com/rossigee/provider-openstack/internal/controller/blockstorage/qosassociationv3"
 	"github.com/rossigee/provider-openstack/internal/controller/blockstorage/qosv3"
 	"github.com/rossigee/provider-openstack/internal/controller/blockstorage/quotasetv3"
@@ -98,7 +99,6 @@ import (
 	"github.com/rossigee/provider-openstack/internal/controller/vpnaas/ipsecpolicyv2"
 	"github.com/rossigee/provider-openstack/internal/controller/vpnaas/servicev2"
 	"github.com/rossigee/provider-openstack/internal/controller/vpnaas/siteconnectionv2"
-	"github.com/crossplane/upjet/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 

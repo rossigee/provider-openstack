@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type MultiFactorAuthRuleInitParameters struct {
 
@@ -230,7 +229,7 @@ type UserV3Parameters struct {
 // UserV3Spec defines the desired state of UserV3
 type UserV3Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     UserV3Parameters `json:"forProvider"`
+	ForProvider       UserV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -247,7 +246,7 @@ type UserV3Spec struct {
 // UserV3Status defines the observed state of UserV3.
 type UserV3Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        UserV3Observation `json:"atProvider,omitempty"`
+	AtProvider          UserV3Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

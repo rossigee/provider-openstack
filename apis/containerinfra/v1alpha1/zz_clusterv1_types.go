@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type ClusterV1InitParameters struct {
 	ClusterTemplateID *string `json:"clusterTemplateId,omitempty" tf:"cluster_template_id,omitempty"`
@@ -251,7 +250,7 @@ type ClusterV1Parameters struct {
 // ClusterV1Spec defines the desired state of ClusterV1
 type ClusterV1Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     ClusterV1Parameters `json:"forProvider"`
+	ForProvider       ClusterV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -268,7 +267,7 @@ type ClusterV1Spec struct {
 // ClusterV1Status defines the observed state of ClusterV1.
 type ClusterV1Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        ClusterV1Observation `json:"atProvider,omitempty"`
+	AtProvider          ClusterV1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

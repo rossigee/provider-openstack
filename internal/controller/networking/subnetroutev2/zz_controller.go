@@ -8,8 +8,6 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package subnetroutev2
 
 import (
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
-	"github.com/rossigee/provider-openstack/internal/features"
 	"github.com/crossplane/crossplane-runtime/pkg/connection"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	xpfeature "github.com/crossplane/crossplane-runtime/pkg/feature"
@@ -21,6 +19,8 @@ import (
 	"github.com/crossplane/upjet/pkg/controller/handler"
 	"github.com/crossplane/upjet/pkg/metrics"
 	"github.com/pkg/errors"
+	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	"github.com/rossigee/provider-openstack/internal/features"
 	record "k8s.io/client-go/tools/record"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"time"
@@ -45,7 +45,9 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 				tjcontroller.WithTerraformPluginSDKAsyncMetricRecorder(metrics.NewMetricRecorder(v1alpha1.SubnetRouteV2_GroupVersionKind, mgr, o.PollInterval)),
 				tjcontroller.WithTerraformPluginSDKAsyncManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
-		managed.WithRecorder(event.NewAPIRecorder(mgr.(interface{ GetEventRecorderFor(string) record.EventRecorder }).GetEventRecorderFor(name))),
+		managed.WithRecorder(event.NewAPIRecorder(mgr.(interface {
+			GetEventRecorderFor(string) record.EventRecorder
+		}).GetEventRecorderFor(name))),
 		managed.WithFinalizer(tjcontroller.NewOperationTrackerFinalizer(o.OperationTrackerStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),
 		managed.WithTimeout(3 * time.Minute),
 		managed.WithInitializers(initializers),

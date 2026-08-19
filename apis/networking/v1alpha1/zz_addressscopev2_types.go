@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type AddressscopeV2InitParameters struct {
 
@@ -104,7 +103,7 @@ type AddressscopeV2Parameters struct {
 // AddressscopeV2Spec defines the desired state of AddressscopeV2
 type AddressscopeV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     AddressscopeV2Parameters `json:"forProvider"`
+	ForProvider       AddressscopeV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -121,7 +120,7 @@ type AddressscopeV2Spec struct {
 // AddressscopeV2Status defines the observed state of AddressscopeV2.
 type AddressscopeV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        AddressscopeV2Observation `json:"atProvider,omitempty"`
+	AtProvider          AddressscopeV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

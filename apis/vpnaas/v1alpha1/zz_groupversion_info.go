@@ -35,8 +35,8 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
-			&SiteConnectionV2{},
-			&SiteConnectionV2List{},
+		&SiteConnectionV2{},
+		&SiteConnectionV2List{},
 		&IkePolicyV2List{},
 		&IkePolicyV2{},
 		&IpsecPolicyV2List{},

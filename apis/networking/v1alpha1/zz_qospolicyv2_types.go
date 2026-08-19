@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type QosPolicyV2InitParameters struct {
 
@@ -158,7 +157,7 @@ type QosPolicyV2Parameters struct {
 // QosPolicyV2Spec defines the desired state of QosPolicyV2
 type QosPolicyV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     QosPolicyV2Parameters `json:"forProvider"`
+	ForProvider       QosPolicyV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -175,7 +174,7 @@ type QosPolicyV2Spec struct {
 // QosPolicyV2Status defines the observed state of QosPolicyV2.
 type QosPolicyV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        QosPolicyV2Observation `json:"atProvider,omitempty"`
+	AtProvider          QosPolicyV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type TempurlV1InitParameters struct {
 
@@ -176,7 +175,7 @@ type TempurlV1Parameters struct {
 // TempurlV1Spec defines the desired state of TempurlV1
 type TempurlV1Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     TempurlV1Parameters `json:"forProvider"`
+	ForProvider       TempurlV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -193,7 +192,7 @@ type TempurlV1Spec struct {
 // TempurlV1Status defines the observed state of TempurlV1.
 type TempurlV1Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        TempurlV1Observation `json:"atProvider,omitempty"`
+	AtProvider          TempurlV1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

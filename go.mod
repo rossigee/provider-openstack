@@ -1,6 +1,6 @@
 module github.com/rossigee/provider-openstack
 
-go 1.26.5
+go 1.26.6
 
 require (
 	dario.cat/mergo v1.0.2

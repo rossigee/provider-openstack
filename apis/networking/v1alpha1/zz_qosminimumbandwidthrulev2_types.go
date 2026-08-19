@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type QosMinimumBandwidthRuleV2InitParameters struct {
 
@@ -100,7 +99,7 @@ type QosMinimumBandwidthRuleV2Parameters struct {
 // QosMinimumBandwidthRuleV2Spec defines the desired state of QosMinimumBandwidthRuleV2
 type QosMinimumBandwidthRuleV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     QosMinimumBandwidthRuleV2Parameters `json:"forProvider"`
+	ForProvider       QosMinimumBandwidthRuleV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -117,7 +116,7 @@ type QosMinimumBandwidthRuleV2Spec struct {
 // QosMinimumBandwidthRuleV2Status defines the observed state of QosMinimumBandwidthRuleV2.
 type QosMinimumBandwidthRuleV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        QosMinimumBandwidthRuleV2Observation `json:"atProvider,omitempty"`
+	AtProvider          QosMinimumBandwidthRuleV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

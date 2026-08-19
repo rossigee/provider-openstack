@@ -31,7 +31,8 @@ import (
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/conversion"
 
-		kerrors "k8s.io/apimachinery/pkg/api/errors"
+	"gopkg.in/alecthomas/kingpin.v2"
+	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -40,7 +41,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
-	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 const (

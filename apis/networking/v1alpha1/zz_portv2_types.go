@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type AllowedAddressPairsInitParameters struct {
 
@@ -571,7 +570,7 @@ type PortV2Parameters struct {
 // PortV2Spec defines the desired state of PortV2
 type PortV2Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     PortV2Parameters `json:"forProvider"`
+	ForProvider       PortV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -588,7 +587,7 @@ type PortV2Spec struct {
 // PortV2Status defines the observed state of PortV2.
 type PortV2Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        PortV2Observation `json:"atProvider,omitempty"`
+	AtProvider          PortV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

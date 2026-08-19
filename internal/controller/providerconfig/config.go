@@ -5,12 +5,12 @@ Copyright 2021 Upbound Inc.
 package providerconfig
 
 import (
-	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	v1event "github.com/crossplane/crossplane-runtime/pkg/event"
 	v1logging "github.com/crossplane/crossplane-runtime/pkg/logging"
 	v1providerconfig "github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
 	v1resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
+	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 

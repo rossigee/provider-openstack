@@ -8,11 +8,10 @@ Copyright 2023 Jakob Schlagenhaufer, Jan Dittrich
 package v1alpha1
 
 import (
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
-
 
 type InheritRoleAssignmentV3InitParameters struct {
 
@@ -137,7 +136,7 @@ type InheritRoleAssignmentV3Parameters struct {
 // InheritRoleAssignmentV3Spec defines the desired state of InheritRoleAssignmentV3
 type InheritRoleAssignmentV3Spec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider     InheritRoleAssignmentV3Parameters `json:"forProvider"`
+	ForProvider       InheritRoleAssignmentV3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -154,7 +153,7 @@ type InheritRoleAssignmentV3Spec struct {
 // InheritRoleAssignmentV3Status defines the observed state of InheritRoleAssignmentV3.
 type InheritRoleAssignmentV3Status struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider        InheritRoleAssignmentV3Observation `json:"atProvider,omitempty"`
+	AtProvider          InheritRoleAssignmentV3Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

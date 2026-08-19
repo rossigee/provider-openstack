@@ -38,8 +38,8 @@ var (
 	SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
 	AddToScheme        = SchemeBuilder.AddToScheme
 
-	ProviderConfigGroupKind             = schema.GroupKind{Group: Group, Kind: reflect.TypeOf(ProviderConfig{}).Name()}
-	ProviderConfigGroupVersionKind      = schema.GroupVersionKind{
+	ProviderConfigGroupKind        = schema.GroupKind{Group: Group, Kind: reflect.TypeOf(ProviderConfig{}).Name()}
+	ProviderConfigGroupVersionKind = schema.GroupVersionKind{
 		Group:   Group,
 		Version: Version,
 		Kind:    reflect.TypeOf(ProviderConfig{}).Name(),
@@ -63,6 +63,6 @@ func addKnownTypes(s *runtime.Scheme) error {
 		&ProviderConfigUsage{},
 		&ProviderConfigUsageList{},
 	)
-		metav1.AddToGroupVersion(s, SchemeGroupVersion)
+	metav1.AddToGroupVersion(s, SchemeGroupVersion)
 	return nil
 }

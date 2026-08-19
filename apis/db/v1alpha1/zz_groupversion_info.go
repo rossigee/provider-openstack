@@ -35,12 +35,12 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
-			&DatabaseV1{},
-			&DatabaseV1List{},
-			&ConfigurationV1{},
-			&ConfigurationV1List{},
-			&UserV1{},
-			&UserV1List{},
+		&DatabaseV1{},
+		&DatabaseV1List{},
+		&ConfigurationV1{},
+		&ConfigurationV1List{},
+		&UserV1{},
+		&UserV1List{},
 		&InstanceV1List{},
 		&InstanceV1{},
 	)

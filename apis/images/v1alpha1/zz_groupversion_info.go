@@ -35,10 +35,10 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(CRDGroupVersion,
-			&ImageAccessAcceptV2{},
-			&ImageAccessAcceptV2List{},
-			&ImageAccessV2{},
-			&ImageAccessV2List{},
+		&ImageAccessAcceptV2{},
+		&ImageAccessAcceptV2List{},
+		&ImageAccessV2{},
+		&ImageAccessV2List{},
 		&ImageV2List{},
 		&ImageV2{},
 	)

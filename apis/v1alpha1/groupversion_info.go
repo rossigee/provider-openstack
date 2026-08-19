@@ -48,6 +48,6 @@ func addKnownTypes(s *runtime.Scheme) error {
 		&StoreConfig{},
 		&StoreConfigList{},
 	)
-		metav1.AddToGroupVersion(s, SchemeGroupVersion)
+	metav1.AddToGroupVersion(s, SchemeGroupVersion)
 	return nil
 }
