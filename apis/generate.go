@@ -32,9 +32,3 @@
 //go:disabled:generate go run github.com/crossplane/upjet/cmd/resolver -g openstack.crossplane.io -a github.com/upbound/provider-openstack/internal/apis -s
 
 package apis
-
-import (
-	"github.com/crossplane/crossplane-tools/cmd/angryjet"
-	"github.com/crossplane/upjet/cmd/scraper"
-	"sigs.k8s.io/controller-tools/cmd/controller-gen"
-)

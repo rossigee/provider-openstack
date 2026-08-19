@@ -4,14 +4,15 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	ujconfig "github.com/crossplane/upjet/pkg/config"
-	"github.com/crossplane/upjet/pkg/pipeline"
-	"github.com/rossigee/provider-openstack/config"
-	"gopkg.in/alecthomas/kingpin.v2"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	ujconfig "github.com/crossplane/upjet/pkg/config"
+	"github.com/crossplane/upjet/pkg/pipeline"
+	"github.com/rossigee/provider-openstack/config"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 func main() {
