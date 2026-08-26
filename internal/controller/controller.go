@@ -18,12 +18,11 @@ limitations under the License.
 package controller
 
 import (
-	tjcontroller "github.com/crossplane/upjet/pkg/controller"
 	"github.com/rossigee/provider-openstack/internal/controller/providerconfig"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // Setup registers all controllers with the given manager.
-func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
-	return providerconfig.Setup(mgr, o)
+func Setup(mgr ctrl.Manager) error {
+	return providerconfig.Setup(mgr)
 }

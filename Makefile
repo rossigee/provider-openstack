@@ -4,12 +4,6 @@
 PROJECT_NAME := provider-openstack
 PROJECT_REPO := github.com/rossigee/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.5.5
-export TERRAFORM_PROVIDER_SOURCE := terraform-provider-openstack/openstack
-export TERRAFORM_DOCS_PATH := docs/resources
-export TERRAFORM_PROVIDER_REPO := https://github.com/terraform-provider-openstack/terraform-provider-openstack
-export TERRAFORM_PROVIDER_VERSION := 3.2.0
-
 PLATFORMS ?= linux_amd64 linux_arm64
 
 # -include will silently skip missing files, which allows us
@@ -39,7 +33,7 @@ GO_REQUIRED_VERSION ?= 1.27.0
 # Override golangci-lint version for modern Go support
 GOLANGCILINT_VERSION ?= 2.13.1
 
-GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
+GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
 -include build/makelib/golang.mk
@@ -81,17 +75,11 @@ IMAGES = $(PROJECT_NAME)
 # Setup XPKG
 
 # Standardized registry configuration
-# Primary registry: GitHub Container Registry under rossigee
 XPKG_REG_ORGS ?= ghcr.io/rossigee
 XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/rossigee
 
-# Optional registries (can be enabled via environment variables)
-# Harbor publishing has been removed - using only ghcr.io/rossigee
-# To enable Upbound: export ENABLE_UPBOUND_PUBLISH=true make publish XPKG_REG_ORGS=xpkg.upbound.io/crossplane-contrib
 XPKGS = $(PROJECT_NAME)
-#XPKG_DIR = $(OUTPUT_DIR)/package
 XPKG_IGNORE = kustomize/*,crds/kustomization.yaml
-# Set to true to enable the cleanup examples step in the build process
 XPKG_CLEANUP_EXAMPLES_ENABLED = true
 
 -include build/makelib/xpkg.mk
@@ -102,9 +90,9 @@ xpkg.build.provider-openstack: do.build.images
 
 # Ensure publish only happens on release branches
 publish.artifacts:
-	@if ! echo "$(BRANCH_NAME)" | grep -qE "$(subst $(SPACE),|,main|master|release-.*)"; then \ 
-		$(ERR) Publishing is only allowed on branches matching: main|master|release-.* (current: $(BRANCH_NAME)); \ 
-		exit 1; \ 
+	@if ! echo "$(BRANCH_NAME)" | grep -qE "$(subst $(SPACE),|,main|master|release-.*)"; then \
+		$(ERR) Publishing is only allowed on branches matching: main|master|release-.* (current: $(BRANCH_NAME)); \
+		exit 1; \
 	fi
 	$(foreach r,$(XPKG_REG_ORGS), $(foreach x,$(XPKGS),@$(MAKE) xpkg.release.publish.$(r).$(x)))
 	$(foreach r,$(REGISTRY_ORGS), $(foreach i,$(IMAGES),@$(MAKE) img.release.publish.$(r).$(i)))
@@ -127,38 +115,6 @@ fallthrough: submodules
 	@echo Initial setup complete. Running make again . . .
 	@make
 
-# ====================================================================================
-# Setup Terraform for fetching provider schema
-TERRAFORM := $(TOOLS_HOST_DIR)/terraform-$(TERRAFORM_VERSION)
-TERRAFORM_WORKDIR := $(WORK_DIR)/terraform
-TERRAFORM_PROVIDER_SCHEMA := config/schema.json
-
-$(TERRAFORM):
-	@$(INFO) installing terraform $(HOSTOS)-$(HOSTARCH)
-	@mkdir -p $(TOOLS_HOST_DIR)/tmp-terraform
-	@curl -fsSL https://github.com/upbound/terraform/releases/download/v$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(SAFEHOST_PLATFORM).zip -o $(TOOLS_HOST_DIR)/tmp-terraform/terraform.zip
-	@unzip $(TOOLS_HOST_DIR)/tmp-terraform/terraform.zip -d $(TOOLS_HOST_DIR)/tmp-terraform
-	@mv $(TOOLS_HOST_DIR)/tmp-terraform/terraform $(TERRAFORM)
-	@rm -fr $(TOOLS_HOST_DIR)/tmp-terraform
-	@$(OK) installing terraform $(HOSTOS)-$(HOSTARCH)
-
-$(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
-	@$(INFO) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
-	@mkdir -p $(TERRAFORM_WORKDIR)
-	@rm -f ${TERRAFORM_WORKDIR}/.terraform.lock.hcl
-	@echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'","version":"'"$(TERRAFORM_PROVIDER_VERSION)"'"}}],"required_version":"'"$(TERRAFORM_VERSION)"'"}]}' > $(TERRAFORM_WORKDIR)/main.tf.json
-	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1
-	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
-	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
-
-pull-docs:
-	@rm -fR "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))"
-	@git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))"
-	@git -C "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
-
-generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
-
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 # ====================================================================================
 # Targets
 
@@ -233,7 +189,7 @@ crddiff:
 			continue ; \
 		fi ; \
 		echo "Checking $${crd} for breaking API changes..." ; \
-		changes_detected=$$(go run github.com/upbound/uptest/cmd/crddiff@$(CRDDIFF_VERSION) revision --enable-upjet-extensions <(git cat-file -p "$${GITHUB_BASE_REF}:$${crd}") "$${crd}" 2>&1) ; \
+		changes_detected=$$(go run github.com/upbound/uptest/cmd/crddiff@$(CRDDIFF_VERSION) revision <(git cat-file -p "$${GITHUB_BASE_REF}:$${crd}") "$${crd}" 2>&1) ; \
 		if [[ $$? != 0 ]] ; then \
 			printf "\033[31m"; echo "Breaking change detected!"; printf "\033[0m" ; \
 			echo "$${changes_detected}" ; \
@@ -242,16 +198,6 @@ crddiff:
 	done
 	@$(OK) Checking breaking CRD schema changes
 
-schema-version-diff:
-	@$(INFO) Checking for native state schema version changes
-	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*:=[[:space:]]*(.+)/\1/p'); \
-	echo Detected previous Terraform provider version: $${PREV_PROVIDER_VERSION}; \
-	echo Current Terraform provider version: $${TERRAFORM_PROVIDER_VERSION}; \
-	mkdir -p $(WORK_DIR); \
-	git cat-file -p "$${GITHUB_BASE_REF}:config/schema.json" > "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}"; \
-	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
-	@$(OK) Checking for native state schema version changes
-
 go.lint.analysiskey-interval:
 	@# cache is invalidated at least every 7 days
 	@echo -n golangci-lint.cache-$$(( $$(date +%s) / (7 * 86400) ))-
@@ -259,7 +205,7 @@ go.lint.analysiskey-interval:
 go.lint.analysiskey:
 	@echo $$(make go.lint.analysiskey-interval)$$(sha1sum go.sum | cut -d' ' -f1)
 
-.PHONY: cobertura submodules fallthrough run crds.clean uptest e2e crddiff schema-version-diff
+.PHONY: cobertura submodules fallthrough run uptest e2e crddiff
 
 # ====================================================================================
 # Special Targets
