@@ -47,7 +47,7 @@ jobs:
         run: git submodule update --init --depth 1 build
 
       - name: Vendor Dependencies
-        run: go mod vendor
+        run: go mod vendor && bash hack/patch-vendor.sh
 
       - name: Run code generation
         run: make generate

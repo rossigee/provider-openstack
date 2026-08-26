@@ -62,7 +62,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: go mod vendor
+        run: go mod vendor && bash hack/patch-vendor.sh
 
       - name: Lint
         run: make lint
@@ -83,7 +83,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: go mod tidy && go mod vendor
+        run: go mod tidy && go mod vendor && bash hack/patch-vendor.sh
 
       - name: Check Diff
         run: |
@@ -107,7 +107,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: go mod vendor
+        run: go mod vendor && bash hack/patch-vendor.sh
 
       - name: Run Unit Tests
         run: make test
@@ -138,7 +138,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: go mod vendor
+        run: go mod vendor && bash hack/patch-vendor.sh
 
       - name: Run Go Vulnerability Check
         run: |
@@ -202,7 +202,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Vendor Dependencies
-        run: go mod vendor
+        run: go mod vendor && bash hack/patch-vendor.sh
 
       - name: Validate Build Process
         run: |

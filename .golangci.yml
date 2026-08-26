@@ -2,8 +2,9 @@ version: "2"
 
 run:
   timeout: 5m
-  skip-dirs:
+  exclude-dirs:
     - apis
+    - vendor
 
 linters:
   enable:
@@ -35,4 +36,12 @@ issues:
     rules:
       - path: "apis/.*"
         text: "does not implement.*runtime\\.Object"
+        source: typecheck
+      - path: "vendor/.*"
+        source: typecheck
+      - text: "wrapperStatusClient"
+        source: typecheck
+      - text: "could not import.*upjet"
+        source: typecheck
+      - text: "could not import.*crossplane-runtime"
         source: typecheck
