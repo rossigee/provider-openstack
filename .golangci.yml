@@ -35,5 +35,4 @@ issues:
     rules:
       - path: "apis/.*"
         text: "does not implement.*runtime\\.Object"
-        linters:
-          - typecheck
+        source: typecheck
