@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+//nolint:all
+
 // Package v1alpha1 contains the v1alpha1 group openstack.crossplane.io resources of the provider.
 // +kubebuilder:object:generate=true
 // +groupName=openstack.crossplane.io
