@@ -87,7 +87,7 @@ jobs:
 
       - name: Check Diff
         run: |
-          UNEXPECTED=$(git diff --name-only | grep -v -E '^vendor/' | grep -v -E '^go\.mod|^go\.sum')
+          UNEXPECTED=$(git diff --name-only | grep -v -E '^vendor/' | grep -v -E '^go\.mod|^go\.sum' || true)
           if [ -n "$UNEXPECTED" ]; then echo "Unexpected changes: $UNEXPECTED" && exit 1; fi
 
   unit-tests:
