@@ -2,6 +2,8 @@ version: "2"
 
 run:
   timeout: 5m
+  skip-dirs:
+    - apis
 
 linters:
   enable:
@@ -10,6 +12,10 @@ linters:
     - misspell
     - unconvert
     - unused
+  exclusions:
+    paths:
+      - apis/v1alpha1/groupversion_info.go
+      - apis/v1beta1/groupversion_info.go
 
 formatters:
   enable:
@@ -18,3 +24,16 @@ formatters:
   settings:
     gofmt:
       simplify: true
+  exclusions:
+    generated: lax
+    paths:
+      - apis/v1alpha1/groupversion_info.go
+      - apis/v1beta1/groupversion_info.go
+
+issues:
+  exclusions:
+    rules:
+      - path: "apis/.*"
+        text: "does not implement.*runtime\\.Object"
+        linters:
+          - typecheck
