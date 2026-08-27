@@ -20,7 +20,8 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/rossigee/provider-openstack/apis/v1alpha1"
+	computev1alpha1 "github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
+	networkingv1alpha1 "github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	v1beta1 "github.com/rossigee/provider-openstack/apis/v1beta1"
 )
 
@@ -29,8 +30,9 @@ var AddToSchemes runtime.SchemeBuilder
 
 func init() {
 	AddToSchemes = append(AddToSchemes,
-		v1alpha1.AddToScheme,
 		v1beta1.AddToScheme,
+		networkingv1alpha1.AddToScheme,
+		computev1alpha1.AddToScheme,
 	)
 }
 

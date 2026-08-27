@@ -1,12 +1,9 @@
 /*
 Copyright 2025 The Crossplane Authors.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,15 +11,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//nolint:all
-
-// Package v1alpha1 contains the v1alpha1 group openstack.crossplane.io resources of the provider.
 // +kubebuilder:object:generate=true
 // +groupName=openstack.crossplane.io
 // +versionName=v1alpha1
+
 package v1alpha1
 
 import (
+	"reflect"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -37,19 +34,31 @@ var (
 	SchemeGroupVersion = schema.GroupVersion{Group: Group, Version: Version}
 	SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
 	AddToScheme        = SchemeBuilder.AddToScheme
-
-	StoreConfigGroupVersionKind = schema.GroupVersionKind{
-		Group:   Group,
-		Version: Version,
-		Kind:    "StoreConfig",
-	}
 )
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(SchemeGroupVersion,
-		&StoreConfig{},
-		&StoreConfigList{},
+		&Server{},
+		&ServerList{},
+		&KeyPair{},
+		&KeyPairList{},
 	)
 	metav1.AddToGroupVersion(s, SchemeGroupVersion)
 	return nil
 }
+
+// Server type metadata.
+var (
+	ServerKind             = reflect.TypeOf(Server{}).Name()
+	ServerGroupKind        = schema.GroupKind{Group: Group, Kind: ServerKind}.String()
+	ServerKindAPIVersion   = ServerKind + "." + SchemeGroupVersion.String()
+	ServerGroupVersionKind = SchemeGroupVersion.WithKind(ServerKind)
+)
+
+// KeyPair type metadata.
+var (
+	KeyPairKind             = reflect.TypeOf(KeyPair{}).Name()
+	KeyPairGroupKind        = schema.GroupKind{Group: Group, Kind: KeyPairKind}.String()
+	KeyPairKindAPIVersion   = KeyPairKind + "." + SchemeGroupVersion.String()
+	KeyPairGroupVersionKind = SchemeGroupVersion.WithKind(KeyPairKind)
+)

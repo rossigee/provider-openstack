@@ -1,31 +1,31 @@
-/*
-Copyright 2021 Upbound Inc.
-*/
-
 package providerconfig
 
 import (
-	v1event "github.com/crossplane/crossplane-runtime/pkg/event"
-	v1logging "github.com/crossplane/crossplane-runtime/pkg/logging"
-	v1providerconfig "github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
-	v1resource "github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/providerconfig"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/rossigee/provider-openstack/apis/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
-func Setup(mgr ctrl.Manager) error {
-	name := v1providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind.Kind)
+func Setup(mgr ctrl.Manager, o controller.Options) error {
+	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind.Kind)
 
-	of := v1resource.ProviderConfigKinds{
+	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
+		Usage:     v1beta1.ProviderConfigUsageGroupVersionKind,
 		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
 	}
 
+	rec := event.NewNopRecorder()
+
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
+		WithOptions(o.ForControllerRuntime()).
 		For(&v1beta1.ProviderConfig{}).
-		Watches(&v1beta1.ProviderConfigUsage{}, &v1resource.EnqueueRequestForProviderConfig{}).
-		Complete(v1providerconfig.NewReconciler(mgr, of,
-			v1providerconfig.WithLogger(v1logging.NewNopLogger()),
-			v1providerconfig.WithRecorder(v1event.NewNopRecorder())))
+		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
+		Complete(providerconfig.NewReconciler(mgr, of,
+			providerconfig.WithLogger(o.Logger),
+			providerconfig.WithRecorder(rec)))
 }

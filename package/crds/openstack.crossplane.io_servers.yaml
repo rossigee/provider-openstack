@@ -1,0 +1,438 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.21.0
+  name: servers.openstack.crossplane.io
+spec:
+  group: openstack.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - openstack
+    kind: Server
+    listKind: ServerList
+    plural: servers
+    singular: server
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .status.atProvider.status
+      name: Status
+      type: string
+    - jsonPath: .status.connectionDetails.privateIPv4
+      name: Private IPv4
+      type: string
+    - jsonPath: .status.atProvider.flavor
+      name: Flavor
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Server is a managed resource that represents an OpenStack Nova
+          server.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ServerSpec defines the desired state of a Server.
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                description: Server parameters define the desired state of an OpenStack
+                  Nova server.
+                properties:
+                  adminStateUp:
+                    default: true
+                    description: AdminStateUp controls the administrative state of
+                      the server.
+                    type: boolean
+                  availabilityZone:
+                    description: AvailabilityZone is the AZ in which to create the
+                      server.
+                    type: string
+                  blockDeviceMapping:
+                    description: BlockDeviceMapping defines block devices to attach
+                      to the server.
+                    items:
+                      description: BlockDeviceMapping defines a block device to attach
+                        to a server.
+                      properties:
+                        bootIndex:
+                          default: 0
+                          description: BootIndex is the boot order (-1 for disabled).
+                          type: integer
+                        deleteOnTermination:
+                          default: true
+                          description: DeleteOnTermination deletes the block device
+                            when the server is deleted.
+                          type: boolean
+                        destinationType:
+                          default: local
+                          description: DestinationType is the destination type (local,
+                            volume).
+                          enum:
+                          - local
+                          - volume
+                          type: string
+                        deviceName:
+                          description: DeviceName is the device name (e.g., "vda",
+                            "vdb").
+                          type: string
+                        guestFormat:
+                          description: GuestFormat is the format of the device (e.g.,
+                            "swap", "ephemeral").
+                          type: string
+                        sourceType:
+                          default: image
+                          description: SourceType is the source type (image, volume,
+                            snapshot, blank).
+                          enum:
+                          - image
+                          - volume
+                          - snapshot
+                          - blank
+                          type: string
+                        uuid:
+                          description: UUID is the ID of the source image, volume,
+                            or snapshot.
+                          type: string
+                        volumeSize:
+                          description: VolumeSize is the size in GB when creating
+                            a new volume.
+                          type: integer
+                        volumeType:
+                          description: VolumeType is the type of volume to create.
+                          type: string
+                      type: object
+                    type: array
+                  configDrive:
+                    default: false
+                    description: ConfigDrive enables config drive for the server.
+                    type: boolean
+                  description:
+                    description: Description of the server.
+                    type: string
+                  flavorRef:
+                    description: FlavorRef is the ID or name of the flavor (compute
+                      sizing).
+                    type: string
+                  imageRef:
+                    description: ImageRef is the ID or name of the image to use for
+                      the server.
+                    type: string
+                  keyName:
+                    description: KeyName is the name of the key pair for SSH access.
+                    type: string
+                  name:
+                    description: Name is the human-readable name for the server.
+                    type: string
+                  networks:
+                    description: Networks defines the networks to attach to the server.
+                    items:
+                      description: ServerNetwork defines a network attachment for
+                        a server.
+                      properties:
+                        fixedIP:
+                          description: FixedIP is a specific fixed IP to use from
+                            the network's subnet.
+                          type: string
+                        name:
+                          description: Name is the name of the network (resolved to
+                            UUID if UUID is not specified).
+                          type: string
+                        port:
+                          description: Port is the ID of an existing port to attach
+                            to the server.
+                          type: string
+                        uuid:
+                          description: UUID is the ID of the network to attach.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroups:
+                    description: SecurityGroups is a list of security group names
+                      or IDs to apply.
+                    items:
+                      type: string
+                    type: array
+                  tags:
+                    description: Tags is a set of arbitrary key/value pairs for server
+                      tagging.
+                    items:
+                      type: string
+                    type: array
+                  tenantId:
+                    description: TenantID is the project owner of the server.
+                    type: string
+                  userData:
+                    description: UserData is base64-encoded user data for cloud-init.
+                    type: string
+                required:
+                - flavorRef
+                - imageRef
+                - name
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            type: object
+          status:
+            description: ServerStatus defines the observed state of an OpenStack server.
+            properties:
+              atProvider:
+                description: ServerProviderStatus defines the observed state of the
+                  server at the provider.
+                properties:
+                  addresses:
+                    description: Addresses is the list of IP addresses assigned to
+                      the server.
+                    items:
+                      description: ServerAddress describes an IP address on a server.
+                      properties:
+                        address:
+                          description: Address is the IP address.
+                          type: string
+                        network:
+                          description: Network is the network name.
+                          type: string
+                        version:
+                          description: Version is the IP version (4 or 6).
+                          type: integer
+                      required:
+                      - address
+                      - network
+                      - version
+                      type: object
+                    type: array
+                  createdAt:
+                    description: CreatedAt is the creation timestamp.
+                    type: string
+                  flavor:
+                    description: Flavor is the flavor used for the server.
+                    type: string
+                  hostId:
+                    description: HostID is the host where the server runs.
+                    type: string
+                  image:
+                    description: Image is the image used for the server.
+                    type: string
+                  keyName:
+                    description: KeyName is the key pair name.
+                    type: string
+                  powerState:
+                    description: PowerState is the current power state.
+                    type: integer
+                  serverId:
+                    description: ServerID is the unique identifier of the server in
+                      OpenStack.
+                    type: string
+                  status:
+                    description: Status is the current status of the server.
+                    type: string
+                  tags:
+                    description: Tags on the server.
+                    items:
+                      type: string
+                    type: array
+                  tenantId:
+                    description: TenantID is the project owner.
+                    type: string
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
+                    type: string
+                  vmState:
+                    description: VMState is the VM state (active, stopped, paused,
+                      etc.).
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              connectionDetails:
+                description: ConnectionDetails stores connection details for the server.
+                properties:
+                  privateIPv4:
+                    description: PrivateIPv4 is the private IPv4 address of the server.
+                    type: string
+                  publicIPv4:
+                    description: PublicIPv4 is the public (floating) IPv4 address
+                      if one is associated.
+                    type: string
+                  serverState:
+                    description: ServerState is the current state of the server (ACTIVE,
+                      SHUTOFF, etc.).
+                    type: string
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

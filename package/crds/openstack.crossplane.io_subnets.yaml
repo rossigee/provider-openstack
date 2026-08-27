@@ -1,0 +1,405 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.21.0
+  name: subnets.openstack.crossplane.io
+spec:
+  group: openstack.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - openstack
+    kind: Subnet
+    listKind: SubnetList
+    plural: subnets
+    singular: subnet
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .status.atProvider.cidr
+      name: CIDR
+      type: string
+    - jsonPath: .status.atProvider.status
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Subnet is a managed resource that represents an OpenStack Neutron
+          subnet.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SubnetSpec defines the desired state of a Subnet.
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                description: Subnet parameters define the desired state of an OpenStack
+                  Neutron subnet.
+                properties:
+                  allocationPools:
+                    description: |-
+                      AllocationPools define the IP address ranges for allocation.
+                      If not specified, the entire CIDR range is used.
+                    items:
+                      description: AllocationPool defines a range of IP addresses.
+                      properties:
+                        end:
+                          description: End is the ending IP address of the allocation
+                            pool.
+                          type: string
+                        start:
+                          description: Start is the starting IP address of the allocation
+                            pool.
+                          type: string
+                      required:
+                      - end
+                      - start
+                      type: object
+                    type: array
+                  cidr:
+                    description: CIDR is the CIDR notation of the subnet (e.g., "10.0.0.0/24").
+                    type: string
+                  description:
+                    description: Description of the subnet.
+                    type: string
+                  dnsNameservers:
+                    description: DNSNameservers is a list of DNS nameserver IP addresses.
+                    items:
+                      type: string
+                    type: array
+                  enableDHCP:
+                    default: true
+                    description: EnableDHCP controls whether DHCP is enabled for the
+                      subnet.
+                    type: boolean
+                  gateway:
+                    description: |-
+                      Gateway is the default gateway IP address. If not specified,
+                      OpenStack allocates one automatically.
+                    type: string
+                  hostRoutes:
+                    description: HostRoutes define additional static routes for the
+                      subnet.
+                    items:
+                      description: HostRoute defines a static route for the subnet.
+                      properties:
+                        destination:
+                          description: Destination is the destination CIDR of the
+                            route.
+                          type: string
+                        nexthop:
+                          description: Nexthop is the next hop IP address.
+                          type: string
+                      required:
+                      - destination
+                      - nexthop
+                      type: object
+                    type: array
+                  ipVersion:
+                    default: 4
+                    description: IPVersion is the IP version (4 or 6).
+                    type: integer
+                  ipv6AddressMode:
+                    description: IPv6AddressMode is the IPv6 address mode (e.g., "slaac",
+                      "dhcpv6-stateful").
+                    type: string
+                  ipv6RaMode:
+                    description: IPv6RAMode is the IPv6 RA mode.
+                    type: string
+                  name:
+                    description: Name is the human-readable name for the subnet.
+                    type: string
+                  networkId:
+                    description: NetworkID is the ID of the network to which the subnet
+                      belongs.
+                    type: string
+                  prefixLength:
+                    description: PrefixLength is the prefix length when using a subnet
+                      pool.
+                    type: integer
+                  subnetPoolId:
+                    description: SubnetPoolID references a subnet pool for address
+                      allocation.
+                    type: string
+                  tags:
+                    description: Tags is a set of arbitrary key/value pairs for subnet
+                      tagging.
+                    items:
+                      type: string
+                    type: array
+                  tenantId:
+                    description: TenantID is the project owner of the subnet.
+                    type: string
+                required:
+                - cidr
+                - networkId
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            type: object
+          status:
+            description: SubnetStatus defines the observed state of an OpenStack subnet.
+            properties:
+              atProvider:
+                description: SubnetProviderStatus defines the observed state of the
+                  subnet at the provider.
+                properties:
+                  allocationPools:
+                    description: AllocationPools is the list of allocation pools.
+                    items:
+                      description: AllocationPool defines a range of IP addresses.
+                      properties:
+                        end:
+                          description: End is the ending IP address of the allocation
+                            pool.
+                          type: string
+                        start:
+                          description: Start is the starting IP address of the allocation
+                            pool.
+                          type: string
+                      required:
+                      - end
+                      - start
+                      type: object
+                    type: array
+                  cidr:
+                    description: CIDR is the CIDR of the subnet.
+                    type: string
+                  createdAt:
+                    description: CreatedAt is the creation timestamp.
+                    type: string
+                  dnsNameservers:
+                    description: DNSNameservers is the list of DNS nameservers.
+                    items:
+                      type: string
+                    type: array
+                  enableDHCP:
+                    description: EnableDHCP indicates if DHCP is enabled.
+                    type: boolean
+                  gateway:
+                    description: Gateway is the default gateway.
+                    type: string
+                  hostRoutes:
+                    description: HostRoutes is the list of host routes.
+                    items:
+                      description: HostRoute defines a static route for the subnet.
+                      properties:
+                        destination:
+                          description: Destination is the destination CIDR of the
+                            route.
+                          type: string
+                        nexthop:
+                          description: Nexthop is the next hop IP address.
+                          type: string
+                      required:
+                      - destination
+                      - nexthop
+                      type: object
+                    type: array
+                  ipVersion:
+                    description: IPVersion is the IP version.
+                    type: integer
+                  networkId:
+                    description: NetworkID is the network this subnet belongs to.
+                    type: string
+                  revisionNumber:
+                    description: RevisionNumber for optimistic locking.
+                    type: integer
+                  status:
+                    description: Status is the current status of the subnet.
+                    type: string
+                  subnetId:
+                    description: SubnetID is the unique identifier of the subnet in
+                      OpenStack.
+                    type: string
+                  tags:
+                    description: Tags on the subnet.
+                    items:
+                      type: string
+                    type: array
+                  tenantId:
+                    description: TenantID is the project owner.
+                    type: string
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
