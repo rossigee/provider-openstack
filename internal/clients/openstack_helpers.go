@@ -108,6 +108,17 @@ func NewNetworkClient(ctx context.Context, kube client.Client, mg resource.Manag
 	})
 }
 
+// NewLoadBalancerClient creates a new Octavia v2 load balancer client.
+func NewLoadBalancerClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
+	pc, err := NewOpenStackClient(ctx, kube, mg)
+	if err != nil {
+		return nil, err
+	}
+	return openstack.NewLoadBalancerV2(pc, gophercloud.EndpointOpts{
+		Region: os.Getenv("OS_REGION_NAME"),
+	})
+}
+
 // NewComputeClient creates a new Nova v2 compute client.
 func NewComputeClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
 	pc, err := NewOpenStackClient(ctx, kube, mg)
@@ -115,6 +126,50 @@ func NewComputeClient(ctx context.Context, kube client.Client, mg resource.Manag
 		return nil, err
 	}
 	return openstack.NewComputeV2(pc, gophercloud.EndpointOpts{
+		Region: os.Getenv("OS_REGION_NAME"),
+	})
+}
+
+// NewBlockStorageClient creates a new Cinder v3 block storage client.
+func NewBlockStorageClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
+	pc, err := NewOpenStackClient(ctx, kube, mg)
+	if err != nil {
+		return nil, err
+	}
+	return openstack.NewBlockStorageV3(pc, gophercloud.EndpointOpts{
+		Region: os.Getenv("OS_REGION_NAME"),
+	})
+}
+
+// NewImageClient creates a new Glance v2 image client.
+func NewImageClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
+	pc, err := NewOpenStackClient(ctx, kube, mg)
+	if err != nil {
+		return nil, err
+	}
+	return openstack.NewImageV2(pc, gophercloud.EndpointOpts{
+		Region: os.Getenv("OS_REGION_NAME"),
+	})
+}
+
+// NewIdentityClient creates a new Keystone v3 identity client.
+func NewIdentityClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
+	pc, err := NewOpenStackClient(ctx, kube, mg)
+	if err != nil {
+		return nil, err
+	}
+	return openstack.NewIdentityV3(pc, gophercloud.EndpointOpts{
+		Region: os.Getenv("OS_REGION_NAME"),
+	})
+}
+
+// NewDNSClient creates a new Designate v2 DNS client.
+func NewDNSClient(ctx context.Context, kube client.Client, mg resource.Managed) (*gophercloud.ServiceClient, error) {
+	pc, err := NewOpenStackClient(ctx, kube, mg)
+	if err != nil {
+		return nil, err
+	}
+	return openstack.NewDNSV2(pc, gophercloud.EndpointOpts{
 		Region: os.Getenv("OS_REGION_NAME"),
 	})
 }

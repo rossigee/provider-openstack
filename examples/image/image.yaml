@@ -1,0 +1,16 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Image
+metadata:
+  name: example-image
+spec:
+  forProvider:
+    name: ubuntu-22.04-server
+    containerFormat: bare
+    diskFormat: qcow2
+    visibility: public
+    protected: false
+    minDisk: 10
+    minRAM: 2048
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

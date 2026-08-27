@@ -1,0 +1,11 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: FloatingIP
+metadata:
+  name: example-floating-ip
+spec:
+  forProvider:
+    floatingNetworkId: <external-network-id>
+    description: "Floating IP for web server"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

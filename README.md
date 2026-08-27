@@ -7,7 +7,7 @@
 [build]: https://github.com/rossigee/provider-openstack/actions/workflows/ci.yml
 [releases]: https://github.com/rossigee/provider-openstack/releases
 
-`provider-openstack` is a [Crossplane](https://crossplane.io/) provider for managing OpenStack resources.
+A native [Crossplane](https://crossplane.io/) provider for managing OpenStack resources.
 
 ## Container Registry
 
@@ -15,44 +15,79 @@
 
 ## Overview
 
-A Crossplane provider for managing OpenStack resources.
-
-## Features
-
-- **Compute**: Manage OpenStack virtual machines and flavors
-- **Networking**: Virtual networks, routers, and security groups
-- **Storage**: Block and object storage management
-- **Identity**: Keystone authentication and authorization
+A hand-written Crossplane provider for managing OpenStack resources across compute, networking, storage, identity, DNS, load balancing, and image services.
 
 ## Resource Types
 
-This is an [upjet](https://github.com/crossplane/upjet)-generated provider covering the following OpenStack service categories, each with multiple resource kinds:
+All resources use the `openstack.crossplane.io/v1alpha1` API group.
 
-| Category | API Group prefix | Examples |
-|----------|-------------------|----------|
-| Compute | `compute.openstack.crossplane.io` | InstanceV2, FlavorV2, AggregateV2 |
-| Networking | `networking.openstack.crossplane.io` | Network, Subnet, Port |
-| Firewall (FWaaS) | `fw.openstack.crossplane.io` | Firewall groups, policies, rules |
-| VPN-as-a-Service | `vpnaas.openstack.crossplane.io` | IPSec/IKE policies, VPN services |
-| Load Balancer (Octavia) | `lb.openstack.crossplane.io` | Load balancers, listeners, pools, monitors |
-| Block Storage (Cinder) | `blockstorage.openstack.crossplane.io` | Volumes, volume types, snapshots |
-| Object Storage (Swift) | `objectstorage.openstack.crossplane.io` | Containers |
-| Shared File System (Manila) | `sharedfilesystem.openstack.crossplane.io` | Shares, share networks |
-| Images (Glance) | `images.openstack.crossplane.io` | Images |
-| Identity (Keystone) | `identity.openstack.crossplane.io` | Projects, users, roles |
-| Key Manager (Barbican) | `keymanager.openstack.crossplane.io` | Secrets, containers |
-| DNS (Designate) | `dns.openstack.crossplane.io` | Zones, recordsets |
-| Orchestration (Heat) | `orchestration.openstack.crossplane.io` | Stacks |
-| Database (Trove) | `db.openstack.crossplane.io` | Database instances |
-| Container Infrastructure (Magnum) | `containerinfra.openstack.crossplane.io` | Clusters, cluster templates |
+### Networking (11 resources)
 
-See `apis/` for the full generated CRD list and `examples/` for per-resource usage examples.
+| Kind | Description |
+|------|-------------|
+| Network | Neutron virtual network |
+| Subnet | Neutron subnet with CIDR and DHCP settings |
+| Router | Neutron router for inter-network routing |
+| RouterInterface | Attachment between a router and subnet |
+| SecurityGroup | Neutron security group |
+| SecurityGroupRule | Individual rule within a security group |
+| FloatingIP | Neutron floating IP address |
+| Port | Neutron network port |
+| SubnetPool | Pool of address prefixes for subnet allocation |
+| Trunk | Neutron trunk for VLAN tagging |
+| RBACPolicy | RBAC policy for cross-project network sharing |
+
+### Compute (2 resources)
+
+| Kind | Description |
+|------|-------------|
+| Server | Nova virtual machine instance |
+| KeyPair | Nova key pair for SSH access |
+
+### Block Storage (3 resources)
+
+| Kind | Description |
+|------|-------------|
+| Volume | Cinder block storage volume |
+| VolumeType | Cinder volume type with extra specs |
+| VolumeSnapshot | Cinder volume snapshot |
+
+### Image (1 resource)
+
+| Kind | Description |
+|------|-------------|
+| Image | Glance virtual machine image |
+
+### Identity (3 resources)
+
+| Kind | Description |
+|------|-------------|
+| Project | Keystone project |
+| User | Keystone user |
+| Role | Keystone role |
+
+### DNS (2 resources)
+
+| Kind | Description |
+|------|-------------|
+| Zone | Designate DNS zone |
+| RecordSet | Designate DNS record set |
+
+### Load Balancing (5 resources)
+
+| Kind | Description |
+|------|-------------|
+| LoadBalancer | Octavia load balancer |
+| Listener | Octavia listener for frontend connections |
+| Pool | Octavia backend server pool |
+| Member | Octavia pool member (backend server) |
+| HealthMonitor | Octavia health check monitor |
+
+**Total: 27 managed resource types**
 
 ## Getting Started
 
 ### Installation
-
-Install the provider:
 
 ```yaml
 apiVersion: pkg.crossplane.io/v1
@@ -67,40 +102,37 @@ spec:
 
 ```yaml
 ---
-# Providerconfig that referers to the secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openstack-credentials
+  namespace: crossplane-system
+type: Opaque
+data:
+  credentials: <base64-encoded JSON>
+---
 apiVersion: openstack.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: provider-openstack-config
+  name: default
 spec:
   credentials:
     source: Secret
     secretRef:
-      key: config
-      name: provider-openstack-config
-      namespace: crossplane
-
----
-# Secret that stores credentials and other configuration
-apiVersion: v1
-kind: Secret
-metadata:
-  name: provider-openstack-config
-  namespace: crossplane
-type: Opaque
-data:
-  config: <see below>
+      name: openstack-credentials
+      namespace: crossplane-system
+      key: credentials
 ```
 
-The secret key must contain a json dictionary that provides the authentication data.
-You can create the secret via this command:
+The secret must contain a JSON dictionary with authentication data:
 
 ```bash
-kubectl create secret generic provider-openstack-config --from-file=config=config.json --namespace crossplane
+kubectl create secret generic openstack-credentials \
+  --from-file=credentials=config.json \
+  --namespace crossplane-system
 ```
 
 ```json
-// config.json
 {
   "auth_url": "https://auth.openstack.example/",
   "application_credential_id": "123456789",
@@ -108,18 +140,44 @@ kubectl create secret generic provider-openstack-config --from-file=config=confi
 }
 ```
 
-Check [Terraform OpenStack provider docs](https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs#configuration-reference) to see available configuration settings. Currently not all options of the upstream provider are supported. Check [client code](https://github.com/crossplane-contrib/provider-openstack/blob/main/internal/clients/openstack.go#L66) to see if your option is supported. If something is missing, please open a new issue.
+### Quick Start
 
+Create a network, subnet, and router:
+
+```yaml
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  name: my-network
+spec:
+  forProvider:
+    name: my-network
+    adminStateUp: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+---
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  name: my-subnet
+spec:
+  forProvider:
+    name: my-subnet
+    networkId: my-network
+    cidr: "10.0.0.0/24"
+    dnsNameservers:
+      - "8.8.8.8"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+```
 
 ### Deployment Customization
 
-You can use a `DeploymentRuntimeConfig` to provide custom arguments or otherwise modify the provider deployment
-
-Available command line arguments can be found [here](cmd/provider/main.go)
+Use a `DeploymentRuntimeConfig` to customize the provider deployment:
 
 ```yaml
----
-# Create a DeploymentRuntimeConfig to customize the provider deployment
 apiVersion: pkg.crossplane.io/v1beta1
 kind: DeploymentRuntimeConfig
 metadata:
@@ -127,75 +185,43 @@ metadata:
 spec:
   deploymentTemplate:
     spec:
-      # Control replica count to temporary disable deployment. Do not scale more than 1 replica.
       replicas: 1
       selector: {}
       template:
-        metadata:
-          annotations:
-            # Add annotations, e.g. to enable metrics scraping
-            prometheus.io/path: /metrics
-            prometheus.io/port: "8080"
-            prometheus.io/scrape: "true"
         spec:
           containers:
           - args:
-            # Add command line arguments, e.g. to enable management policies
             - --enable-management-policies
             name: package-runtime
-
----
-# Add this to your provider resource to reference the DeploymentRuntimeConfig
-spec:
-  runtimeConfigRef:
-    apiVersion: pkg.crossplane.io/v1beta1
-    kind: DeploymentRuntimeConfig
-    name: provider-openstack
 ```
 
 ## Development
 
-Install the required submodules to build and run:
+Install required submodules:
 
 ```bash
 make submodules
 ```
 
-Apply the Current CRDs and a providerConfig:
+Apply CRDs and ProviderConfig:
 
 ```bash
 kubectl apply -f package/crds
 kubectl apply -f examples/providerconfig/providerconfig.yaml
 ```
 
-Run against a Kubernetes cluster: (make sure to apply CRDs and providerConfig)
+Run against a Kubernetes cluster:
 
 ```bash
 make run
 ```
 
-Run a testbuild with linting:
+Build and test:
 
 ```bash
 make reviewable
-```
-
-Build binary:
-
-```bash
 make build
 ```
-
-### Release a new version (Maintainer)
-
-- Update Changelog (Add new Version & Date)
-- Create or merge to existing release branch (release-v(major).(minor))
-- Run Release pipeline on release branch, using specific version as parameter
-
-## Contributing
-
-For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/crossplane-contrib/provider-openstack/issues).
 
 ## License
 

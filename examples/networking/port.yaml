@@ -1,0 +1,15 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Port
+metadata:
+  name: example-port
+spec:
+  forProvider:
+    networkId: <network-id>
+    name: my-port
+    adminStateUp: true
+    fixedIPs:
+      - subnetId: <subnet-id>
+        ipAddress: "10.0.0.10"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

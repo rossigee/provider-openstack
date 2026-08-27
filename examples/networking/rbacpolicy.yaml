@@ -1,0 +1,13 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: RBACPolicy
+metadata:
+  name: example-rbac-policy
+spec:
+  forProvider:
+    action: access_as_shared
+    objectType: network
+    objectId: <network-id>
+    targetTenant: <tenant-id>
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

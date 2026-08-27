@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-openstack
 spec:
-  package: ghcr.io/rossigee/provider-openstack:vX.X.X # replace by current version
+  package: ghcr.io/rossigee/provider-openstack:v0.10.0

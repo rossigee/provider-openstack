@@ -1,0 +1,18 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Server
+metadata:
+  name: example-server
+spec:
+  forProvider:
+    name: my-server
+    imageRef: ubuntu-22.04
+    flavorRef: m1.small
+    keyName: my-keypair
+    networks:
+      - name: my-network
+    securityGroups:
+      - default
+    availabilityZone: nova
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

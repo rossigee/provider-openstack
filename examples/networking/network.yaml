@@ -1,0 +1,13 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  name: example-network
+spec:
+  forProvider:
+    name: my-network
+    adminStateUp: true
+    shared: false
+    portSecurityEnabled: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

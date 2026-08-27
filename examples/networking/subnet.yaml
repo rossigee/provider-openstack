@@ -1,0 +1,17 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  name: example-subnet
+spec:
+  forProvider:
+    name: my-subnet
+    networkId: <network-id>
+    cidr: "10.0.0.0/24"
+    ipVersion: 4
+    enableDHCP: true
+    dnsNameservers:
+      - "8.8.8.8"
+      - "8.8.4.4"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

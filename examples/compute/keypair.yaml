@@ -1,0 +1,11 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: KeyPair
+metadata:
+  name: example-keypair
+spec:
+  forProvider:
+    name: my-keypair
+    type: ssh
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

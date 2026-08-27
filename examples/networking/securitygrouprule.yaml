@@ -1,0 +1,16 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: SecurityGroupRule
+metadata:
+  name: example-security-group-rule
+spec:
+  forProvider:
+    securityGroupId: <security-group-id>
+    direction: ingress
+    ethertype: IPv4
+    protocol: tcp
+    portRangeMin: 443
+    portRangeMax: 443
+    remoteIPPrefix: "0.0.0.0/0"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

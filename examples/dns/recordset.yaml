@@ -1,0 +1,15 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: RecordSet
+metadata:
+  name: example-recordset
+spec:
+  forProvider:
+    name: www.example.com.
+    zoneId: <zone-id>
+    type: A
+    ttl: 300
+    records:
+      - "192.0.2.1"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

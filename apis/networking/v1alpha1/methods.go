@@ -110,3 +110,55 @@ func (m *FloatingIP) GetProviderConfigReference() *xpv2.Reference {
 func (m *FloatingIP) SetProviderConfigReference(p *xpv2.Reference) {
 	m.Spec.ProviderConfigReference = p
 }
+
+func (m *Port) GetCondition(ct xpv2.ConditionType) xpv2.Condition { return m.Status.GetCondition(ct) }
+func (m *Port) SetConditions(c ...xpv2.Condition)                 { m.Status.SetConditions(c...) }
+func (m *Port) GetManagementPolicies() xpv2.ManagementPolicies    { return m.Spec.ManagementPolicies }
+func (m *Port) SetManagementPolicies(p xpv2.ManagementPolicies)   { m.Spec.ManagementPolicies = p }
+func (m *Port) GetDeletionPolicy() xpv2.DeletionPolicy            { return m.Spec.DeletionPolicy }
+func (m *Port) SetDeletionPolicy(p xpv2.DeletionPolicy)           { m.Spec.DeletionPolicy = p }
+func (m *Port) GetProviderConfigReference() *xpv2.Reference       { return m.Spec.ProviderConfigReference }
+func (m *Port) SetProviderConfigReference(p *xpv2.Reference)      { m.Spec.ProviderConfigReference = p }
+
+func (m *SubnetPool) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return m.Status.GetCondition(ct)
+}
+func (m *SubnetPool) SetConditions(c ...xpv2.Condition) { m.Status.SetConditions(c...) }
+func (m *SubnetPool) GetManagementPolicies() xpv2.ManagementPolicies {
+	return m.Spec.ManagementPolicies
+}
+func (m *SubnetPool) SetManagementPolicies(p xpv2.ManagementPolicies) { m.Spec.ManagementPolicies = p }
+func (m *SubnetPool) GetDeletionPolicy() xpv2.DeletionPolicy          { return m.Spec.DeletionPolicy }
+func (m *SubnetPool) SetDeletionPolicy(p xpv2.DeletionPolicy)         { m.Spec.DeletionPolicy = p }
+func (m *SubnetPool) GetProviderConfigReference() *xpv2.Reference {
+	return m.Spec.ProviderConfigReference
+}
+func (m *SubnetPool) SetProviderConfigReference(p *xpv2.Reference) {
+	m.Spec.ProviderConfigReference = p
+}
+
+func (m *Trunk) GetCondition(ct xpv2.ConditionType) xpv2.Condition { return m.Status.GetCondition(ct) }
+func (m *Trunk) SetConditions(c ...xpv2.Condition)                 { m.Status.SetConditions(c...) }
+func (m *Trunk) GetManagementPolicies() xpv2.ManagementPolicies    { return m.Spec.ManagementPolicies }
+func (m *Trunk) SetManagementPolicies(p xpv2.ManagementPolicies)   { m.Spec.ManagementPolicies = p }
+func (m *Trunk) GetDeletionPolicy() xpv2.DeletionPolicy            { return m.Spec.DeletionPolicy }
+func (m *Trunk) SetDeletionPolicy(p xpv2.DeletionPolicy)           { m.Spec.DeletionPolicy = p }
+func (m *Trunk) GetProviderConfigReference() *xpv2.Reference       { return m.Spec.ProviderConfigReference }
+func (m *Trunk) SetProviderConfigReference(p *xpv2.Reference)      { m.Spec.ProviderConfigReference = p }
+
+func (m *RBACPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return m.Status.GetCondition(ct)
+}
+func (m *RBACPolicy) SetConditions(c ...xpv2.Condition) { m.Status.SetConditions(c...) }
+func (m *RBACPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
+	return m.Spec.ManagementPolicies
+}
+func (m *RBACPolicy) SetManagementPolicies(p xpv2.ManagementPolicies) { m.Spec.ManagementPolicies = p }
+func (m *RBACPolicy) GetDeletionPolicy() xpv2.DeletionPolicy          { return m.Spec.DeletionPolicy }
+func (m *RBACPolicy) SetDeletionPolicy(p xpv2.DeletionPolicy)         { m.Spec.DeletionPolicy = p }
+func (m *RBACPolicy) GetProviderConfigReference() *xpv2.Reference {
+	return m.Spec.ProviderConfigReference
+}
+func (m *RBACPolicy) SetProviderConfigReference(p *xpv2.Reference) {
+	m.Spec.ProviderConfigReference = p
+}

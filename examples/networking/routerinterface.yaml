@@ -1,0 +1,12 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: RouterInterface
+metadata:
+  name: example-router-interface
+spec:
+  forProvider:
+    routerId: <router-id>
+    type: subnet
+    subnetId: <subnet-id>
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

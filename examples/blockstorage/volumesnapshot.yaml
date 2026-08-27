@@ -1,0 +1,13 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  name: example-volume-snapshot
+spec:
+  forProvider:
+    name: my-snapshot
+    volumeId: <volume-id>
+    description: "Snapshot of production volume"
+    force: false
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

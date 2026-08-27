@@ -1,0 +1,12 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Router
+metadata:
+  name: example-router
+spec:
+  forProvider:
+    name: my-router
+    adminStateUp: true
+    distributed: false
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

@@ -1,0 +1,14 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: VolumeType
+metadata:
+  name: example-volume-type
+spec:
+  forProvider:
+    name: ssd
+    description: "SSD-backed volume type"
+    isPublic: true
+    extraSpecs:
+      volume_backend_name: SSD
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

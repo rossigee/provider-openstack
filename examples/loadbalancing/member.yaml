@@ -1,0 +1,16 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  name: example-member
+spec:
+  forProvider:
+    poolId: <pool-id>
+    address: "10.0.0.10"
+    protocolPort: 80
+    name: my-member
+    subnetId: <subnet-id>
+    weight: 1
+    adminStateUp: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

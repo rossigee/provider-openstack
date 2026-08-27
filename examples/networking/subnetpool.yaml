@@ -1,0 +1,17 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: SubnetPool
+metadata:
+  name: example-subnet-pool
+spec:
+  forProvider:
+    name: my-subnet-pool
+    prefixes:
+      - "10.0.0.0/8"
+    defaultPrefixLen: 24
+    minPrefixLen: 16
+    maxPrefixLen: 28
+    shared: false
+    isDefault: false
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

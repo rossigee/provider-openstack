@@ -1,0 +1,11 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: SecurityGroup
+metadata:
+  name: example-security-group
+spec:
+  forProvider:
+    name: my-security-group
+    description: "Security group for web servers"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

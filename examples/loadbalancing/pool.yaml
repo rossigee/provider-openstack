@@ -1,0 +1,15 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Pool
+metadata:
+  name: example-pool
+spec:
+  forProvider:
+    listenerId: <listener-id>
+    lbMethod: ROUND_ROBIN
+    protocol: HTTP
+    name: my-pool
+    description: "Example backend pool"
+    adminStateUp: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

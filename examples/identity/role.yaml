@@ -1,0 +1,11 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: example-role
+spec:
+  forProvider:
+    name: my-role
+    description: "Example OpenStack role"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

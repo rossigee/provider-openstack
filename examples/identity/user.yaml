@@ -1,0 +1,13 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: example-user
+spec:
+  forProvider:
+    name: my-user
+    description: "Example OpenStack user"
+    email: user@example.com
+    enabled: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

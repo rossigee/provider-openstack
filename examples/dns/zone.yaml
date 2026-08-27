@@ -1,0 +1,14 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Zone
+metadata:
+  name: example-zone
+spec:
+  forProvider:
+    name: example.com.
+    email: admin@example.com
+    description: "Example DNS zone"
+    type: PRIMARY
+    ttl: 3600
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

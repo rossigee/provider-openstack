@@ -20,7 +20,12 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
+	blockstoragev1alpha1 "github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
 	computev1alpha1 "github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
+	dnsv1alpha1 "github.com/rossigee/provider-openstack/apis/dns/v1alpha1"
+	identityv1alpha1 "github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	imagev1alpha1 "github.com/rossigee/provider-openstack/apis/image/v1alpha1"
+	loadbalancingv1alpha1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
 	networkingv1alpha1 "github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	v1beta1 "github.com/rossigee/provider-openstack/apis/v1beta1"
 )
@@ -32,7 +37,12 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1beta1.AddToScheme,
 		networkingv1alpha1.AddToScheme,
+		blockstoragev1alpha1.AddToScheme,
+		loadbalancingv1alpha1.AddToScheme,
 		computev1alpha1.AddToScheme,
+		imagev1alpha1.AddToScheme,
+		identityv1alpha1.AddToScheme,
+		dnsv1alpha1.AddToScheme,
 	)
 }
 

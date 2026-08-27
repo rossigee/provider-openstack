@@ -1,0 +1,14 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Volume
+metadata:
+  name: example-volume
+spec:
+  forProvider:
+    name: my-volume
+    size: 100
+    availabilityZone: nova
+    volumeType: ssd
+    description: "Example block storage volume"
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

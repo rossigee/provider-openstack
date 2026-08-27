@@ -861,3 +861,476 @@ type FloatingIPList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []FloatingIP `json:"items"`
 }
+
+// FixedIP defines a fixed IP address allocation on a port.
+type FixedIP struct {
+	// SubnetID is the ID of the subnet from which the IP address is allocated.
+	// +optional
+	SubnetID string `json:"subnetId,omitempty"`
+
+	// IPAddress is the specific IP address to allocate.
+	// +optional
+	IPAddress string `json:"ipAddress,omitempty"`
+}
+
+// AddressPair defines an allowed address pair on a port.
+type AddressPair struct {
+	// IPAddress is the IP address for the allowed address pair.
+	// +optional
+	IPAddress string `json:"ipAddress,omitempty"`
+
+	// MACAddress is the MAC address for the allowed address pair.
+	// +optional
+	MACAddress string `json:"macAddress,omitempty"`
+}
+
+// PortParameters define the desired state of an OpenStack Neutron port.
+type PortParameters struct {
+	// NetworkID is the ID of the network to which the port belongs.
+	// +kubebuilder:validation:Required
+	NetworkID string `json:"networkId"`
+
+	// Name is the human-readable name for the port.
+	// +optional
+	Name string `json:"name,omitempty"`
+
+	// Description of the port.
+	// +optional
+	Description string `json:"description,omitempty"`
+
+	// AdminStateUp is the administrative state of the port (true = up).
+	// +kubebuilder:default=true
+	// +optional
+	AdminStateUp *bool `json:"adminStateUp,omitempty"`
+
+	// MACAddress is the MAC address to use on this port.
+	// +optional
+	MACAddress string `json:"macAddress,omitempty"`
+
+	// FixedIPs specifies the IP addresses for the port.
+	// +optional
+	FixedIPs []FixedIP `json:"fixedIPs,omitempty"`
+
+	// DeviceID identifies the device (e.g., virtual server) using this port.
+	// +optional
+	DeviceID string `json:"deviceId,omitempty"`
+
+	// DeviceOwner identifies the entity (e.g.: dhcp agent) using this port.
+	// +optional
+	DeviceOwner string `json:"deviceOwner,omitempty"`
+
+	// TenantID is the project owner of the port.
+	// +optional
+	TenantID string `json:"tenantId,omitempty"`
+
+	// SecurityGroups is the list of security group IDs associated with the port.
+	// +optional
+	SecurityGroups *[]string `json:"securityGroups,omitempty"`
+
+	// AllowedAddressPairs identifies the list of IP/MAC addresses the port will recognize/accept.
+	// +optional
+	AllowedAddressPairs []AddressPair `json:"allowedAddressPairs,omitempty"`
+}
+
+// PortStatus defines the observed state of an OpenStack port.
+type PortStatus struct {
+	xpv2.ConditionedStatus `json:",inline"`
+
+	AtProvider PortProviderStatus `json:"atProvider,omitempty"`
+}
+
+// PortProviderStatus defines the observed state of the port at the provider.
+type PortProviderStatus struct {
+	// PortID is the unique identifier of the port in OpenStack.
+	PortID string `json:"portId,omitempty"`
+
+	// NetworkID is the network this port belongs to.
+	NetworkID string `json:"networkId,omitempty"`
+
+	// Name is the name of the port.
+	Name string `json:"name,omitempty"`
+
+	// Description of the port.
+	Description string `json:"description,omitempty"`
+
+	// AdminStateUp is the administrative state.
+	AdminStateUp bool `json:"adminStateUp,omitempty"`
+
+	// Status is the current status (ACTIVE, DOWN, BUILD, ERROR).
+	Status string `json:"status,omitempty"`
+
+	// MACAddress is the MAC address of the port.
+	MACAddress string `json:"macAddress,omitempty"`
+
+	// FixedIPs are the fixed IPs allocated to the port.
+	FixedIPs []FixedIP `json:"fixedIPs,omitempty"`
+
+	// TenantID is the project owner.
+	TenantID string `json:"tenantId,omitempty"`
+
+	// DeviceOwner identifies the entity using this port.
+	DeviceOwner string `json:"deviceOwner,omitempty"`
+
+	// DeviceID identifies the device using this port.
+	DeviceID string `json:"deviceId,omitempty"`
+
+	// SecurityGroups is the list of security group IDs.
+	SecurityGroups []string `json:"securityGroups,omitempty"`
+
+	// AllowedAddressPairs are the allowed address pairs.
+	AllowedAddressPairs []AddressPair `json:"allowedAddressPairs,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// Port is a managed resource that represents an OpenStack Neutron port.
+type Port struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   PortSpec   `json:"spec"`
+	Status PortStatus `json:"status,omitempty"`
+}
+
+// PortSpec defines the desired state of a Port.
+type PortSpec struct {
+	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                     PortParameters `json:"forProvider,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// PortList contains a list of Port resources.
+type PortList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []Port `json:"items"`
+}
+
+// SubnetPoolParameters define the desired state of an OpenStack Neutron subnet pool.
+type SubnetPoolParameters struct {
+	// Name is the human-readable name for the subnet pool.
+	// +kubebuilder:validation:Required
+	Name string `json:"name"`
+
+	// Prefixes is the list of subnet prefixes to assign to the subnet pool.
+	// +kubebuilder:validation:Required
+	Prefixes []string `json:"prefixes"`
+
+	// DefaultQuota is the per-project quota on the prefix space.
+	// +optional
+	DefaultQuota int `json:"defaultQuota,omitempty"`
+
+	// TenantID is the project owner of the subnet pool.
+	// +optional
+	TenantID string `json:"tenantId,omitempty"`
+
+	// DefaultPrefixLen is the size of the prefix to allocate by default.
+	// +optional
+	DefaultPrefixLen int `json:"defaultPrefixLen,omitempty"`
+
+	// MinPrefixLen is the smallest prefix that can be allocated.
+	// +optional
+	MinPrefixLen int `json:"minPrefixLen,omitempty"`
+
+	// MaxPrefixLen is the maximum prefix size that can be allocated.
+	// +optional
+	MaxPrefixLen int `json:"maxPrefixLen,omitempty"`
+
+	// AddressScopeID is the Neutron address scope to assign to the subnet pool.
+	// +optional
+	AddressScopeID string `json:"addressScopeId,omitempty"`
+
+	// Shared indicates whether the subnet pool is shared across all projects.
+	// +kubebuilder:default=false
+	// +optional
+	Shared *bool `json:"shared,omitempty"`
+
+	// Description of the subnet pool.
+	// +optional
+	Description string `json:"description,omitempty"`
+
+	// IsDefault indicates if the subnet pool is the default pool.
+	// +kubebuilder:default=false
+	// +optional
+	IsDefault *bool `json:"isDefault,omitempty"`
+}
+
+// SubnetPoolStatus defines the observed state of an OpenStack subnet pool.
+type SubnetPoolStatus struct {
+	xpv2.ConditionedStatus `json:",inline"`
+
+	AtProvider SubnetPoolProviderStatus `json:"atProvider,omitempty"`
+}
+
+// SubnetPoolProviderStatus defines the observed state of the subnet pool at the provider.
+type SubnetPoolProviderStatus struct {
+	// SubnetPoolID is the unique identifier of the subnet pool.
+	SubnetPoolID string `json:"subnetPoolId,omitempty"`
+
+	// Name is the name of the subnet pool.
+	Name string `json:"name,omitempty"`
+
+	// Prefixes is the list of subnet prefixes.
+	Prefixes []string `json:"prefixes,omitempty"`
+
+	// DefaultQuota is the per-project quota.
+	DefaultQuota int `json:"defaultQuota,omitempty"`
+
+	// TenantID is the project owner.
+	TenantID string `json:"tenantId,omitempty"`
+
+	// DefaultPrefixLen is the default prefix length.
+	DefaultPrefixLen int `json:"defaultPrefixLen,omitempty"`
+
+	// MinPrefixLen is the minimum prefix length.
+	MinPrefixLen int `json:"minPrefixLen,omitempty"`
+
+	// MaxPrefixLen is the maximum prefix length.
+	MaxPrefixLen int `json:"maxPrefixLen,omitempty"`
+
+	// AddressScopeID is the address scope ID.
+	AddressScopeID string `json:"addressScopeId,omitempty"`
+
+	// IPVersion is the IP protocol version (4 or 6).
+	IPVersion int `json:"ipVersion,omitempty"`
+
+	// Shared indicates if the subnet pool is shared.
+	Shared bool `json:"shared,omitempty"`
+
+	// Description of the subnet pool.
+	Description string `json:"description,omitempty"`
+
+	// IsDefault indicates if the subnet pool is the default pool.
+	IsDefault bool `json:"isDefault,omitempty"`
+
+	// RevisionNumber for optimistic locking.
+	RevisionNumber int `json:"revisionNumber,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// SubnetPool is a managed resource that represents an OpenStack Neutron subnet pool.
+type SubnetPool struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   SubnetPoolSpec   `json:"spec"`
+	Status SubnetPoolStatus `json:"status,omitempty"`
+}
+
+// SubnetPoolSpec defines the desired state of a SubnetPool.
+type SubnetPoolSpec struct {
+	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                     SubnetPoolParameters `json:"forProvider,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// SubnetPoolList contains a list of SubnetPool resources.
+type SubnetPoolList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []SubnetPool `json:"items"`
+}
+
+// Subport defines a subport attached to a trunk.
+type Subport struct {
+	// PortID is the ID of the port to attach as a subport.
+	// +kubebuilder:validation:Required
+	PortID string `json:"portId"`
+
+	// SegmentationID is the segmentation ID (e.g., VLAN ID) for the subport.
+	// +kubebuilder:validation:Required
+	SegmentationID int `json:"segmentationId"`
+
+	// SegmentationType is the segmentation type (e.g., "vlan").
+	// +kubebuilder:validation:Required
+	SegmentationType string `json:"segmentationType"`
+}
+
+// TrunkParameters define the desired state of an OpenStack Neutron trunk.
+type TrunkParameters struct {
+	// PortID is the ID of the parent port for the trunk.
+	// +kubebuilder:validation:Required
+	PortID string `json:"portId"`
+
+	// Name is the human-readable name for the trunk.
+	// +optional
+	Name string `json:"name,omitempty"`
+
+	// Description of the trunk.
+	// +optional
+	Description string `json:"description,omitempty"`
+
+	// AdminStateUp is the administrative state of the trunk (true = up).
+	// +kubebuilder:default=true
+	// +optional
+	AdminStateUp *bool `json:"adminStateUp,omitempty"`
+
+	// TenantID is the project owner of the trunk.
+	// +optional
+	TenantID string `json:"tenantId,omitempty"`
+
+	// Subports is the list of subports attached to the trunk.
+	// +optional
+	Subports []Subport `json:"subports,omitempty"`
+}
+
+// TrunkStatus defines the observed state of an OpenStack trunk.
+type TrunkStatus struct {
+	xpv2.ConditionedStatus `json:",inline"`
+
+	AtProvider TrunkProviderStatus `json:"atProvider,omitempty"`
+}
+
+// TrunkProviderStatus defines the observed state of the trunk at the provider.
+type TrunkProviderStatus struct {
+	// TrunkID is the unique identifier of the trunk.
+	TrunkID string `json:"trunkId,omitempty"`
+
+	// Name is the name of the trunk.
+	Name string `json:"name,omitempty"`
+
+	// Description of the trunk.
+	Description string `json:"description,omitempty"`
+
+	// AdminStateUp is the administrative state.
+	AdminStateUp bool `json:"adminStateUp,omitempty"`
+
+	// Status is the current status (ACTIVE, DOWN, BUILD, DEGRADED, ERROR).
+	Status string `json:"status,omitempty"`
+
+	// PortID is the parent port of the trunk.
+	PortID string `json:"portId,omitempty"`
+
+	// TenantID is the project owner.
+	TenantID string `json:"tenantId,omitempty"`
+
+	// Subports is the list of subports attached to the trunk.
+	Subports []Subport `json:"subports,omitempty"`
+
+	// RevisionNumber for optimistic locking.
+	RevisionNumber int `json:"revisionNumber,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// Trunk is a managed resource that represents an OpenStack Neutron trunk.
+type Trunk struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   TrunkSpec   `json:"spec"`
+	Status TrunkStatus `json:"status,omitempty"`
+}
+
+// TrunkSpec defines the desired state of a Trunk.
+type TrunkSpec struct {
+	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                     TrunkParameters `json:"forProvider,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// TrunkList contains a list of Trunk resources.
+type TrunkList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []Trunk `json:"items"`
+}
+
+// RBACPolicyParameters define the desired state of an OpenStack Neutron RBAC policy.
+type RBACPolicyParameters struct {
+	// Action is the action of the RBAC policy (access_as_external or access_as_shared).
+	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Enum=access_as_external;access_as_shared
+	Action string `json:"action"`
+
+	// ObjectType is the type of the object the policy affects (e.g., "network" or "qos-policy").
+	// +kubebuilder:validation:Required
+	ObjectType string `json:"objectType"`
+
+	// TargetTenant is the ID of the tenant to which the RBAC policy is enforced.
+	// +kubebuilder:validation:Required
+	TargetTenant string `json:"targetTenant"`
+
+	// ObjectID is the ID of the object_type resource (e.g., network ID).
+	// +kubebuilder:validation:Required
+	ObjectID string `json:"objectId"`
+}
+
+// RBACPolicyStatus defines the observed state of an OpenStack RBAC policy.
+type RBACPolicyStatus struct {
+	xpv2.ConditionedStatus `json:",inline"`
+
+	AtProvider RBACPolicyProviderStatus `json:"atProvider,omitempty"`
+}
+
+// RBACPolicyProviderStatus defines the observed state of the RBAC policy at the provider.
+type RBACPolicyProviderStatus struct {
+	// RBACPolicyID is the unique identifier of the RBAC policy.
+	RBACPolicyID string `json:"rbacPolicyId,omitempty"`
+
+	// Action is the action of the RBAC policy.
+	Action string `json:"action,omitempty"`
+
+	// ObjectType is the type of the object affected.
+	ObjectType string `json:"objectType,omitempty"`
+
+	// ObjectID is the ID of the object affected.
+	ObjectID string `json:"objectId,omitempty"`
+
+	// TargetTenant is the target tenant.
+	TargetTenant string `json:"targetTenant,omitempty"`
+
+	// TenantID is the project that owns the resource.
+	TenantID string `json:"tenantId,omitempty"`
+
+	// ProjectID is the project ID.
+	ProjectID string `json:"projectId,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// RBACPolicy is a managed resource that represents an OpenStack Neutron RBAC policy.
+type RBACPolicy struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   RBACPolicySpec   `json:"spec"`
+	Status RBACPolicyStatus `json:"status,omitempty"`
+}
+
+// RBACPolicySpec defines the desired state of a RBACPolicy.
+type RBACPolicySpec struct {
+	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                     RBACPolicyParameters `json:"forProvider,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// RBACPolicyList contains a list of RBACPolicy resources.
+type RBACPolicyList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []RBACPolicy `json:"items"`
+}

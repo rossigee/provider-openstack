@@ -1,0 +1,12 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: example-project
+spec:
+  forProvider:
+    name: my-project
+    description: "Example OpenStack project"
+    enabled: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

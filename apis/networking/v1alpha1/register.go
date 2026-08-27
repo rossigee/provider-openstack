@@ -52,6 +52,14 @@ func addKnownTypes(s *runtime.Scheme) error {
 		&SecurityGroupRuleList{},
 		&FloatingIP{},
 		&FloatingIPList{},
+		&Port{},
+		&PortList{},
+		&SubnetPool{},
+		&SubnetPoolList{},
+		&Trunk{},
+		&TrunkList{},
+		&RBACPolicy{},
+		&RBACPolicyList{},
 	)
 	metav1.AddToGroupVersion(s, SchemeGroupVersion)
 	return nil
@@ -111,4 +119,36 @@ var (
 	FloatingIPGroupKind        = schema.GroupKind{Group: Group, Kind: FloatingIPKind}.String()
 	FloatingIPKindAPIVersion   = FloatingIPKind + "." + SchemeGroupVersion.String()
 	FloatingIPGroupVersionKind = SchemeGroupVersion.WithKind(FloatingIPKind)
+)
+
+// Port type metadata.
+var (
+	PortKind             = reflect.TypeOf(Port{}).Name()
+	PortGroupKind        = schema.GroupKind{Group: Group, Kind: PortKind}.String()
+	PortKindAPIVersion   = PortKind + "." + SchemeGroupVersion.String()
+	PortGroupVersionKind = SchemeGroupVersion.WithKind(PortKind)
+)
+
+// SubnetPool type metadata.
+var (
+	SubnetPoolKind             = reflect.TypeOf(SubnetPool{}).Name()
+	SubnetPoolGroupKind        = schema.GroupKind{Group: Group, Kind: SubnetPoolKind}.String()
+	SubnetPoolKindAPIVersion   = SubnetPoolKind + "." + SchemeGroupVersion.String()
+	SubnetPoolGroupVersionKind = SchemeGroupVersion.WithKind(SubnetPoolKind)
+)
+
+// Trunk type metadata.
+var (
+	TrunkKind             = reflect.TypeOf(Trunk{}).Name()
+	TrunkGroupKind        = schema.GroupKind{Group: Group, Kind: TrunkKind}.String()
+	TrunkKindAPIVersion   = TrunkKind + "." + SchemeGroupVersion.String()
+	TrunkGroupVersionKind = SchemeGroupVersion.WithKind(TrunkKind)
+)
+
+// RBACPolicy type metadata.
+var (
+	RBACPolicyKind             = reflect.TypeOf(RBACPolicy{}).Name()
+	RBACPolicyGroupKind        = schema.GroupKind{Group: Group, Kind: RBACPolicyKind}.String()
+	RBACPolicyKindAPIVersion   = RBACPolicyKind + "." + SchemeGroupVersion.String()
+	RBACPolicyGroupVersionKind = SchemeGroupVersion.WithKind(RBACPolicyKind)
 )

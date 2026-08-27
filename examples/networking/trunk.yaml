@@ -1,0 +1,12 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Trunk
+metadata:
+  name: example-trunk
+spec:
+  forProvider:
+    portId: <parent-port-id>
+    name: my-trunk
+    adminStateUp: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

@@ -1,0 +1,15 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: Listener
+metadata:
+  name: example-listener
+spec:
+  forProvider:
+    loadbalancerId: <load-balancer-id>
+    protocol: HTTP
+    protocolPort: 80
+    name: my-listener
+    description: "Example HTTP listener"
+    adminStateUp: true
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

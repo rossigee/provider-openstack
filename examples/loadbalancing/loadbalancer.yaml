@@ -1,0 +1,14 @@
+apiVersion: openstack.crossplane.io/v1alpha1
+kind: LoadBalancer
+metadata:
+  name: example-load-balancer
+spec:
+  forProvider:
+    name: my-load-balancer
+    vipSubnetId: <subnet-id>
+    description: "Example Octavia load balancer"
+    adminStateUp: true
+    provider: amphora
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete

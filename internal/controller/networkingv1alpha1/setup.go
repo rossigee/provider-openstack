@@ -4,11 +4,15 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"
 	"github.com/rossigee/provider-openstack/internal/controller/floatingip"
 	"github.com/rossigee/provider-openstack/internal/controller/network"
+	"github.com/rossigee/provider-openstack/internal/controller/port"
+	"github.com/rossigee/provider-openstack/internal/controller/rbacpolicy"
 	"github.com/rossigee/provider-openstack/internal/controller/router"
 	"github.com/rossigee/provider-openstack/internal/controller/routerinterface"
 	"github.com/rossigee/provider-openstack/internal/controller/securitygroup"
 	"github.com/rossigee/provider-openstack/internal/controller/securitygrouprule"
 	"github.com/rossigee/provider-openstack/internal/controller/subnet"
+	"github.com/rossigee/provider-openstack/internal/controller/subnetpool"
+	"github.com/rossigee/provider-openstack/internal/controller/trunk"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
@@ -17,6 +21,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		network.Setup,
 		subnet.Setup,
+		subnetpool.Setup,
+		port.Setup,
+		trunk.Setup,
+		rbacpolicy.Setup,
 		router.Setup,
 		routerinterface.Setup,
 		securitygroup.Setup,
