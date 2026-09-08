@@ -3,7 +3,7 @@ module github.com/rossigee/provider-openstack
 go 1.27.1
 
 require (
-	github.com/crossplane/crossplane-runtime/v2 v2.5.0-rc.0
+	github.com/crossplane/crossplane-runtime/v2 v2.5.0
 	github.com/crossplane/crossplane-tools v0.0.0-20260719180100-659f1dc036c5
 	github.com/crossplane/crossplane/apis/v2 v2.5.0-rc.0
 	github.com/gophercloud/gophercloud/v2 v2.14.0
@@ -119,4 +119,4 @@ require (
 
 replace github.com/crossplane-contrib/provider-openstack => ./
 
-replace github.com/crossplane/crossplane-runtime/v2 => github.com/rossigee/crossplane-runtime/v2 v2.5.0-rc.0
+replace github.com/crossplane/crossplane-runtime/v2 => github.com/rossigee/crossplane-runtime/v2 v2.5.0
