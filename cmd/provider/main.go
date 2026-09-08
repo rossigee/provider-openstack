@@ -11,6 +11,7 @@ import (
 
 	"github.com/rossigee/provider-openstack/apis"
 	internalcontroller "github.com/rossigee/provider-openstack/internal/controller"
+	"github.com/rossigee/provider-openstack/internal/features"
 	"github.com/rossigee/provider-openstack/internal/tracing"
 	"github.com/rossigee/provider-openstack/internal/version"
 
@@ -45,6 +46,7 @@ func main() {
 		leaderElection = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
 		pollInterval   = app.Flag("poll", "Poll interval controls how often an individual resource should be checked for drift.").Default("10m").Duration()
 		maxReconcile   = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("10").Int()
+		enableManagementPolicies = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Bool()
 
 		certsDirSet = false
 		certsDir    = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default(tlsServerCertDir).Envar(certsDirEnvVar).PreAction(func(_ *kingpin.ParseContext) error {
@@ -112,12 +114,18 @@ func main() {
 	mrStateMetrics := statemetrics.NewMRStateMetrics()
 	metrics.Registry.MustRegister(mrStateMetrics)
 
+	featureFlags := &feature.Flags{}
+	if *enableManagementPolicies {
+		featureFlags.Enable(features.EnableAlphaManagementPolicies)
+		logr.Info("Alpha feature enabled", "flag", features.EnableAlphaManagementPolicies)
+	}
+
 	o := controller.Options{
 		Logger:                  logr,
 		MaxConcurrentReconciles: *maxReconcile,
 		PollInterval:            *pollInterval,
 		GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcile),
-		Features:                &feature.Flags{},
+		Features:                featureFlags,
 	}
 
 	kingpin.FatalIfError(internalcontroller.Setup(mgr, o), "Cannot setup OpenStack controllers")

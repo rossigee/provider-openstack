@@ -18,6 +18,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	"github.com/rossigee/provider-openstack/internal/features"
 )
 
 const (
@@ -60,8 +61,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	name := managed.ControllerName(v1alpha1.RouterInterfaceGroupKind)
 	rec := event.NewNopRecorder()
 
-	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.RouterInterfaceGroupKind)),
+	opts := []managed.ReconcilerOption{
 		managed.WithExternalConnector(&External{
 			kube:     mgr.GetClient(),
 			recorder: rec,
@@ -69,7 +69,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(rec),
 		managed.WithPollInterval(o.PollInterval),
-	)
+	}
+	if o.Features.Enabled(features.EnableAlphaManagementPolicies) {
+		opts = append(opts, managed.WithManagementPolicies())
+	}
+
+	r := managed.NewReconciler(mgr,
+		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.RouterInterfaceGroupKind)),
+		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
