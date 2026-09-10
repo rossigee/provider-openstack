@@ -225,7 +225,7 @@ make build
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, or open an issue/PR in the [crossplane-providers](https://github.com/rossigee/crossplane-providers) monorepo. Follow the `ManagementPolicies: ["Observe"]` pattern for read-only resources and ensure `pre-commit run --all` passes (Go 1.27.1, golangci-lint 2.13.2, `rossigee/build@e5bf20a`).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, or open an issue/PR in this repository. Follow the `ManagementPolicies: ["Observe"]` pattern for read-only resources and ensure `pre-commit run --all` passes (Go 1.27.1, golangci-lint 2.13.2, `rossigee/build@e5bf20a`).
 
 ## License
 
