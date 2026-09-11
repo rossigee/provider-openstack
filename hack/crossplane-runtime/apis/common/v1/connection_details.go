@@ -161,5 +161,5 @@ type KubernetesSecretStoreConfig struct {
 	Auth KubernetesAuthConfig `json:"auth"`
 
 	// TODO(turkenh): Support additional identities like
-	// https://github.com/crossplane-contrib/provider-kubernetes/blob/4d722ef914e6964e80e190317daca9872ae98738/apis/v1alpha1/types.go#L34
+	// https://github.com/rossigee/provider-kubernetes/blob/4d722ef914e6964e80e190317daca9872ae98738/apis/v1alpha1/types.go#L34
 }
