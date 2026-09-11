@@ -67,7 +67,7 @@ $(UPTEST_LOCAL):
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/crossplane-contrib
+REGISTRY_ORGS ?= ghcr.io/rossigee
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
