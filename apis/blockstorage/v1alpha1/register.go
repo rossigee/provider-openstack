@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 // +kubebuilder:object:generate=true
-// +groupName=openstack.crossplane.io
+// +groupName=openstack.m.crossplane.io
 // +versionName=v1alpha1
 
 package v1alpha1
@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	Group   = "openstack.crossplane.io"
+	Group   = "openstack.m.crossplane.io"
 	Version = "v1alpha1"
 )
 
