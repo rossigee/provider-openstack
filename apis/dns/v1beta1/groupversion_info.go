@@ -1,38 +1,23 @@
-/*
-Copyright 2025 The Crossplane Authors.
-Licensed under the Apache License, Version 2.0.
-*/
-
 package v1beta1
 
 import (
 	"reflect"
-
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-const (
-	APIGroup = "dns.openstack.m.crossplane.io"
-)
+const APIGroup = "dns.openstack.m.crossplane.io"
 
 var SchemeGroupVersion = schema.GroupVersion{Group: APIGroup, Version: "v1beta1"}
-
 var SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 var AddToScheme = SchemeBuilder.AddToScheme
 
 func addKnownTypes(s *runtime.Scheme) error {
-	s.AddKnownTypes(SchemeGroupVersion,
-		&Zone{},
-		&ZoneList{},
-	)
+	s.AddKnownTypes(SchemeGroupVersion, &Zone{}, &ZoneList{})
 	return nil
 }
 
-// Zone type metadata.
 var (
-	ZoneKind             = reflect.TypeOf(Zone{}).Name()
-	ZoneGroupKind        = schema.GroupKind{Group: APIGroup, Kind: ZoneKind}
-	ZoneKindAPIVersion   = ZoneKind + "." + SchemeGroupVersion.String()
-	ZoneGroupVersionKind = SchemeGroupVersion.WithKind(ZoneKind)
+	ZoneKind = reflect.TypeOf(Zone{}).Name()
+	ZoneGroupKind = schema.GroupKind{Group: APIGroup, Kind: ZoneKind}
 )

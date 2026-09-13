@@ -25,6 +25,8 @@ func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(SchemeGroupVersion,
 		&Server{},
 		&ServerList{},
+		&KeyPair{},
+		&KeyPairList{},
 	)
 	return nil
 }
@@ -35,4 +37,12 @@ var (
 	ServerGroupKind        = schema.GroupKind{Group: APIGroup, Kind: ServerKind}
 	ServerKindAPIVersion   = ServerKind + "." + SchemeGroupVersion.String()
 	ServerGroupVersionKind = SchemeGroupVersion.WithKind(ServerKind)
+)
+
+// KeyPair type metadata.
+var (
+	KeyPairKind             = reflect.TypeOf(KeyPair{}).Name()
+	KeyPairGroupKind        = schema.GroupKind{Group: APIGroup, Kind: KeyPairKind}
+	KeyPairKindAPIVersion   = KeyPairKind + "." + SchemeGroupVersion.String()
+	KeyPairGroupVersionKind = SchemeGroupVersion.WithKind(KeyPairKind)
 )

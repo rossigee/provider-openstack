@@ -25,14 +25,49 @@ func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(SchemeGroupVersion,
 		&LoadBalancer{},
 		&LoadBalancerList{},
+		&Listener{},
+		&ListenerList{},
+		&Pool{},
+		&PoolList{},
+		&Member{},
+		&MemberList{},
+		&HealthMonitor{},
+		&HealthMonitorList{},
 	)
 	return nil
 }
 
-// LoadBalancer type metadata.
 var (
 	LoadBalancerKind             = reflect.TypeOf(LoadBalancer{}).Name()
 	LoadBalancerGroupKind        = schema.GroupKind{Group: APIGroup, Kind: LoadBalancerKind}
 	LoadBalancerKindAPIVersion   = LoadBalancerKind + "." + SchemeGroupVersion.String()
 	LoadBalancerGroupVersionKind = SchemeGroupVersion.WithKind(LoadBalancerKind)
+)
+
+var (
+	ListenerKind             = reflect.TypeOf(Listener{}).Name()
+	ListenerGroupKind        = schema.GroupKind{Group: APIGroup, Kind: ListenerKind}
+	ListenerKindAPIVersion   = ListenerKind + "." + SchemeGroupVersion.String()
+	ListenerGroupVersionKind = SchemeGroupVersion.WithKind(ListenerKind)
+)
+
+var (
+	PoolKind             = reflect.TypeOf(Pool{}).Name()
+	PoolGroupKind        = schema.GroupKind{Group: APIGroup, Kind: PoolKind}
+	PoolKindAPIVersion   = PoolKind + "." + SchemeGroupVersion.String()
+	PoolGroupVersionKind = SchemeGroupVersion.WithKind(PoolKind)
+)
+
+var (
+	MemberKind             = reflect.TypeOf(Member{}).Name()
+	MemberGroupKind        = schema.GroupKind{Group: APIGroup, Kind: MemberKind}
+	MemberKindAPIVersion   = MemberKind + "." + SchemeGroupVersion.String()
+	MemberGroupVersionKind = SchemeGroupVersion.WithKind(MemberKind)
+)
+
+var (
+	HealthMonitorKind             = reflect.TypeOf(HealthMonitor{}).Name()
+	HealthMonitorGroupKind        = schema.GroupKind{Group: APIGroup, Kind: HealthMonitorKind}
+	HealthMonitorKindAPIVersion   = HealthMonitorKind + "." + SchemeGroupVersion.String()
+	HealthMonitorGroupVersionKind = SchemeGroupVersion.WithKind(HealthMonitorKind)
 )

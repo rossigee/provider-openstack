@@ -25,6 +25,10 @@ func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(SchemeGroupVersion,
 		&Volume{},
 		&VolumeList{},
+		&VolumeSnapshot{},
+		&VolumeSnapshotList{},
+		&VolumeType{},
+		&VolumeTypeList{},
 	)
 	return nil
 }
@@ -35,4 +39,20 @@ var (
 	VolumeGroupKind        = schema.GroupKind{Group: APIGroup, Kind: VolumeKind}
 	VolumeKindAPIVersion   = VolumeKind + "." + SchemeGroupVersion.String()
 	VolumeGroupVersionKind = SchemeGroupVersion.WithKind(VolumeKind)
+)
+
+// VolumeSnapshot type metadata.
+var (
+	VolumeSnapshotKind             = reflect.TypeOf(VolumeSnapshot{}).Name()
+	VolumeSnapshotGroupKind        = schema.GroupKind{Group: APIGroup, Kind: VolumeSnapshotKind}
+	VolumeSnapshotKindAPIVersion   = VolumeSnapshotKind + "." + SchemeGroupVersion.String()
+	VolumeSnapshotGroupVersionKind = SchemeGroupVersion.WithKind(VolumeSnapshotKind)
+)
+
+// VolumeType type metadata.
+var (
+	VolumeTypeKind             = reflect.TypeOf(VolumeType{}).Name()
+	VolumeTypeGroupKind        = schema.GroupKind{Group: APIGroup, Kind: VolumeTypeKind}
+	VolumeTypeKindAPIVersion   = VolumeTypeKind + "." + SchemeGroupVersion.String()
+	VolumeTypeGroupVersionKind = SchemeGroupVersion.WithKind(VolumeTypeKind)
 )

@@ -1,20 +1,7 @@
-/*
-Copyright 2025 The Crossplane Authors.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1beta1
 
 import (
-	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -30,7 +17,7 @@ type ImageParameters struct {
 	Properties      map[string]string `json:"properties,omitempty"`
 }
 
-type ImageObservation struct {
+type ImageProviderStatus struct {
 	ImageID         string   `json:"imageId,omitempty"`
 	Status          string   `json:"status,omitempty"`
 	Size            int64    `json:"size,omitempty"`
@@ -49,22 +36,32 @@ type ImageObservation struct {
 }
 
 type ImageSpec struct {
-	xpv1.ManagedResourceSpec `json:",inline"`
-	ForProvider              ImageParameters `json:"forProvider"`
+	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                     ImageParameters `json:"forProvider"`
 }
 
 type ImageStatus struct {
-	xpv1.ConditionedStatus `json:",inline"`
-	AtProvider             ImageObservation `json:"atProvider,omitempty"`
+	xpv2.ConditionedStatus `json:",inline"`
+	AtProvider             ImageProviderStatus `json:"atProvider,omitempty"`
 }
 
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
 type Image struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ImageSpec   `json:"spec"`
-	Status            ImageStatus `json:"status,omitempty"`
+
+	Spec   ImageSpec   `json:"spec"`
+	Status ImageStatus `json:"status,omitempty"`
 }
 
+// +kubebuilder:object:root=true
 type ImageList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
