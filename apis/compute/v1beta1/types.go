@@ -228,7 +228,7 @@ type ServerAddress struct {
 // +kubebuilder:printcolumn:name="Flavor",type="string",JSONPath=".status.atProvider.flavor"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Server is a managed resource that represents an OpenStack Nova server.
 type Server struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -240,8 +240,8 @@ type Server struct {
 
 // ServerSpec defines the desired state of a Server.
 type ServerSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
-	ForProvider                     ServerParameters `json:"forProvider,omitempty"`
+	xpv2.ManagedResourceSpec `json:",inline"`
+	ForProvider              ServerParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -321,7 +321,7 @@ type KeyPairProviderStatus struct {
 // +kubebuilder:printcolumn:name="Fingerprint",type="string",JSONPath=".status.atProvider.fingerprint"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // KeyPair is a managed resource that represents an OpenStack Nova key pair.
 type KeyPair struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -333,8 +333,8 @@ type KeyPair struct {
 
 // KeyPairSpec defines the desired state of a KeyPair.
 type KeyPairSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
-	ForProvider                     KeyPairParameters `json:"forProvider,omitempty"`
+	xpv2.ManagedResourceSpec `json:",inline"`
+	ForProvider              KeyPairParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

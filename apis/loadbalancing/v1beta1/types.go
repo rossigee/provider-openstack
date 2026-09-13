@@ -127,7 +127,7 @@ type LoadBalancerProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.provisioningStatus"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // LoadBalancer is a managed resource that represents an OpenStack Octavia load balancer.
 type LoadBalancer struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -139,7 +139,7 @@ type LoadBalancer struct {
 
 // LoadBalancerSpec defines the desired state of a LoadBalancer.
 type LoadBalancerSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     LoadBalancerParameters `json:"forProvider,omitempty"`
 }
 
@@ -291,7 +291,7 @@ type ListenerProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.provisioningStatus"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Listener is a managed resource that represents an OpenStack Octavia listener.
 type Listener struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -303,7 +303,7 @@ type Listener struct {
 
 // ListenerSpec defines the desired state of a Listener.
 type ListenerSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     ListenerParameters `json:"forProvider,omitempty"`
 }
 
@@ -430,7 +430,7 @@ type PoolProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.provisioningStatus"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Pool is a managed resource that represents an OpenStack Octavia pool.
 type Pool struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -442,7 +442,7 @@ type Pool struct {
 
 // PoolSpec defines the desired state of a Pool.
 type PoolSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     PoolParameters `json:"forProvider,omitempty"`
 }
 
@@ -577,7 +577,7 @@ type MemberProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.provisioningStatus"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Member is a managed resource that represents an OpenStack Octavia pool member.
 type Member struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -589,7 +589,7 @@ type Member struct {
 
 // MemberSpec defines the desired state of a Member.
 type MemberSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     MemberParameters `json:"forProvider,omitempty"`
 }
 
@@ -734,7 +734,7 @@ type HealthMonitorProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.provisioningStatus"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // HealthMonitor is a managed resource that represents an OpenStack Octavia health monitor.
 type HealthMonitor struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -746,7 +746,7 @@ type HealthMonitor struct {
 
 // HealthMonitorSpec defines the desired state of a HealthMonitor.
 type HealthMonitorSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     HealthMonitorParameters `json:"forProvider,omitempty"`
 }
 

@@ -116,7 +116,7 @@ type VolumeProviderStatus struct {
 // +kubebuilder:printcolumn:name="Size",type="integer",JSONPath=".status.atProvider.size"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Volume is a managed resource that represents an OpenStack Cinder volume.
 type Volume struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -128,7 +128,7 @@ type Volume struct {
 
 // VolumeSpec defines the desired state of a Volume.
 type VolumeSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     VolumeParameters `json:"forProvider,omitempty"`
 }
 
@@ -194,7 +194,7 @@ type VolumeTypeProviderStatus struct {
 // +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // VolumeType is a managed resource that represents an OpenStack Cinder volume type.
 type VolumeType struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -206,7 +206,7 @@ type VolumeType struct {
 
 // VolumeTypeSpec defines the desired state of a VolumeType.
 type VolumeTypeSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     VolumeTypeParameters `json:"forProvider,omitempty"`
 }
 
@@ -286,7 +286,7 @@ type VolumeSnapshotProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // VolumeSnapshot is a managed resource that represents an OpenStack Cinder snapshot.
 type VolumeSnapshot struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -298,7 +298,7 @@ type VolumeSnapshot struct {
 
 // VolumeSnapshotSpec defines the desired state of a VolumeSnapshot.
 type VolumeSnapshotSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     VolumeSnapshotParameters `json:"forProvider,omitempty"`
 }
 

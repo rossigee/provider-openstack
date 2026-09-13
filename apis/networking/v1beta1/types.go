@@ -123,7 +123,7 @@ type NetworkProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Network is a managed resource that represents an OpenStack Neutron network.
 type Network struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -135,7 +135,7 @@ type Network struct {
 
 // NetworkSpec defines the desired state of a Network.
 type NetworkSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     NetworkParameters `json:"forProvider,omitempty"`
 }
 
@@ -303,7 +303,7 @@ type SubnetProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Subnet is a managed resource that represents an OpenStack Neutron subnet.
 type Subnet struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -315,7 +315,7 @@ type Subnet struct {
 
 // SubnetSpec defines the desired state of a Subnet.
 type SubnetSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     SubnetParameters `json:"forProvider,omitempty"`
 }
 
@@ -418,7 +418,7 @@ type RouterRoute struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Router is a managed resource that represents an OpenStack Neutron router.
 type Router struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -430,7 +430,7 @@ type Router struct {
 
 // RouterSpec defines the desired state of a Router.
 type RouterSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     RouterParameters `json:"forProvider,omitempty"`
 }
 
@@ -499,7 +499,7 @@ type RouterInterfaceProviderStatus struct {
 // +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // RouterInterface is a managed resource that represents an OpenStack router interface.
 type RouterInterface struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -511,7 +511,7 @@ type RouterInterface struct {
 
 // RouterInterfaceSpec defines the desired state of a RouterInterface.
 type RouterInterfaceSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     RouterInterfaceParameters `json:"forProvider,omitempty"`
 }
 
@@ -610,7 +610,7 @@ type SecurityGroupRuleInfo struct {
 // +kubebuilder:printcolumn:name="Rules",type="integer",JSONPath=".status.atProvider.rules"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // SecurityGroup is a managed resource that represents an OpenStack Neutron security group.
 type SecurityGroup struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -622,7 +622,7 @@ type SecurityGroup struct {
 
 // SecurityGroupSpec defines the desired state of a SecurityGroup.
 type SecurityGroupSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     SecurityGroupParameters `json:"forProvider,omitempty"`
 }
 
@@ -726,7 +726,7 @@ type SecurityGroupRuleProviderStatus struct {
 // +kubebuilder:printcolumn:name="Protocol",type="string",JSONPath=".spec.forProvider.protocol"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // SecurityGroupRule is a managed resource that represents an OpenStack security group rule.
 type SecurityGroupRule struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -738,7 +738,7 @@ type SecurityGroupRule struct {
 
 // SecurityGroupRuleSpec defines the desired state of a SecurityGroupRule.
 type SecurityGroupRuleSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     SecurityGroupRuleParameters `json:"forProvider,omitempty"`
 }
 
@@ -838,7 +838,7 @@ type FloatingIPProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // FloatingIP is a managed resource that represents an OpenStack Neutron floating IP.
 type FloatingIP struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -850,7 +850,7 @@ type FloatingIP struct {
 
 // FloatingIPSpec defines the desired state of a FloatingIP.
 type FloatingIPSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     FloatingIPParameters `json:"forProvider,omitempty"`
 }
 
@@ -988,7 +988,7 @@ type PortProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Port is a managed resource that represents an OpenStack Neutron port.
 type Port struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -1000,7 +1000,7 @@ type Port struct {
 
 // PortSpec defines the desired state of a Port.
 type PortSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     PortParameters `json:"forProvider,omitempty"`
 }
 
@@ -1119,7 +1119,7 @@ type SubnetPoolProviderStatus struct {
 // +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // SubnetPool is a managed resource that represents an OpenStack Neutron subnet pool.
 type SubnetPool struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -1131,7 +1131,7 @@ type SubnetPool struct {
 
 // SubnetPoolSpec defines the desired state of a SubnetPool.
 type SubnetPoolSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     SubnetPoolParameters `json:"forProvider,omitempty"`
 }
 
@@ -1230,7 +1230,7 @@ type TrunkProviderStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // Trunk is a managed resource that represents an OpenStack Neutron trunk.
 type Trunk struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -1242,7 +1242,7 @@ type Trunk struct {
 
 // TrunkSpec defines the desired state of a Trunk.
 type TrunkSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     TrunkParameters `json:"forProvider,omitempty"`
 }
 
@@ -1311,7 +1311,7 @@ type RBACPolicyProviderStatus struct {
 // +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 // RBACPolicy is a managed resource that represents an OpenStack Neutron RBAC policy.
 type RBACPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -1323,7 +1323,7 @@ type RBACPolicy struct {
 
 // RBACPolicySpec defines the desired state of a RBACPolicy.
 type RBACPolicySpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     RBACPolicyParameters `json:"forProvider,omitempty"`
 }
 

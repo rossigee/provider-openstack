@@ -36,7 +36,7 @@ type ImageProviderStatus struct {
 }
 
 type ImageSpec struct {
-	xpv2.ClusterManagedResourceSpec `json:",inline"`
+	xpv2.ManagedResourceSpec `json:",inline"`
 	ForProvider                     ImageParameters `json:"forProvider"`
 }
 
@@ -52,7 +52,7 @@ type ImageStatus struct {
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.atProvider.status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,openstack}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
 type Image struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
