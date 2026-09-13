@@ -16,9 +16,9 @@ limitations under the License.
 
 //nolint:all
 
-// Package v1beta1 contains the v1beta1 group openstack.crossplane.io resources of the provider.
+// Package v1beta1 contains the v1beta1 group openstack.m.crossplane.io resources of the provider.
 // +kubebuilder:object:generate=true
-// +groupName=openstack.crossplane.io
+// +groupName=openstack.m.crossplane.io
 // +versionName=v1beta1
 package v1beta1
 
@@ -32,7 +32,7 @@ import (
 )
 
 const (
-	Group   = "openstack.crossplane.io"
+	Group   = "openstack.m.crossplane.io"
 	Version = "v1beta1"
 )
 
