@@ -16,6 +16,7 @@ package v1beta1
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // VolumeParameters define the desired state of an OpenStack Cinder volume.
@@ -308,4 +309,97 @@ type VolumeSnapshotList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []VolumeSnapshot `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Volume) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Volume)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Volume) DeepCopyInto(out *Volume) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *VolumeList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(VolumeList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *VolumeList) DeepCopyInto(out *VolumeList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Volume, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *VolumeType) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(VolumeType)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *VolumeType) DeepCopyInto(out *VolumeType) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *VolumeTypeList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(VolumeTypeList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *VolumeTypeList) DeepCopyInto(out *VolumeTypeList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]VolumeType, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *VolumeSnapshot) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(VolumeSnapshot)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *VolumeSnapshot) DeepCopyInto(out *VolumeSnapshot) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *VolumeSnapshotList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(VolumeSnapshotList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *VolumeSnapshotList) DeepCopyInto(out *VolumeSnapshotList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]VolumeSnapshot, len(in.Items)); copy(out.Items, in.Items) }
 }

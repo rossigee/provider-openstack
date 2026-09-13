@@ -1,4 +1,4 @@
-package blockstoragev1alpha1
+package blockstoragev1beta1
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"

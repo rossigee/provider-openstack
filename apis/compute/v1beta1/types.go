@@ -16,6 +16,7 @@ package v1beta1
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // Server parameters define the desired state of an OpenStack Nova server.
@@ -343,4 +344,66 @@ type KeyPairList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []KeyPair `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Server) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Server)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Server) DeepCopyInto(out *Server) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ServerList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ServerList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ServerList) DeepCopyInto(out *ServerList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Server, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *KeyPair) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(KeyPair)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *KeyPair) DeepCopyInto(out *KeyPair) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *KeyPairList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(KeyPairList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *KeyPairList) DeepCopyInto(out *KeyPairList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]KeyPair, len(in.Items)); copy(out.Items, in.Items) }
 }

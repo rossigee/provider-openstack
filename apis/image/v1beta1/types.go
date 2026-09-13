@@ -3,6 +3,7 @@ package v1beta1
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type ImageParameters struct {
@@ -66,4 +67,35 @@ type ImageList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Image `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Image) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Image)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Image) DeepCopyInto(out *Image) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ImageList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ImageList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ImageList) DeepCopyInto(out *ImageList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Image, len(in.Items)); copy(out.Items, in.Items) }
 }

@@ -1,4 +1,4 @@
-package identityv1alpha1
+package identityv1beta1
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"

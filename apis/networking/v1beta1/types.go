@@ -16,6 +16,7 @@ package v1beta1
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // Network parameters define the desired state of an OpenStack Neutron network.
@@ -1333,4 +1334,345 @@ type RBACPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []RBACPolicy `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Network) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Network)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Network) DeepCopyInto(out *Network) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *NetworkList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(NetworkList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *NetworkList) DeepCopyInto(out *NetworkList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Network, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Subnet) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Subnet)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Subnet) DeepCopyInto(out *Subnet) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SubnetList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SubnetList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SubnetList) DeepCopyInto(out *SubnetList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Subnet, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Router) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Router)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Router) DeepCopyInto(out *Router) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RouterList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RouterList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RouterList) DeepCopyInto(out *RouterList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Router, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RouterInterface) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RouterInterface)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RouterInterface) DeepCopyInto(out *RouterInterface) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RouterInterfaceList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RouterInterfaceList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RouterInterfaceList) DeepCopyInto(out *RouterInterfaceList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]RouterInterface, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SecurityGroup) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SecurityGroup)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SecurityGroup) DeepCopyInto(out *SecurityGroup) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SecurityGroupList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SecurityGroupList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SecurityGroupList) DeepCopyInto(out *SecurityGroupList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]SecurityGroup, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SecurityGroupRule) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SecurityGroupRule)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SecurityGroupRule) DeepCopyInto(out *SecurityGroupRule) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SecurityGroupRuleList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SecurityGroupRuleList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SecurityGroupRuleList) DeepCopyInto(out *SecurityGroupRuleList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]SecurityGroupRule, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *FloatingIP) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(FloatingIP)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *FloatingIP) DeepCopyInto(out *FloatingIP) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *FloatingIPList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(FloatingIPList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *FloatingIPList) DeepCopyInto(out *FloatingIPList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]FloatingIP, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Port) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Port)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Port) DeepCopyInto(out *Port) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *PortList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(PortList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *PortList) DeepCopyInto(out *PortList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Port, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SubnetPool) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SubnetPool)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SubnetPool) DeepCopyInto(out *SubnetPool) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *SubnetPoolList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(SubnetPoolList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *SubnetPoolList) DeepCopyInto(out *SubnetPoolList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]SubnetPool, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Trunk) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Trunk)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Trunk) DeepCopyInto(out *Trunk) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *TrunkList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(TrunkList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *TrunkList) DeepCopyInto(out *TrunkList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Trunk, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RBACPolicy) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RBACPolicy)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RBACPolicy) DeepCopyInto(out *RBACPolicy) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RBACPolicyList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RBACPolicyList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RBACPolicyList) DeepCopyInto(out *RBACPolicyList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]RBACPolicy, len(in.Items)); copy(out.Items, in.Items) }
 }

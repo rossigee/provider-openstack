@@ -1,4 +1,4 @@
-package loadbalancingv1alpha1
+package loadbalancingv1beta1
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"

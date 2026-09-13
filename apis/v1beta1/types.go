@@ -3,6 +3,7 @@ package v1beta1
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
@@ -67,4 +68,65 @@ type ProviderConfigUsageList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []ProviderConfigUsage `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ProviderConfig) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ProviderConfig)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ProviderConfig) DeepCopyInto(out *ProviderConfig) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ProviderConfigList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ProviderConfigList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ProviderConfigList) DeepCopyInto(out *ProviderConfigList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]ProviderConfig, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ProviderConfigUsage) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ProviderConfigUsage)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ProviderConfigUsage) DeepCopyInto(out *ProviderConfigUsage) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.TypedProviderConfigUsage = in.TypedProviderConfigUsage
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ProviderConfigUsageList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ProviderConfigUsageList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ProviderConfigUsageList) DeepCopyInto(out *ProviderConfigUsageList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]ProviderConfigUsage, len(in.Items)); copy(out.Items, in.Items) }
 }

@@ -15,7 +15,6 @@ var SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 var AddToScheme = SchemeBuilder.AddToScheme
 
 func addKnownTypes(s *runtime.Scheme) error {
-	// TODO: Fix deepcopy generation for Project/User types
-	// s.AddKnownTypes(SchemeGroupVersion, &Project{}, &ProjectList{}, &User{}, &UserList{})
+	s.AddKnownTypes(SchemeGroupVersion, &Project{}, &ProjectList{}, &User{}, &UserList{})
 	return nil
 }

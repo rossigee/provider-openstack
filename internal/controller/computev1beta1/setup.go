@@ -1,4 +1,4 @@
-package computev1alpha1
+package computev1beta1
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"

@@ -15,7 +15,6 @@ var SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
 var AddToScheme = SchemeBuilder.AddToScheme
 
 func addKnownTypes(s *runtime.Scheme) error {
-	// TODO: Fix deepcopy generation for Zone types
-	// s.AddKnownTypes(SchemeGroupVersion, &Zone{}, &ZoneList{})
+	s.AddKnownTypes(SchemeGroupVersion, &Zone{}, &ZoneList{})
 	return nil
 }

@@ -1,4 +1,4 @@
-package networkingv1alpha1
+package networkingv1beta1
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"

@@ -3,6 +3,7 @@ package v1beta1
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // LoadBalancerParameters define the desired state of an OpenStack Octavia load balancer.
@@ -756,4 +757,159 @@ type HealthMonitorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []HealthMonitor `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *LoadBalancer) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(LoadBalancer)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *LoadBalancer) DeepCopyInto(out *LoadBalancer) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *LoadBalancerList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(LoadBalancerList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *LoadBalancerList) DeepCopyInto(out *LoadBalancerList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]LoadBalancer, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Listener) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Listener)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Listener) DeepCopyInto(out *Listener) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *ListenerList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(ListenerList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *ListenerList) DeepCopyInto(out *ListenerList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Listener, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Pool) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Pool)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Pool) DeepCopyInto(out *Pool) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *PoolList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(PoolList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *PoolList) DeepCopyInto(out *PoolList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Pool, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Member) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Member)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Member) DeepCopyInto(out *Member) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *MemberList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(MemberList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *MemberList) DeepCopyInto(out *MemberList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Member, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *HealthMonitor) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(HealthMonitor)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *HealthMonitor) DeepCopyInto(out *HealthMonitor) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *HealthMonitorList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(HealthMonitorList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *HealthMonitorList) DeepCopyInto(out *HealthMonitorList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]HealthMonitor, len(in.Items)); copy(out.Items, in.Items) }
 }
