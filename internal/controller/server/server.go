@@ -8,7 +8,7 @@ import (
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/compute/v2/keypairs"
 	"github.com/gophercloud/gophercloud/v2/openstack/compute/v2/servers"
-	"github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
+	computev1beta1 "github.com/rossigee/provider-openstack/apis/compute/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -59,7 +59,7 @@ type openstackServerClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.ServerGroupKind)
+	name := managed.ControllerName(computev1beta1.ServerGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -76,18 +76,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.ServerGroupKind)),
+		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.ServerGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Server{}).
+		For(&computev1beta1.Server{}).
 		Complete(r)
 }
 
 func (e *openstackServerClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Server)
+	cr, ok := mg.(*computev1beta1.Server)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotServerResource)
 	}
@@ -113,7 +113,7 @@ func (e *openstackServerClient) Observe(ctx context.Context, mg resource.Managed
 		imageStr = img
 	}
 
-	cr.Status.AtProvider = v1alpha1.ServerProviderStatus{
+	cr.Status.AtProvider = computev1beta1.ServerProviderStatus{
 		ServerID:  srv.ID,
 		Status:    srv.Status,
 		TenantID:  srv.TenantID,
@@ -131,7 +131,7 @@ func (e *openstackServerClient) Observe(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackServerClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Server)
+	cr, ok := mg.(*computev1beta1.Server)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotServerResource)
 	}
@@ -169,7 +169,7 @@ func (e *openstackServerClient) Create(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackServerClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Server)
+	cr, ok := mg.(*computev1beta1.Server)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotServerResource)
 	}
@@ -187,7 +187,7 @@ func (e *openstackServerClient) Update(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackServerClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Server)
+	cr, ok := mg.(*computev1beta1.Server)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotServerResource)
 	}
@@ -200,8 +200,8 @@ func (e *openstackServerClient) Disconnect(ctx context.Context) error {
 	return nil
 }
 
-func convertAddresses(addrs map[string]any) []v1alpha1.ServerAddress {
-	var result []v1alpha1.ServerAddress
+func convertAddresses(addrs map[string]any) []computev1beta1.ServerAddress {
+	var result []computev1beta1.ServerAddress
 	for networkName, rawAddrs := range addrs {
 		addrList, ok := rawAddrs.([]any)
 		if !ok {
@@ -214,7 +214,7 @@ func convertAddresses(addrs map[string]any) []v1alpha1.ServerAddress {
 			}
 			version, _ := addrMap["version"].(float64)
 			addr, _ := addrMap["addr"].(string)
-			result = append(result, v1alpha1.ServerAddress{
+			result = append(result, computev1beta1.ServerAddress{
 				Network: networkName,
 				Version: int(version),
 				Address: addr,

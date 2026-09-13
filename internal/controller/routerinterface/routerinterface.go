@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/extensions/layer3/routers"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackRouterInterfaceClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.RouterInterfaceGroupKind)
+	name := managed.ControllerName(networkingv1beta1.RouterInterfaceGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.RouterInterfaceGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.RouterInterfaceGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.RouterInterface{}).
+		For(&networkingv1beta1.RouterInterface{}).
 		Complete(r)
 }
 
 func (e *openstackRouterInterfaceClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.RouterInterface)
+	cr, ok := mg.(*networkingv1beta1.RouterInterface)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotRouterInterfaceResource)
 	}
@@ -108,7 +108,7 @@ func (e *openstackRouterInterfaceClient) Observe(ctx context.Context, mg resourc
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetRouterInterface, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.RouterInterfaceProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.RouterInterfaceProviderStatus{
 		RouterID: router.ID,
 		SubnetID: cr.Spec.ForProvider.SubnetID,
 	}
@@ -120,7 +120,7 @@ func (e *openstackRouterInterfaceClient) Observe(ctx context.Context, mg resourc
 }
 
 func (e *openstackRouterInterfaceClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.RouterInterface)
+	cr, ok := mg.(*networkingv1beta1.RouterInterface)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotRouterInterfaceResource)
 	}
@@ -149,7 +149,7 @@ func (e *openstackRouterInterfaceClient) Update(ctx context.Context, mg resource
 }
 
 func (e *openstackRouterInterfaceClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.RouterInterface)
+	cr, ok := mg.(*networkingv1beta1.RouterInterface)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotRouterInterfaceResource)
 	}

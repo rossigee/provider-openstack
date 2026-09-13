@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/loadbalancer/v2/loadbalancers"
-	"github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
+	loadbalancingv1beta1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackLoadBalancerClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.LoadBalancerGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.LoadBalancerGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.LoadBalancerGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.LoadBalancerGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.LoadBalancer{}).
+		For(&loadbalancingv1beta1.LoadBalancer{}).
 		Complete(r)
 }
 
 func (e *openstackLoadBalancerClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.LoadBalancer)
+	cr, ok := mg.(*loadbalancingv1beta1.LoadBalancer)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotLoadBalancerResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackLoadBalancerClient) Observe(ctx context.Context, mg resource.M
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetLoadBalancer, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.LoadBalancerProviderStatus{
+	cr.Status.AtProvider = loadbalancingv1beta1.LoadBalancerProviderStatus{
 		LoadBalancerID:     lb.ID,
 		Name:               lb.Name,
 		Description:        lb.Description,
@@ -127,7 +127,7 @@ func (e *openstackLoadBalancerClient) Observe(ctx context.Context, mg resource.M
 }
 
 func (e *openstackLoadBalancerClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.LoadBalancer)
+	cr, ok := mg.(*loadbalancingv1beta1.LoadBalancer)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotLoadBalancerResource)
 	}
@@ -161,7 +161,7 @@ func (e *openstackLoadBalancerClient) Create(ctx context.Context, mg resource.Ma
 }
 
 func (e *openstackLoadBalancerClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.LoadBalancer)
+	cr, ok := mg.(*loadbalancingv1beta1.LoadBalancer)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotLoadBalancerResource)
 	}
@@ -183,7 +183,7 @@ func (e *openstackLoadBalancerClient) Update(ctx context.Context, mg resource.Ma
 }
 
 func (e *openstackLoadBalancerClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.LoadBalancer)
+	cr, ok := mg.(*loadbalancingv1beta1.LoadBalancer)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotLoadBalancerResource)
 	}

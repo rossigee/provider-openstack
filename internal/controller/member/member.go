@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/loadbalancer/v2/pools"
-	"github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
+	loadbalancingv1beta1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -55,7 +55,7 @@ type openstackMemberClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.MemberGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.MemberGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,18 +72,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.MemberGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.MemberGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Member{}).
+		For(&loadbalancingv1beta1.Member{}).
 		Complete(r)
 }
 
 func (e *openstackMemberClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Member)
+	cr, ok := mg.(*loadbalancingv1beta1.Member)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotMemberResource)
 	}
@@ -100,7 +100,7 @@ func (e *openstackMemberClient) Observe(ctx context.Context, mg resource.Managed
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetMember, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.MemberProviderStatus{
+	cr.Status.AtProvider = loadbalancingv1beta1.MemberProviderStatus{
 		MemberID:           member.ID,
 		PoolID:             member.PoolID,
 		Name:               member.Name,
@@ -125,7 +125,7 @@ func (e *openstackMemberClient) Observe(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackMemberClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Member)
+	cr, ok := mg.(*loadbalancingv1beta1.Member)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotMemberResource)
 	}
@@ -157,7 +157,7 @@ func (e *openstackMemberClient) Create(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackMemberClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Member)
+	cr, ok := mg.(*loadbalancingv1beta1.Member)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotMemberResource)
 	}
@@ -181,7 +181,7 @@ func (e *openstackMemberClient) Update(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackMemberClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Member)
+	cr, ok := mg.(*loadbalancingv1beta1.Member)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotMemberResource)
 	}

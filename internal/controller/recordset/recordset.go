@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/dns/v2/recordsets"
-	"github.com/rossigee/provider-openstack/apis/dns/v1alpha1"
+	dnsv1beta1 "github.com/rossigee/provider-openstack/apis/dns/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -56,7 +56,7 @@ type openstackRecordSetClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.RecordSetGroupKind)
+	name := managed.ControllerName(dnsv1beta1.RecordSetGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,18 +73,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.RecordSetGroupKind)),
+		resource.ManagedKind(dnsv1beta1.SchemeGroupVersion.WithKind(dnsv1beta1.RecordSetGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.RecordSet{}).
+		For(&dnsv1beta1.RecordSet{}).
 		Complete(r)
 }
 
 func (e *openstackRecordSetClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.RecordSet)
+	cr, ok := mg.(*dnsv1beta1.RecordSet)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotRecordSetResource)
 	}
@@ -106,7 +106,7 @@ func (e *openstackRecordSetClient) Observe(ctx context.Context, mg resource.Mana
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetRecordSet, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.RecordSetProviderStatus{
+	cr.Status.AtProvider = dnsv1beta1.RecordSetProviderStatus{
 		RecordSetID: rs.ID,
 		Name:        rs.Name,
 		ZoneID:      rs.ZoneID,
@@ -125,7 +125,7 @@ func (e *openstackRecordSetClient) Observe(ctx context.Context, mg resource.Mana
 }
 
 func (e *openstackRecordSetClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.RecordSet)
+	cr, ok := mg.(*dnsv1beta1.RecordSet)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotRecordSetResource)
 	}
@@ -150,7 +150,7 @@ func (e *openstackRecordSetClient) Create(ctx context.Context, mg resource.Manag
 }
 
 func (e *openstackRecordSetClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.RecordSet)
+	cr, ok := mg.(*dnsv1beta1.RecordSet)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotRecordSetResource)
 	}
@@ -171,7 +171,7 @@ func (e *openstackRecordSetClient) Update(ctx context.Context, mg resource.Manag
 }
 
 func (e *openstackRecordSetClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.RecordSet)
+	cr, ok := mg.(*dnsv1beta1.RecordSet)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotRecordSetResource)
 	}

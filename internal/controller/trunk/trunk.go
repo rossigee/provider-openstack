@@ -8,7 +8,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/extensions/trunks"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -56,7 +56,7 @@ type openstackTrunkClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.TrunkGroupKind)
+	name := managed.ControllerName(networkingv1beta1.TrunkGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,18 +73,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.TrunkGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.TrunkGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Trunk{}).
+		For(&networkingv1beta1.Trunk{}).
 		Complete(r)
 }
 
 func (e *openstackTrunkClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Trunk)
+	cr, ok := mg.(*networkingv1beta1.Trunk)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotTrunkResource)
 	}
@@ -101,7 +101,7 @@ func (e *openstackTrunkClient) Observe(ctx context.Context, mg resource.Managed)
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetTrunk, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.TrunkProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.TrunkProviderStatus{
 		TrunkID:        trunk.ID,
 		Name:           trunk.Name,
 		Description:    trunk.Description,
@@ -127,7 +127,7 @@ func (e *openstackTrunkClient) Observe(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackTrunkClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Trunk)
+	cr, ok := mg.(*networkingv1beta1.Trunk)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotTrunkResource)
 	}
@@ -154,7 +154,7 @@ func (e *openstackTrunkClient) Create(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackTrunkClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Trunk)
+	cr, ok := mg.(*networkingv1beta1.Trunk)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotTrunkResource)
 	}
@@ -174,7 +174,7 @@ func (e *openstackTrunkClient) Update(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackTrunkClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Trunk)
+	cr, ok := mg.(*networkingv1beta1.Trunk)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotTrunkResource)
 	}
@@ -187,7 +187,7 @@ func (e *openstackTrunkClient) Disconnect(ctx context.Context) error {
 	return nil
 }
 
-func toTrunkSubports(in []v1alpha1.Subport) []trunks.Subport {
+func toTrunkSubports(in []networkingv1beta1.Subport) []trunks.Subport {
 	if in == nil {
 		return nil
 	}
@@ -202,13 +202,13 @@ func toTrunkSubports(in []v1alpha1.Subport) []trunks.Subport {
 	return out
 }
 
-func toSubports(in []trunks.Subport) []v1alpha1.Subport {
+func toSubports(in []trunks.Subport) []networkingv1beta1.Subport {
 	if in == nil {
 		return nil
 	}
-	out := make([]v1alpha1.Subport, 0, len(in))
+	out := make([]networkingv1beta1.Subport, 0, len(in))
 	for _, s := range in {
-		out = append(out, v1alpha1.Subport{
+		out = append(out, networkingv1beta1.Subport{
 			SegmentationID:   s.SegmentationID,
 			SegmentationType: s.SegmentationType,
 			PortID:           s.PortID,

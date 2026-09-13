@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/identity/v3/roles"
-	"github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	identityv1beta1 "github.com/rossigee/provider-openstack/apis/identity/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackRoleClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.RoleGroupKind)
+	name := managed.ControllerName(identityv1beta1.RoleGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.RoleGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.RoleGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Role{}).
+		For(&identityv1beta1.Role{}).
 		Complete(r)
 }
 
 func (e *openstackRoleClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Role)
+	cr, ok := mg.(*identityv1beta1.Role)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotRoleResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackRoleClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetRole, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.RoleProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.RoleProviderStatus{
 		RoleID:      role.ID,
 		Name:        role.Name,
 		Description: role.Description,
@@ -116,7 +116,7 @@ func (e *openstackRoleClient) Observe(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackRoleClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Role)
+	cr, ok := mg.(*identityv1beta1.Role)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotRoleResource)
 	}
@@ -139,7 +139,7 @@ func (e *openstackRoleClient) Create(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackRoleClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Role)
+	cr, ok := mg.(*identityv1beta1.Role)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotRoleResource)
 	}
@@ -159,7 +159,7 @@ func (e *openstackRoleClient) Update(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackRoleClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Role)
+	cr, ok := mg.(*identityv1beta1.Role)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotRoleResource)
 	}

@@ -19,13 +19,13 @@ import (
 // Verify all Setup functions satisfy the expected signature at compile time.
 var (
 	_ func(ctrl.Manager, controller.Options) error = providerconfig.Setup
-	_ func(ctrl.Manager, controller.Options) error = networkingv1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = blockstoragev1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = computev1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = imagev1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = identityv1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = loadbalancingv1alpha1.Setup
-	_ func(ctrl.Manager, controller.Options) error = dnsv1alpha1.Setup
+	_ func(ctrl.Manager, controller.Options) error = networkingv1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = blockstoragev1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = computev1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = imagev1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = identityv1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = loadbalancingv1beta1.Setup
+	_ func(ctrl.Manager, controller.Options) error = dnsv1beta1.Setup
 	_ func(ctrl.Manager, controller.Options) error = Setup
 )
 

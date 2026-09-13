@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/loadbalancer/v2/listeners"
-	"github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
+	loadbalancingv1beta1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -55,7 +55,7 @@ type openstackListenerClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.ListenerGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.ListenerGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,18 +72,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.ListenerGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.ListenerGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Listener{}).
+		For(&loadbalancingv1beta1.Listener{}).
 		Complete(r)
 }
 
 func (e *openstackListenerClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Listener)
+	cr, ok := mg.(*loadbalancingv1beta1.Listener)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotListenerResource)
 	}
@@ -100,7 +100,7 @@ func (e *openstackListenerClient) Observe(ctx context.Context, mg resource.Manag
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetListener, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.ListenerProviderStatus{
+	cr.Status.AtProvider = loadbalancingv1beta1.ListenerProviderStatus{
 		ListenerID:         listener.ID,
 		Name:               listener.Name,
 		Description:        listener.Description,
@@ -130,7 +130,7 @@ func findLoadBalancerID(lbs []listeners.LoadBalancerID) string {
 }
 
 func (e *openstackListenerClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Listener)
+	cr, ok := mg.(*loadbalancingv1beta1.Listener)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotListenerResource)
 	}
@@ -169,7 +169,7 @@ func (e *openstackListenerClient) Create(ctx context.Context, mg resource.Manage
 }
 
 func (e *openstackListenerClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Listener)
+	cr, ok := mg.(*loadbalancingv1beta1.Listener)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotListenerResource)
 	}
@@ -200,7 +200,7 @@ func (e *openstackListenerClient) Update(ctx context.Context, mg resource.Manage
 }
 
 func (e *openstackListenerClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Listener)
+	cr, ok := mg.(*loadbalancingv1beta1.Listener)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotListenerResource)
 	}

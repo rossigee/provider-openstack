@@ -8,7 +8,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/ports"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -56,7 +56,7 @@ type openstackPortClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.PortGroupKind)
+	name := managed.ControllerName(networkingv1beta1.PortGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,18 +73,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.PortGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.PortGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Port{}).
+		For(&networkingv1beta1.Port{}).
 		Complete(r)
 }
 
 func (e *openstackPortClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Port)
+	cr, ok := mg.(*networkingv1beta1.Port)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotPortResource)
 	}
@@ -101,7 +101,7 @@ func (e *openstackPortClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetPort, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.PortProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.PortProviderStatus{
 		PortID:              port.ID,
 		NetworkID:           port.NetworkID,
 		Name:                port.Name,
@@ -117,7 +117,7 @@ func (e *openstackPortClient) Observe(ctx context.Context, mg resource.Managed) 
 	}
 
 	for _, fip := range port.FixedIPs {
-		cr.Status.AtProvider.FixedIPs = append(cr.Status.AtProvider.FixedIPs, v1alpha1.FixedIP{
+		cr.Status.AtProvider.FixedIPs = append(cr.Status.AtProvider.FixedIPs, networkingv1beta1.FixedIP{
 			SubnetID:  fip.SubnetID,
 			IPAddress: fip.IPAddress,
 		})
@@ -137,7 +137,7 @@ func (e *openstackPortClient) Observe(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackPortClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Port)
+	cr, ok := mg.(*networkingv1beta1.Port)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotPortResource)
 	}
@@ -179,7 +179,7 @@ func (e *openstackPortClient) Create(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackPortClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Port)
+	cr, ok := mg.(*networkingv1beta1.Port)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotPortResource)
 	}
@@ -203,7 +203,7 @@ func (e *openstackPortClient) Update(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackPortClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Port)
+	cr, ok := mg.(*networkingv1beta1.Port)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotPortResource)
 	}
@@ -216,7 +216,7 @@ func (e *openstackPortClient) Disconnect(ctx context.Context) error {
 	return nil
 }
 
-func toAddressPairs(in []v1alpha1.AddressPair) []ports.AddressPair {
+func toAddressPairs(in []networkingv1beta1.AddressPair) []ports.AddressPair {
 	if in == nil {
 		return nil
 	}
@@ -230,13 +230,13 @@ func toAddressPairs(in []v1alpha1.AddressPair) []ports.AddressPair {
 	return out
 }
 
-func toAddressPairStatus(in []ports.AddressPair) []v1alpha1.AddressPair {
+func toAddressPairStatus(in []ports.AddressPair) []networkingv1beta1.AddressPair {
 	if in == nil {
 		return nil
 	}
-	out := make([]v1alpha1.AddressPair, 0, len(in))
+	out := make([]networkingv1beta1.AddressPair, 0, len(in))
 	for _, a := range in {
-		out = append(out, v1alpha1.AddressPair{
+		out = append(out, networkingv1beta1.AddressPair{
 			IPAddress:  a.IPAddress,
 			MACAddress: a.MACAddress,
 		})

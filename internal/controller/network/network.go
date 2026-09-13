@@ -8,7 +8,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/networks"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -59,7 +59,7 @@ type openstackNetworkClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.NetworkGroupKind)
+	name := managed.ControllerName(networkingv1beta1.NetworkGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -76,18 +76,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.NetworkGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.NetworkGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Network{}).
+		For(&networkingv1beta1.Network{}).
 		Complete(r)
 }
 
 func (e *openstackNetworkClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Network)
+	cr, ok := mg.(*networkingv1beta1.Network)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotNetworkResource)
 	}
@@ -104,7 +104,7 @@ func (e *openstackNetworkClient) Observe(ctx context.Context, mg resource.Manage
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetNetwork, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.NetworkProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.NetworkProviderStatus{
 		NetworkID:    network.ID,
 		Status:       network.Status,
 		Subnets:      network.Subnets,
@@ -128,7 +128,7 @@ func (e *openstackNetworkClient) Observe(ctx context.Context, mg resource.Manage
 }
 
 func (e *openstackNetworkClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Network)
+	cr, ok := mg.(*networkingv1beta1.Network)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotNetworkResource)
 	}
@@ -153,7 +153,7 @@ func (e *openstackNetworkClient) Create(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackNetworkClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Network)
+	cr, ok := mg.(*networkingv1beta1.Network)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotNetworkResource)
 	}
@@ -173,7 +173,7 @@ func (e *openstackNetworkClient) Update(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackNetworkClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Network)
+	cr, ok := mg.(*networkingv1beta1.Network)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotNetworkResource)
 	}

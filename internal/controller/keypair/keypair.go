@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/compute/v2/keypairs"
-	"github.com/rossigee/provider-openstack/apis/compute/v1alpha1"
+	computev1beta1 "github.com/rossigee/provider-openstack/apis/compute/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackKeyPairClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.KeyPairGroupKind)
+	name := managed.ControllerName(computev1beta1.KeyPairGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.KeyPairGroupKind)),
+		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.KeyPairGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.KeyPair{}).
+		For(&computev1beta1.KeyPair{}).
 		Complete(r)
 }
 
 func (e *openstackKeyPairClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.KeyPair)
+	cr, ok := mg.(*computev1beta1.KeyPair)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotKeyPairResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackKeyPairClient) Observe(ctx context.Context, mg resource.Manage
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetKeyPair, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.KeyPairProviderStatus{
+	cr.Status.AtProvider = computev1beta1.KeyPairProviderStatus{
 		Name:        kp.Name,
 		PublicKey:   kp.PublicKey,
 		Fingerprint: kp.Fingerprint,
@@ -118,7 +118,7 @@ func (e *openstackKeyPairClient) Observe(ctx context.Context, mg resource.Manage
 }
 
 func (e *openstackKeyPairClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.KeyPair)
+	cr, ok := mg.(*computev1beta1.KeyPair)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotKeyPairResource)
 	}
@@ -146,7 +146,7 @@ func (e *openstackKeyPairClient) Update(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackKeyPairClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.KeyPair)
+	cr, ok := mg.(*computev1beta1.KeyPair)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotKeyPairResource)
 	}

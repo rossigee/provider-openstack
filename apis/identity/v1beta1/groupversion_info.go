@@ -14,6 +14,8 @@ limitations under the License.
 package v1beta1
 
 import (
+	"reflect"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -36,3 +38,19 @@ func addKnownTypes(s *runtime.Scheme) error {
 	)
 	return nil
 }
+
+// User type metadata.
+var (
+	UserKind             = reflect.TypeOf(User{}).Name()
+	UserGroupKind        = schema.GroupKind{Group: APIGroup, Kind: UserKind}
+	UserKindAPIVersion   = UserKind + "." + SchemeGroupVersion.String()
+	UserGroupVersionKind = SchemeGroupVersion.WithKind(UserKind)
+)
+
+// Project type metadata.
+var (
+	ProjectKind             = reflect.TypeOf(Project{}).Name()
+	ProjectGroupKind        = schema.GroupKind{Group: APIGroup, Kind: ProjectKind}
+	ProjectKindAPIVersion   = ProjectKind + "." + SchemeGroupVersion.String()
+	ProjectGroupVersionKind = SchemeGroupVersion.WithKind(ProjectKind)
+)

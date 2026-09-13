@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/dns/v2/zones"
-	"github.com/rossigee/provider-openstack/apis/dns/v1alpha1"
+	dnsv1beta1 "github.com/rossigee/provider-openstack/apis/dns/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -56,7 +56,7 @@ type openstackZoneClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.ZoneGroupKind)
+	name := managed.ControllerName(dnsv1beta1.ZoneGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,18 +73,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.ZoneGroupKind)),
+		resource.ManagedKind(dnsv1beta1.SchemeGroupVersion.WithKind(dnsv1beta1.ZoneGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Zone{}).
+		For(&dnsv1beta1.Zone{}).
 		Complete(r)
 }
 
 func (e *openstackZoneClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Zone)
+	cr, ok := mg.(*dnsv1beta1.Zone)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotZoneResource)
 	}
@@ -101,7 +101,7 @@ func (e *openstackZoneClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetZone, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.ZoneProviderStatus{
+	cr.Status.AtProvider = dnsv1beta1.ZoneProviderStatus{
 		ZoneID:     zone.ID,
 		Name:       zone.Name,
 		Type:       zone.Type,
@@ -117,7 +117,7 @@ func (e *openstackZoneClient) Observe(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackZoneClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Zone)
+	cr, ok := mg.(*dnsv1beta1.Zone)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotZoneResource)
 	}
@@ -149,7 +149,7 @@ func (e *openstackZoneClient) Create(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackZoneClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Zone)
+	cr, ok := mg.(*dnsv1beta1.Zone)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotZoneResource)
 	}
@@ -175,7 +175,7 @@ func (e *openstackZoneClient) Update(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackZoneClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Zone)
+	cr, ok := mg.(*dnsv1beta1.Zone)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotZoneResource)
 	}

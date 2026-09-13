@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/image/v2/images"
-	"github.com/rossigee/provider-openstack/apis/image/v1alpha1"
+	"github.com/rossigee/provider-openstack/apis/image/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackImageClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.ImageGroupKind)
+	name := managed.ControllerName(v1beta1.ImageGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.ImageGroupKind)),
+		resource.ManagedKind(v1beta1.SchemeGroupVersion.WithKind(v1beta1.ImageGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Image{}).
+		For(&v1beta1.Image{}).
 		Complete(r)
 }
 
 func (e *openstackImageClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Image)
+	cr, ok := mg.(*v1beta1.Image)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotImageResource)
 	}
@@ -104,7 +104,7 @@ func (e *openstackImageClient) Observe(ctx context.Context, mg resource.Managed)
 	}
 
 	protected := image.Protected
-	cr.Status.AtProvider = v1alpha1.ImageProviderStatus{
+	cr.Status.AtProvider = v1beta1.ImageProviderStatus{
 		ImageID:         image.ID,
 		Status:          string(image.Status),
 		Size:            image.SizeBytes,
@@ -129,7 +129,7 @@ func (e *openstackImageClient) Observe(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackImageClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Image)
+	cr, ok := mg.(*v1beta1.Image)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotImageResource)
 	}
@@ -170,7 +170,7 @@ func (e *openstackImageClient) Create(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackImageClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Image)
+	cr, ok := mg.(*v1beta1.Image)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotImageResource)
 	}
@@ -188,7 +188,7 @@ func (e *openstackImageClient) Update(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackImageClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Image)
+	cr, ok := mg.(*v1beta1.Image)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotImageResource)
 	}

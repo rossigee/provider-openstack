@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/identity/v3/projects"
-	"github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	identityv1beta1 "github.com/rossigee/provider-openstack/apis/identity/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackProjectClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.ProjectGroupKind)
+	name := managed.ControllerName(identityv1beta1.ProjectGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.ProjectGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.ProjectGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Project{}).
+		For(&identityv1beta1.Project{}).
 		Complete(r)
 }
 
 func (e *openstackProjectClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Project)
+	cr, ok := mg.(*identityv1beta1.Project)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotProjectResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackProjectClient) Observe(ctx context.Context, mg resource.Manage
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetProject, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.ProjectProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.ProjectProviderStatus{
 		ProjectID:   project.ID,
 		Name:        project.Name,
 		Description: project.Description,
@@ -121,7 +121,7 @@ func (e *openstackProjectClient) Observe(ctx context.Context, mg resource.Manage
 }
 
 func (e *openstackProjectClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Project)
+	cr, ok := mg.(*identityv1beta1.Project)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotProjectResource)
 	}
@@ -149,7 +149,7 @@ func (e *openstackProjectClient) Create(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackProjectClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Project)
+	cr, ok := mg.(*identityv1beta1.Project)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotProjectResource)
 	}
@@ -171,7 +171,7 @@ func (e *openstackProjectClient) Update(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackProjectClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Project)
+	cr, ok := mg.(*identityv1beta1.Project)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotProjectResource)
 	}

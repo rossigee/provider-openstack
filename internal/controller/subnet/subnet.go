@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/subnets"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackSubnetClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.SubnetGroupKind)
+	name := managed.ControllerName(networkingv1beta1.SubnetGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.SubnetGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.SubnetGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Subnet{}).
+		For(&networkingv1beta1.Subnet{}).
 		Complete(r)
 }
 
 func (e *openstackSubnetClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Subnet)
+	cr, ok := mg.(*networkingv1beta1.Subnet)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotSubnetResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackSubnetClient) Observe(ctx context.Context, mg resource.Managed
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetSubnet, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.SubnetProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.SubnetProviderStatus{
 		SubnetID:        subnet.ID,
 		NetworkID:       subnet.NetworkID,
 		CIDR:            subnet.CIDR,
@@ -123,7 +123,7 @@ func (e *openstackSubnetClient) Observe(ctx context.Context, mg resource.Managed
 }
 
 func (e *openstackSubnetClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Subnet)
+	cr, ok := mg.(*networkingv1beta1.Subnet)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotSubnetResource)
 	}
@@ -160,7 +160,7 @@ func (e *openstackSubnetClient) Create(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackSubnetClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Subnet)
+	cr, ok := mg.(*networkingv1beta1.Subnet)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotSubnetResource)
 	}
@@ -181,7 +181,7 @@ func (e *openstackSubnetClient) Update(ctx context.Context, mg resource.Managed)
 }
 
 func (e *openstackSubnetClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Subnet)
+	cr, ok := mg.(*networkingv1beta1.Subnet)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotSubnetResource)
 	}
@@ -194,13 +194,13 @@ func (e *openstackSubnetClient) Disconnect(ctx context.Context) error {
 	return nil
 }
 
-func convertAllocationPools(pools []subnets.AllocationPool) []v1alpha1.AllocationPool {
+func convertAllocationPools(pools []subnets.AllocationPool) []networkingv1beta1.AllocationPool {
 	if pools == nil {
 		return nil
 	}
-	result := make([]v1alpha1.AllocationPool, len(pools))
+	result := make([]networkingv1beta1.AllocationPool, len(pools))
 	for i, p := range pools {
-		result[i] = v1alpha1.AllocationPool{
+		result[i] = networkingv1beta1.AllocationPool{
 			Start: p.Start,
 			End:   p.End,
 		}
@@ -208,13 +208,13 @@ func convertAllocationPools(pools []subnets.AllocationPool) []v1alpha1.Allocatio
 	return result
 }
 
-func convertHostRoutes(routes []subnets.HostRoute) []v1alpha1.HostRoute {
+func convertHostRoutes(routes []subnets.HostRoute) []networkingv1beta1.HostRoute {
 	if routes == nil {
 		return nil
 	}
-	result := make([]v1alpha1.HostRoute, len(routes))
+	result := make([]networkingv1beta1.HostRoute, len(routes))
 	for i, r := range routes {
-		result[i] = v1alpha1.HostRoute{
+		result[i] = networkingv1beta1.HostRoute{
 			Destination: r.DestinationCIDR,
 			Nexthop:     r.NextHop,
 		}

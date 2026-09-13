@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/loadbalancer/v2/monitors"
-	"github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
+	loadbalancingv1beta1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -55,7 +55,7 @@ type openstackHealthMonitorClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.HealthMonitorGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.HealthMonitorGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,18 +72,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.HealthMonitorGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.HealthMonitorGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.HealthMonitor{}).
+		For(&loadbalancingv1beta1.HealthMonitor{}).
 		Complete(r)
 }
 
 func (e *openstackHealthMonitorClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.HealthMonitor)
+	cr, ok := mg.(*loadbalancingv1beta1.HealthMonitor)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotHealthMonitorResource)
 	}
@@ -100,7 +100,7 @@ func (e *openstackHealthMonitorClient) Observe(ctx context.Context, mg resource.
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetHealthMonitor, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.HealthMonitorProviderStatus{
+	cr.Status.AtProvider = loadbalancingv1beta1.HealthMonitorProviderStatus{
 		MonitorID:          monitor.ID,
 		Name:               monitor.Name,
 		Type:               monitor.Type,
@@ -126,7 +126,7 @@ func (e *openstackHealthMonitorClient) Observe(ctx context.Context, mg resource.
 }
 
 func (e *openstackHealthMonitorClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.HealthMonitor)
+	cr, ok := mg.(*loadbalancingv1beta1.HealthMonitor)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotHealthMonitorResource)
 	}
@@ -161,7 +161,7 @@ func (e *openstackHealthMonitorClient) Create(ctx context.Context, mg resource.M
 }
 
 func (e *openstackHealthMonitorClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.HealthMonitor)
+	cr, ok := mg.(*loadbalancingv1beta1.HealthMonitor)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotHealthMonitorResource)
 	}
@@ -189,7 +189,7 @@ func (e *openstackHealthMonitorClient) Update(ctx context.Context, mg resource.M
 }
 
 func (e *openstackHealthMonitorClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.HealthMonitor)
+	cr, ok := mg.(*loadbalancingv1beta1.HealthMonitor)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotHealthMonitorResource)
 	}

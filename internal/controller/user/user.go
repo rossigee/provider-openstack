@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/identity/v3/users"
-	"github.com/rossigee/provider-openstack/apis/identity/v1alpha1"
+	identityv1beta1 "github.com/rossigee/provider-openstack/apis/identity/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackUserClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.UserGroupKind)
+	name := managed.ControllerName(identityv1beta1.UserGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.UserGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.UserGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.User{}).
+		For(&identityv1beta1.User{}).
 		Complete(r)
 }
 
 func (e *openstackUserClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.User)
+	cr, ok := mg.(*identityv1beta1.User)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotUserResource)
 	}
@@ -103,7 +103,7 @@ func (e *openstackUserClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetUser, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.UserProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.UserProviderStatus{
 		UserID:           user.ID,
 		Name:             user.Name,
 		Description:      user.Description,
@@ -119,7 +119,7 @@ func (e *openstackUserClient) Observe(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackUserClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.User)
+	cr, ok := mg.(*identityv1beta1.User)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotUserResource)
 	}
@@ -146,7 +146,7 @@ func (e *openstackUserClient) Create(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackUserClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.User)
+	cr, ok := mg.(*identityv1beta1.User)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotUserResource)
 	}
@@ -168,7 +168,7 @@ func (e *openstackUserClient) Update(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackUserClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.User)
+	cr, ok := mg.(*identityv1beta1.User)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotUserResource)
 	}

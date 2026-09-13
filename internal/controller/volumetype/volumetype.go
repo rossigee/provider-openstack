@@ -8,7 +8,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/blockstorage/v3/volumetypes"
-	"github.com/rossigee/provider-openstack/apis/blockstorage/v1alpha1"
+	blockstoragev1beta1 "github.com/rossigee/provider-openstack/apis/blockstorage/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -56,7 +56,7 @@ type openstackVolumeTypeClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.VolumeTypeGroupKind)
+	name := managed.ControllerName(blockstoragev1beta1.VolumeTypeGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,18 +73,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.VolumeTypeGroupKind)),
+		resource.ManagedKind(blockstoragev1beta1.SchemeGroupVersion.WithKind(blockstoragev1beta1.VolumeTypeGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.VolumeType{}).
+		For(&blockstoragev1beta1.VolumeType{}).
 		Complete(r)
 }
 
 func (e *openstackVolumeTypeClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.VolumeType)
+	cr, ok := mg.(*blockstoragev1beta1.VolumeType)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotVolumeTypeResource)
 	}
@@ -101,7 +101,7 @@ func (e *openstackVolumeTypeClient) Observe(ctx context.Context, mg resource.Man
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetVolumeType, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.VolumeTypeProviderStatus{
+	cr.Status.AtProvider = blockstoragev1beta1.VolumeTypeProviderStatus{
 		VolumeTypeID: vt.ID,
 		Name:         vt.Name,
 		Description:  vt.Description,
@@ -124,7 +124,7 @@ func (e *openstackVolumeTypeClient) Observe(ctx context.Context, mg resource.Man
 }
 
 func (e *openstackVolumeTypeClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.VolumeType)
+	cr, ok := mg.(*blockstoragev1beta1.VolumeType)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotVolumeTypeResource)
 	}
@@ -149,7 +149,7 @@ func (e *openstackVolumeTypeClient) Create(ctx context.Context, mg resource.Mana
 }
 
 func (e *openstackVolumeTypeClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.VolumeType)
+	cr, ok := mg.(*blockstoragev1beta1.VolumeType)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotVolumeTypeResource)
 	}
@@ -171,7 +171,7 @@ func (e *openstackVolumeTypeClient) Update(ctx context.Context, mg resource.Mana
 }
 
 func (e *openstackVolumeTypeClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.VolumeType)
+	cr, ok := mg.(*blockstoragev1beta1.VolumeType)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotVolumeTypeResource)
 	}

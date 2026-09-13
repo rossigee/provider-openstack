@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/loadbalancer/v2/pools"
-	"github.com/rossigee/provider-openstack/apis/loadbalancing/v1alpha1"
+	loadbalancingv1beta1 "github.com/rossigee/provider-openstack/apis/loadbalancing/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -55,7 +55,7 @@ type openstackPoolClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.PoolGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.PoolGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,18 +72,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.PoolGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.PoolGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.Pool{}).
+		For(&loadbalancingv1beta1.Pool{}).
 		Complete(r)
 }
 
 func (e *openstackPoolClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.Pool)
+	cr, ok := mg.(*loadbalancingv1beta1.Pool)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotPoolResource)
 	}
@@ -100,7 +100,7 @@ func (e *openstackPoolClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetPool, err)
 	}
 
-	cr.Status.AtProvider = v1alpha1.PoolProviderStatus{
+	cr.Status.AtProvider = loadbalancingv1beta1.PoolProviderStatus{
 		PoolID:             pool.ID,
 		Name:               pool.Name,
 		Description:        pool.Description,
@@ -121,7 +121,7 @@ func (e *openstackPoolClient) Observe(ctx context.Context, mg resource.Managed) 
 }
 
 func (e *openstackPoolClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.Pool)
+	cr, ok := mg.(*loadbalancingv1beta1.Pool)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotPoolResource)
 	}
@@ -158,7 +158,7 @@ func (e *openstackPoolClient) Create(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackPoolClient) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.Pool)
+	cr, ok := mg.(*loadbalancingv1beta1.Pool)
 	if !ok {
 		return managed.ExternalUpdate{}, errors.New(errNotPoolResource)
 	}
@@ -187,7 +187,7 @@ func (e *openstackPoolClient) Update(ctx context.Context, mg resource.Managed) (
 }
 
 func (e *openstackPoolClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.Pool)
+	cr, ok := mg.(*loadbalancingv1beta1.Pool)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotPoolResource)
 	}

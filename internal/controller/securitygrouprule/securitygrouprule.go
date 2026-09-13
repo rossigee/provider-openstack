@@ -7,7 +7,7 @@ import (
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/extensions/security/rules"
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
+	networkingv1beta1 "github.com/rossigee/provider-openstack/apis/networking/v1beta1"
 	"github.com/rossigee/provider-openstack/internal/clients"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -58,7 +58,7 @@ type openstackSecurityGroupRuleClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.SecurityGroupRuleGroupKind)
+	name := managed.ControllerName(networkingv1beta1.SecurityGroupRuleGroupKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,18 +75,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.SchemeGroupVersion.WithKind(v1alpha1.SecurityGroupRuleGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.SecurityGroupRuleGroupKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.SecurityGroupRule{}).
+		For(&networkingv1beta1.SecurityGroupRule{}).
 		Complete(r)
 }
 
 func (e *openstackSecurityGroupRuleClient) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.SecurityGroupRule)
+	cr, ok := mg.(*networkingv1beta1.SecurityGroupRule)
 	if !ok {
 		return managed.ExternalObservation{}, errors.New(errNotSecurityGroupRuleResource)
 	}
@@ -105,7 +105,7 @@ func (e *openstackSecurityGroupRuleClient) Observe(ctx context.Context, mg resou
 
 	portRangeMin := rule.PortRangeMin
 	portRangeMax := rule.PortRangeMax
-	cr.Status.AtProvider = v1alpha1.SecurityGroupRuleProviderStatus{
+	cr.Status.AtProvider = networkingv1beta1.SecurityGroupRuleProviderStatus{
 		RuleID:          rule.ID,
 		SecurityGroupID: rule.SecGroupID,
 		Direction:       rule.Direction,
@@ -125,7 +125,7 @@ func (e *openstackSecurityGroupRuleClient) Observe(ctx context.Context, mg resou
 }
 
 func (e *openstackSecurityGroupRuleClient) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.SecurityGroupRule)
+	cr, ok := mg.(*networkingv1beta1.SecurityGroupRule)
 	if !ok {
 		return managed.ExternalCreation{}, errors.New(errNotSecurityGroupRuleResource)
 	}
@@ -163,7 +163,7 @@ func (e *openstackSecurityGroupRuleClient) Update(ctx context.Context, mg resour
 }
 
 func (e *openstackSecurityGroupRuleClient) Delete(ctx context.Context, mg resource.Managed) (managed.ExternalDelete, error) {
-	cr, ok := mg.(*v1alpha1.SecurityGroupRule)
+	cr, ok := mg.(*networkingv1beta1.SecurityGroupRule)
 	if !ok {
 		return managed.ExternalDelete{}, errors.New(errNotSecurityGroupRuleResource)
 	}
