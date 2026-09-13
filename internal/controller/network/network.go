@@ -59,7 +59,7 @@ type openstackNetworkClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(networkingv1beta1.NetworkGroupKind)
+	name := managed.ControllerName(networkingv1beta1.NetworkKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -76,7 +76,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.NetworkGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.NetworkKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

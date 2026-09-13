@@ -58,7 +58,7 @@ type openstackLoadBalancerClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(loadbalancingv1beta1.LoadBalancerGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.LoadBalancerKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.LoadBalancerGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.LoadBalancerKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

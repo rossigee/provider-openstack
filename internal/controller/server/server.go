@@ -59,7 +59,7 @@ type openstackServerClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(computev1beta1.ServerGroupKind)
+	name := managed.ControllerName(computev1beta1.ServerKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -76,7 +76,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.ServerGroupKind)),
+		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.ServerKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

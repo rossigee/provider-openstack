@@ -58,7 +58,7 @@ type openstackProjectClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(identityv1beta1.ProjectGroupKind)
+	name := managed.ControllerName(identityv1beta1.ProjectKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.ProjectGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.ProjectKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
@@ -103,7 +103,7 @@ func (e *openstackProjectClient) Observe(ctx context.Context, mg resource.Manage
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetProject, err)
 	}
 
-	cr.Status.AtProvider = identityv1beta1.ProjectProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.ProjectObservation{
 		ProjectID:   project.ID,
 		Name:        project.Name,
 		Description: project.Description,

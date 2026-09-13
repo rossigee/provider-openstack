@@ -55,7 +55,7 @@ type openstackHealthMonitorClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(loadbalancingv1beta1.HealthMonitorGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.HealthMonitorKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,7 +72,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.HealthMonitorGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.HealthMonitorKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

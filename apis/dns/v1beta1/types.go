@@ -102,3 +102,23 @@ func (in *ZoneList) DeepCopyInto(out *ZoneList) {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]Zone, len(in.Items)); copy(out.Items, in.Items) }
 }
+
+// GetCondition implements resource.Managed
+func (in *Zone) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Zone) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Zone) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Zone) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}

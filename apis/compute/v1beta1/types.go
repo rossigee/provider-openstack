@@ -14,6 +14,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -406,4 +407,44 @@ func (in *KeyPairList) DeepCopyInto(out *KeyPairList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]KeyPair, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// GetCondition implements resource.Managed
+func (in *Server) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Server) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Server) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Server) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *KeyPair) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *KeyPair) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *KeyPair) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *KeyPair) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
 }

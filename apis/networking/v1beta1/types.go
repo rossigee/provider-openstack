@@ -14,6 +14,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -1675,4 +1676,224 @@ func (in *RBACPolicyList) DeepCopyInto(out *RBACPolicyList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]RBACPolicy, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// GetCondition implements resource.Managed
+func (in *Network) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Network) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Network) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Network) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Subnet) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Subnet) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Subnet) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Subnet) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Router) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Router) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Router) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Router) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *RouterInterface) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *RouterInterface) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *RouterInterface) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *RouterInterface) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *SecurityGroup) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *SecurityGroup) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *SecurityGroup) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *SecurityGroup) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *SecurityGroupRule) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *SecurityGroupRule) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *SecurityGroupRule) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *SecurityGroupRule) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *FloatingIP) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *FloatingIP) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *FloatingIP) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *FloatingIP) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Port) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Port) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Port) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Port) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *SubnetPool) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *SubnetPool) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *SubnetPool) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *SubnetPool) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Trunk) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Trunk) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Trunk) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Trunk) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *RBACPolicy) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *RBACPolicy) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *RBACPolicy) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *RBACPolicy) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
 }

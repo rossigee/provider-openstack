@@ -58,7 +58,7 @@ type openstackImageClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1beta1.ImageGroupKind)
+	name := managed.ControllerName(v1beta1.ImageKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1beta1.SchemeGroupVersion.WithKind(v1beta1.ImageGroupKind)),
+		resource.ManagedKind(v1beta1.SchemeGroupVersion.WithKind(v1beta1.ImageKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

@@ -56,7 +56,7 @@ type openstackZoneClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(dnsv1beta1.ZoneGroupKind)
+	name := managed.ControllerName(dnsv1beta1.ZoneKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,7 +73,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(dnsv1beta1.SchemeGroupVersion.WithKind(dnsv1beta1.ZoneGroupKind)),
+		resource.ManagedKind(dnsv1beta1.SchemeGroupVersion.WithKind(dnsv1beta1.ZoneKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
@@ -101,7 +101,7 @@ func (e *openstackZoneClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetZone, err)
 	}
 
-	cr.Status.AtProvider = dnsv1beta1.ZoneProviderStatus{
+	cr.Status.AtProvider = dnsv1beta1.ZoneObservation{
 		ZoneID:     zone.ID,
 		Name:       zone.Name,
 		Type:       zone.Type,

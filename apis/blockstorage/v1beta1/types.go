@@ -14,6 +14,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -402,4 +403,64 @@ func (in *VolumeSnapshotList) DeepCopyInto(out *VolumeSnapshotList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]VolumeSnapshot, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// GetCondition implements resource.Managed
+func (in *Volume) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Volume) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Volume) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Volume) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *VolumeType) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *VolumeType) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *VolumeType) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *VolumeType) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *VolumeSnapshot) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *VolumeSnapshot) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *VolumeSnapshot) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *VolumeSnapshot) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
 }

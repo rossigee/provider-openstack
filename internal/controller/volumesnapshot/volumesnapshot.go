@@ -56,7 +56,7 @@ type openstackVolumeSnapshotClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(blockstoragev1beta1.VolumeSnapshotGroupKind)
+	name := managed.ControllerName(blockstoragev1beta1.VolumeSnapshotKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -73,7 +73,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(blockstoragev1beta1.SchemeGroupVersion.WithKind(blockstoragev1beta1.VolumeSnapshotGroupKind)),
+		resource.ManagedKind(blockstoragev1beta1.SchemeGroupVersion.WithKind(blockstoragev1beta1.VolumeSnapshotKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

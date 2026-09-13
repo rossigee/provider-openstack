@@ -55,7 +55,7 @@ type openstackPoolClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(loadbalancingv1beta1.PoolGroupKind)
+	name := managed.ControllerName(loadbalancingv1beta1.PoolKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -72,7 +72,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.PoolGroupKind)),
+		resource.ManagedKind(loadbalancingv1beta1.SchemeGroupVersion.WithKind(loadbalancingv1beta1.PoolKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

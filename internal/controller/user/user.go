@@ -58,7 +58,7 @@ type openstackUserClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(identityv1beta1.UserGroupKind)
+	name := managed.ControllerName(identityv1beta1.UserKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.UserGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.UserKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
@@ -103,7 +103,7 @@ func (e *openstackUserClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetUser, err)
 	}
 
-	cr.Status.AtProvider = identityv1beta1.UserProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.UserObservation{
 		UserID:           user.ID,
 		Name:             user.Name,
 		Description:      user.Description,

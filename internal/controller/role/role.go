@@ -58,7 +58,7 @@ type openstackRoleClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(identityv1beta1.RoleGroupKind)
+	name := managed.ControllerName(identityv1beta1.RoleKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.RoleGroupKind)),
+		resource.ManagedKind(identityv1beta1.SchemeGroupVersion.WithKind(identityv1beta1.RoleKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
@@ -103,7 +103,7 @@ func (e *openstackRoleClient) Observe(ctx context.Context, mg resource.Managed) 
 		return managed.ExternalObservation{}, fmt.Errorf("%s: %w", errGetRole, err)
 	}
 
-	cr.Status.AtProvider = identityv1beta1.RoleProviderStatus{
+	cr.Status.AtProvider = identityv1beta1.RoleObservation{
 		RoleID:      role.ID,
 		Name:        role.Name,
 		Description: role.Description,

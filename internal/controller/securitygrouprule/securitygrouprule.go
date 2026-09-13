@@ -58,7 +58,7 @@ type openstackSecurityGroupRuleClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(networkingv1beta1.SecurityGroupRuleGroupKind)
+	name := managed.ControllerName(networkingv1beta1.SecurityGroupRuleKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.SecurityGroupRuleGroupKind)),
+		resource.ManagedKind(networkingv1beta1.SchemeGroupVersion.WithKind(networkingv1beta1.SecurityGroupRuleKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

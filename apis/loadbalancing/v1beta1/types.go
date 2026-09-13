@@ -1,6 +1,7 @@
 package v1beta1
 
 import (
+	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -912,4 +913,104 @@ func (in *HealthMonitorList) DeepCopyInto(out *HealthMonitorList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]HealthMonitor, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// GetCondition implements resource.Managed
+func (in *LoadBalancer) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *LoadBalancer) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *LoadBalancer) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *LoadBalancer) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Listener) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Listener) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Listener) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Listener) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Pool) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Pool) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Pool) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Pool) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Member) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Member) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Member) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Member) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *HealthMonitor) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *HealthMonitor) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *HealthMonitor) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *HealthMonitor) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
 }

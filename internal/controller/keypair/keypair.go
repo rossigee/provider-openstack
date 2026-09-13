@@ -58,7 +58,7 @@ type openstackKeyPairClient struct {
 }
 
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(computev1beta1.KeyPairGroupKind)
+	name := managed.ControllerName(computev1beta1.KeyPairKind)
 	rec := event.NewNopRecorder()
 
 	opts := []managed.ReconcilerOption{
@@ -75,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.KeyPairGroupKind)),
+		resource.ManagedKind(computev1beta1.SchemeGroupVersion.WithKind(computev1beta1.KeyPairKind)),
 		opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).

@@ -188,3 +188,138 @@ func (in *ProjectList) DeepCopyInto(out *ProjectList) {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil { out.Items = make([]Project, len(in.Items)); copy(out.Items, in.Items) }
 }
+
+type RoleParameters struct {
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+}
+
+type RoleObservation struct {
+	RoleID      string `json:"roleId,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Description string `json:"description,omitempty"`
+}
+
+type RoleSpec struct {
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              RoleParameters `json:"forProvider"`
+}
+
+type RoleStatus struct {
+	xpv1.ConditionedStatus `json:",inline"`
+	AtProvider             RoleObservation `json:"atProvider,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Synced",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="External Name",type="string",JSONPath=".metadata.annotations.crossplane.io/external-name"
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,openstack}
+// Role is a managed resource that represents an OpenStack identity role.
+type Role struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              RoleSpec   `json:"spec"`
+	Status            RoleStatus `json:"status,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// RoleList contains a list of Role resources.
+type RoleList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []Role `json:"items"`
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *Role) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(Role)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *Role) DeepCopyInto(out *Role) {
+	*out = *in
+	out.ObjectMeta = in.ObjectMeta
+	out.Spec = in.Spec
+	out.Status = in.Status
+}
+
+// DeepCopyObject implements runtime.Object
+func (in *RoleList) DeepCopyObject() runtime.Object {
+	if in == nil { return nil }
+	out := new(RoleList)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto copies the receiver into out
+func (in *RoleList) DeepCopyInto(out *RoleList) {
+	*out = *in
+	out.ListMeta = in.ListMeta
+	if in.Items != nil { out.Items = make([]Role, len(in.Items)); copy(out.Items, in.Items) }
+}
+
+// GetCondition implements resource.Managed
+func (in *User) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *User) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *User) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *User) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Project) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Project) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Project) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Project) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
+
+// GetCondition implements resource.Managed
+func (in *Role) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return in.Status.GetCondition(ct)
+}
+
+// SetConditions implements resource.Managed
+func (in *Role) SetConditions(c ...xpv1.Condition) {
+	in.Status.SetConditions(c...)
+}
+
+// GetManagementPolicies implements resource.Managed
+func (in *Role) GetManagementPolicies() xpv1.ManagementPolicies {
+	return in.Spec.ManagementPolicies
+}
+
+// SetManagementPolicies implements resource.Managed
+func (in *Role) SetManagementPolicies(p xpv1.ManagementPolicies) {
+	in.Spec.ManagementPolicies = p
+}
