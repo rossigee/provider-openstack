@@ -15,7 +15,6 @@ linters:
     - unused
   exclusions:
     paths:
-      - apis/v1alpha1/groupversion_info.go
       - apis/v1beta1/groupversion_info.go
 
 formatters:
@@ -28,7 +27,6 @@ formatters:
   exclusions:
     generated: lax
     paths:
-      - apis/v1alpha1/groupversion_info.go
       - apis/v1beta1/groupversion_info.go
 
 issues:

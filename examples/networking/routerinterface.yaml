@@ -1,4 +1,4 @@
-apiVersion: openstack.crossplane.io/v1alpha1
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
 kind: RouterInterface
 metadata:
   name: example-router-interface

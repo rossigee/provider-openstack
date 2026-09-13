@@ -116,7 +116,7 @@ type: Opaque
 data:
   credentials: <base64-encoded JSON>
 ---
-apiVersion: openstack.crossplane.io/v1beta1
+apiVersion: openstack.m.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
@@ -150,7 +150,7 @@ kubectl create secret generic openstack-credentials \
 Create a network, subnet, and router:
 
 ```yaml
-apiVersion: openstack.crossplane.io/v1alpha1
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
 kind: Network
 metadata:
   name: my-network
@@ -162,7 +162,7 @@ spec:
     name: default
   deletionPolicy: Delete
 ---
-apiVersion: openstack.crossplane.io/v1alpha1
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
 kind: Subnet
 metadata:
   name: my-subnet

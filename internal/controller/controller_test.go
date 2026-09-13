@@ -6,13 +6,13 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/rossigee/provider-openstack/internal/controller/blockstoragev1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/computev1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/dnsv1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/identityv1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/imagev1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/loadbalancingv1alpha1"
-	"github.com/rossigee/provider-openstack/internal/controller/networkingv1alpha1"
+	"github.com/rossigee/provider-openstack/internal/controller/blockstoragev1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/computev1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/dnsv1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/identityv1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/imagev1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/loadbalancingv1beta1"
+	"github.com/rossigee/provider-openstack/internal/controller/networkingv1beta1"
 	"github.com/rossigee/provider-openstack/internal/controller/providerconfig"
 )
 

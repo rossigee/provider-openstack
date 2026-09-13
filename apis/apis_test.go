@@ -45,29 +45,6 @@ func TestSchemeRegistration(t *testing.T) {
 
 		// loadbalancing v1beta1
 		{"loadbalancing.openstack.m.crossplane.io/v1beta1", "LoadBalancer"},
-
-		// compute v1alpha1
-		{"openstack.crossplane.io/v1alpha1", "Server"},
-		{"openstack.crossplane.io/v1alpha1", "KeyPair"},
-
-		// loadbalancing v1alpha1
-		{"openstack.crossplane.io/v1alpha1", "LoadBalancer"},
-		{"openstack.crossplane.io/v1alpha1", "Listener"},
-		{"openstack.crossplane.io/v1alpha1", "Pool"},
-		{"openstack.crossplane.io/v1alpha1", "Member"},
-		{"openstack.crossplane.io/v1alpha1", "HealthMonitor"},
-
-		// image v1alpha1
-		{"openstack.crossplane.io/v1alpha1", "Image"},
-
-		// identity v1alpha1
-		{"openstack.crossplane.io/v1alpha1", "Project"},
-		{"openstack.crossplane.io/v1alpha1", "User"},
-		{"openstack.crossplane.io/v1alpha1", "Role"},
-
-		// dns v1alpha1
-		{"openstack.crossplane.io/v1alpha1", "Zone"},
-		{"openstack.crossplane.io/v1alpha1", "RecordSet"},
 	}
 
 	for _, k := range kinds {

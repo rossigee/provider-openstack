@@ -1,4 +1,4 @@
-apiVersion: openstack.crossplane.io/v1alpha1
+apiVersion: blockstorage.openstack.m.crossplane.io/v1beta1
 kind: Volume
 metadata:
   name: example-volume

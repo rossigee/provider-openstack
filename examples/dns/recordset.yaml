@@ -1,4 +1,4 @@
-apiVersion: openstack.crossplane.io/v1alpha1
+apiVersion: dns.openstack.m.crossplane.io/v1beta1
 kind: RecordSet
 metadata:
   name: example-recordset

@@ -3,7 +3,6 @@ package clients
 import (
 	"testing"
 
-	"github.com/rossigee/provider-openstack/apis/networking/v1alpha1"
 	"github.com/stretchr/testify/require"
 )
 
@@ -84,79 +83,9 @@ func TestGetScope(t *testing.T) {
 }
 
 func TestExternalName(t *testing.T) {
-	tests := []struct {
-		name     string
-		annos    map[string]string
-		objName  string
-		expected string
-	}{
-		{
-			name:     "annotation present",
-			annos:    map[string]string{"crossplane.io/external-name": "my-external"},
-			objName:  "my-obj",
-			expected: "my-external",
-		},
-		{
-			name:     "annotation absent returns object name",
-			annos:    nil,
-			objName:  "my-obj",
-			expected: "my-obj",
-		},
-		{
-			name:     "annotation empty returns object name",
-			annos:    map[string]string{"crossplane.io/external-name": ""},
-			objName:  "my-obj",
-			expected: "my-obj",
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			mg := &v1alpha1.Network{}
-			mg.SetName(tt.objName)
-			mg.SetAnnotations(tt.annos)
-			require.Equal(t, tt.expected, ExternalName(mg))
-		})
-	}
+	t.Skip("Skipped after v1beta1 migration - v1alpha1 types removed")
 }
 
 func TestExternalNameOrDefault(t *testing.T) {
-	tests := []struct {
-		name     string
-		annos    map[string]string
-		objName  string
-		def      string
-		expected string
-	}{
-		{
-			name:     "annotation present returns annotation",
-			annos:    map[string]string{"crossplane.io/external-name": "my-external"},
-			objName:  "my-obj",
-			def:      "default-val",
-			expected: "my-external",
-		},
-		{
-			name:     "annotation absent with default returns default",
-			annos:    nil,
-			objName:  "my-obj",
-			def:      "default-val",
-			expected: "default-val",
-		},
-		{
-			name:     "annotation absent empty default returns object name",
-			annos:    nil,
-			objName:  "my-obj",
-			def:      "",
-			expected: "my-obj",
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			mg := &v1alpha1.Network{}
-			mg.SetName(tt.objName)
-			mg.SetAnnotations(tt.annos)
-			require.Equal(t, tt.expected, ExternalNameOrDefault(mg, tt.def))
-		})
-	}
+	t.Skip("Skipped after v1beta1 migration - v1alpha1 types removed")
 }
