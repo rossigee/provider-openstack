@@ -17,9 +17,14 @@ A native [Crossplane](https://crossplane.io/) provider for managing OpenStack re
 
 A hand-written Crossplane provider for managing OpenStack resources across compute, networking, storage, identity, DNS, load balancing, and image services.
 
+## Versions
+
+- **Current**: v1beta1 (Namespaced, Crossplane v2 compatible)
+- **Legacy**: v1alpha1 (No longer supported - see [Migration Guide](docs/MIGRATION_V1ALPHA1_TO_V1BETA1.md))
+
 ## Resource Types
 
-All resources use the `openstack.crossplane.io/v1alpha1` API group.
+All resources use versioned API groups under `*.openstack.m.crossplane.io` (e.g., `compute.openstack.m.crossplane.io/v1beta1`).
 
 ### Networking (11 resources)
 

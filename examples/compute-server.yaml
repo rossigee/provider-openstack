@@ -1,0 +1,121 @@
+---
+# Example: Create an OpenStack Nova Server (Virtual Machine)
+apiVersion: compute.openstack.m.crossplane.io/v1beta1
+kind: Server
+metadata:
+  name: example-web-server
+  namespace: default
+spec:
+  # ProviderConfig determines which OpenStack cluster to use
+  providerConfigRef:
+    name: default
+
+  # ForProvider contains OpenStack-specific resource configuration
+  forProvider:
+    # Server name in OpenStack
+    name: web-server-01
+
+    # Image to boot from (UUID or name)
+    imageRef: ubuntu-22.04
+
+    # Flavor (instance type) for compute sizing
+    flavorRef: m1.small
+
+    # Optional: Key pair for SSH access
+    keyName: my-keypair
+
+    # Optional: Networks to attach
+    networks:
+    - name: private-network
+
+    # Optional: Security groups
+    securityGroups:
+    - default
+    - web-servers
+
+    # Optional: User data (cloud-init script)
+    userData: |
+      #!/bin/bash
+      apt-get update
+      apt-get install -y nginx
+      systemctl start nginx
+
+    # Optional: Availability zone
+    availabilityZone: nova
+
+    # Optional: Tags
+    tags:
+    - environment=production
+    - team=platform
+
+  # Crossplane v2 management policies
+  managementPolicies:
+  - Create
+  - Update
+  # - Delete  (uncomment to allow Crossplane to delete the server)
+
+  # Optional: Delete policy (wait for actual deletion)
+  deletionPolicy: Delete
+
+---
+# Example: Create a Nova Key Pair for SSH access
+apiVersion: compute.openstack.m.crossplane.io/v1beta1
+kind: KeyPair
+metadata:
+  name: my-keypair
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+
+  forProvider:
+    # Key pair name
+    name: my-keypair
+
+    # Public key material (optional - OpenStack generates if omitted)
+    # publicKey: "ssh-rsa AAAAB3NzaC1yc2E..."
+
+    # Key type (ssh or x509)
+    type: ssh
+
+  managementPolicies:
+  - Create
+  - Update
+  deletionPolicy: Delete
+
+---
+# ProviderConfig for OpenStack (required by all resources)
+apiVersion: openstack.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: openstack-credentials
+      namespace: default
+      key: credentials
+
+---
+# Secret containing OpenStack credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openstack-credentials
+  namespace: default
+type: Opaque
+stringData:
+  # OpenStack authentication credentials
+  # Format: HCL or JSON with auth_url, username, password, project_name, etc.
+  credentials: |
+    {
+      "auth_url": "https://openstack.example.com:5000/v3",
+      "username": "crossplane-user",
+      "password": "your-password",
+      "project_name": "admin",
+      "user_domain_name": "Default",
+      "project_domain_name": "Default",
+      "region": "RegionOne"
+    }

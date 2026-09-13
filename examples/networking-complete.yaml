@@ -1,0 +1,174 @@
+---
+# Example: Complete networking stack
+# Creates: Network, Subnet, Router, Security Group, FloatingIP
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: Network
+metadata:
+  name: example-network
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-network
+    # adminStateUp: true (default)
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: example-subnet
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-subnet
+    networkName: example-network  # Reference the network
+    cidr: 192.168.1.0/24
+    ipVersion: 4
+    # enableDhcp: true (default)
+    # dnsNameservers:
+    # - 8.8.8.8
+    # - 8.8.4.4
+    allocationPools:
+    - start: 192.168.1.10
+      end: 192.168.1.250
+    gatewayIp: 192.168.1.1
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: Router
+metadata:
+  name: example-router
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-router
+    # adminStateUp: true (default)
+    # External gateway for public network connectivity
+    # externalGatewayNetworkId: public-network-id
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: RouterInterface
+metadata:
+  name: example-router-interface
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    routerName: example-router
+    subnetName: example-subnet
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: example-web-sg
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-web-sg
+    description: Security group for web servers
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: allow-http
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    securityGroupName: example-web-sg
+    direction: ingress
+    protocol: tcp
+    portRangeMin: 80
+    portRangeMax: 80
+    cidr: 0.0.0.0/0
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: allow-https
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    securityGroupName: example-web-sg
+    direction: ingress
+    protocol: tcp
+    portRangeMin: 443
+    portRangeMax: 443
+    cidr: 0.0.0.0/0
+
+---
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: allow-ssh
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    securityGroupName: example-web-sg
+    direction: ingress
+    protocol: tcp
+    portRangeMin: 22
+    portRangeMax: 22
+    cidr: 0.0.0.0/0
+
+---
+# Port (Network Interface)
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: Port
+metadata:
+  name: example-port
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-port
+    networkName: example-network
+    subnetName: example-subnet
+
+---
+# Floating IP (Public IP)
+apiVersion: networking.openstack.m.crossplane.io/v1beta1
+kind: FloatingIP
+metadata:
+  name: example-floating-ip
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    floatingNetworkName: public  # Name of external network
+    # portName: example-port    # Optionally associate with port
+    # description: "Floating IP for web server"
+
+---
+# ProviderConfig for networking
+apiVersion: openstack.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: openstack-credentials
+      namespace: default
+      key: credentials

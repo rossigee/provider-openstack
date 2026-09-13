@@ -1,0 +1,78 @@
+---
+# Example: Block Storage Volume
+apiVersion: blockstorage.openstack.m.crossplane.io/v1beta1
+kind: Volume
+metadata:
+  name: example-volume
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-volume
+    # Size in GB
+    size: 50
+    # Optional: Volume type
+    # volumeType: ssd
+    # Optional: Snapshot to create from
+    # snapshotId: snapshot-uuid
+    # Optional: Description
+    description: "Example persistent volume"
+    # Optional: Availability zone
+    availabilityZone: nova
+
+  managementPolicies:
+  - Create
+  - Update
+  deletionPolicy: Delete
+
+---
+# Example: Volume Type
+apiVersion: blockstorage.openstack.m.crossplane.io/v1beta1
+kind: VolumeType
+metadata:
+  name: ssd-volume-type
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: ssd
+    description: "SSD storage backend"
+    # isPublic: true (default)
+
+---
+# Example: Volume Snapshot
+apiVersion: blockstorage.openstack.m.crossplane.io/v1beta1
+kind: VolumeSnapshot
+metadata:
+  name: example-snapshot
+  namespace: default
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    name: example-snapshot
+    volumeName: example-volume
+    description: "Snapshot of example volume"
+    # forceCreate: false (default)
+
+  managementPolicies:
+  - Create
+  - Update
+  deletionPolicy: Delete
+
+---
+# ProviderConfig
+apiVersion: openstack.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: openstack-credentials
+      namespace: default
+      key: credentials
