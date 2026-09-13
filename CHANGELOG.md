@@ -8,8 +8,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### BREAKING: v1beta1 Namespaced Migration
 
+**⚠️ This is a major breaking change. See [Migration Guide](docs/MIGRATION_V1ALPHA1_TO_V1BETA1.md) for upgrade instructions.**
+
+#### Changed
+- **REMOVED**: v1alpha1 API versions completely (cluster-scoped, no longer supported)
+- **NEW**: v1beta1 API versions (namespaced, Crossplane v2 compatible)
+- API groups changed: `*.openstack.crossplane.io` → `*.openstack.m.crossplane.io`
+- All resources are now **namespaced** instead of cluster-scoped
+- Implemented Crossplane v2 ManagedResourceSpec pattern
+- Added ManagementPolicies support for resource lifecycle control
+- Implemented runtime.Object interface on all resource types
+- Added Managed interface methods (GetCondition, SetConditions, etc.)
+
+#### Resources Updated (30+ types)
+- **Compute**: Server, KeyPair
+- **Networking**: Network, Subnet, Router, RouterInterface, SecurityGroup, SecurityGroupRule, FloatingIP, Port, SubnetPool, Trunk, RBACPolicy
+- **BlockStorage**: Volume, VolumeType, VolumeSnapshot
+- **Image**: Image
+- **Identity**: User, Project, Role
+- **LoadBalancing**: LoadBalancer, Listener, Pool, Member, HealthMonitor
+- **DNS**: Zone
+
+#### Documentation
+- Added comprehensive API reference for all resource types
+- Added v1beta1 migration guide with step-by-step instructions
+- Added example YAML manifests for all major resource types
+- Updated README with v1beta1 information
+- Added deep copy and validation tests
+
+#### Other Changes
 - Update terraform-provider-openstack to `v3.2.0`
 - Update to golang `v1.24.4`
 - Update to upjet `v1.9.0`
