@@ -15,7 +15,6 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
@@ -61,7 +60,7 @@ type VolumeParameters struct {
 
 // VolumeStatus defines the observed state of an OpenStack volume.
 type VolumeStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider VolumeProviderStatus `json:"atProvider,omitempty"`
 
@@ -130,8 +129,8 @@ type Volume struct {
 
 // VolumeSpec defines the desired state of a Volume.
 type VolumeSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     VolumeParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              VolumeParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -164,7 +163,7 @@ type VolumeTypeParameters struct {
 
 // VolumeTypeStatus defines the observed state of an OpenStack volume type.
 type VolumeTypeStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider VolumeTypeProviderStatus `json:"atProvider,omitempty"`
 }
@@ -208,8 +207,8 @@ type VolumeType struct {
 
 // VolumeTypeSpec defines the desired state of a VolumeType.
 type VolumeTypeSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     VolumeTypeParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              VolumeTypeParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -246,7 +245,7 @@ type VolumeSnapshotParameters struct {
 
 // VolumeSnapshotStatus defines the observed state of an OpenStack snapshot.
 type VolumeSnapshotStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider VolumeSnapshotProviderStatus `json:"atProvider,omitempty"`
 }
@@ -300,8 +299,8 @@ type VolumeSnapshot struct {
 
 // VolumeSnapshotSpec defines the desired state of a VolumeSnapshot.
 type VolumeSnapshotSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     VolumeSnapshotParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              VolumeSnapshotParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -314,7 +313,9 @@ type VolumeSnapshotList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Volume) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Volume)
 	in.DeepCopyInto(out)
 	return out
@@ -330,7 +331,9 @@ func (in *Volume) DeepCopyInto(out *Volume) {
 
 // DeepCopyObject implements runtime.Object
 func (in *VolumeList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(VolumeList)
 	in.DeepCopyInto(out)
 	return out
@@ -340,12 +343,17 @@ func (in *VolumeList) DeepCopyObject() runtime.Object {
 func (in *VolumeList) DeepCopyInto(out *VolumeList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Volume, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Volume, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *VolumeType) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(VolumeType)
 	in.DeepCopyInto(out)
 	return out
@@ -361,7 +369,9 @@ func (in *VolumeType) DeepCopyInto(out *VolumeType) {
 
 // DeepCopyObject implements runtime.Object
 func (in *VolumeTypeList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(VolumeTypeList)
 	in.DeepCopyInto(out)
 	return out
@@ -371,12 +381,17 @@ func (in *VolumeTypeList) DeepCopyObject() runtime.Object {
 func (in *VolumeTypeList) DeepCopyInto(out *VolumeTypeList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]VolumeType, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]VolumeType, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *VolumeSnapshot) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(VolumeSnapshot)
 	in.DeepCopyInto(out)
 	return out
@@ -392,7 +407,9 @@ func (in *VolumeSnapshot) DeepCopyInto(out *VolumeSnapshot) {
 
 // DeepCopyObject implements runtime.Object
 func (in *VolumeSnapshotList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(VolumeSnapshotList)
 	in.DeepCopyInto(out)
 	return out
@@ -402,7 +419,10 @@ func (in *VolumeSnapshotList) DeepCopyObject() runtime.Object {
 func (in *VolumeSnapshotList) DeepCopyInto(out *VolumeSnapshotList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]VolumeSnapshot, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]VolumeSnapshot, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed

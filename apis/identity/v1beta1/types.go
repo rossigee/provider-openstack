@@ -129,7 +129,9 @@ type ProjectList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *User) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(User)
 	in.DeepCopyInto(out)
 	return out
@@ -145,7 +147,9 @@ func (in *User) DeepCopyInto(out *User) {
 
 // DeepCopyObject implements runtime.Object
 func (in *UserList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(UserList)
 	in.DeepCopyInto(out)
 	return out
@@ -155,12 +159,17 @@ func (in *UserList) DeepCopyObject() runtime.Object {
 func (in *UserList) DeepCopyInto(out *UserList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]User, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]User, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Project) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Project)
 	in.DeepCopyInto(out)
 	return out
@@ -176,7 +185,9 @@ func (in *Project) DeepCopyInto(out *Project) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ProjectList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ProjectList)
 	in.DeepCopyInto(out)
 	return out
@@ -186,7 +197,10 @@ func (in *ProjectList) DeepCopyObject() runtime.Object {
 func (in *ProjectList) DeepCopyInto(out *ProjectList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Project, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Project, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 type RoleParameters struct {
@@ -235,7 +249,9 @@ type RoleList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Role) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Role)
 	in.DeepCopyInto(out)
 	return out
@@ -251,7 +267,9 @@ func (in *Role) DeepCopyInto(out *Role) {
 
 // DeepCopyObject implements runtime.Object
 func (in *RoleList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RoleList)
 	in.DeepCopyInto(out)
 	return out
@@ -261,7 +279,10 @@ func (in *RoleList) DeepCopyObject() runtime.Object {
 func (in *RoleList) DeepCopyInto(out *RoleList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Role, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Role, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed

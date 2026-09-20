@@ -14,7 +14,9 @@ import (
 func TestExampleYAMLsAreValid(t *testing.T) {
 	examplesDir := "../examples"
 	scheme := runtime.NewScheme()
-	AddToScheme(scheme)
+	if err := AddToScheme(scheme); err != nil {
+		t.Fatalf("failed to add scheme: %v", err)
+	}
 
 	entries, err := os.ReadDir(examplesDir)
 	if err != nil {
@@ -102,28 +104,28 @@ func TestExampleYAMLsAreValid(t *testing.T) {
 func TestExampleYAMLsHaveCorrectAPIGroups(t *testing.T) {
 	// Map of resource kinds to expected API groups
 	expectedGroups := map[string]string{
-		"Server":               "compute.openstack.m.crossplane.io",
-		"KeyPair":              "compute.openstack.m.crossplane.io",
-		"Network":              "networking.openstack.m.crossplane.io",
-		"Subnet":               "networking.openstack.m.crossplane.io",
-		"Router":               "networking.openstack.m.crossplane.io",
-		"SecurityGroup":        "networking.openstack.m.crossplane.io",
-		"FloatingIP":           "networking.openstack.m.crossplane.io",
-		"Port":                 "networking.openstack.m.crossplane.io",
-		"Volume":               "blockstorage.openstack.m.crossplane.io",
-		"VolumeType":           "blockstorage.openstack.m.crossplane.io",
-		"VolumeSnapshot":       "blockstorage.openstack.m.crossplane.io",
-		"Image":                "image.openstack.m.crossplane.io",
-		"User":                 "identity.openstack.m.crossplane.io",
-		"Project":              "identity.openstack.m.crossplane.io",
-		"Role":                 "identity.openstack.m.crossplane.io",
-		"LoadBalancer":         "loadbalancing.openstack.m.crossplane.io",
-		"Listener":             "loadbalancing.openstack.m.crossplane.io",
-		"Pool":                 "loadbalancing.openstack.m.crossplane.io",
-		"Member":               "loadbalancing.openstack.m.crossplane.io",
-		"HealthMonitor":        "loadbalancing.openstack.m.crossplane.io",
-		"Zone":                 "dns.openstack.m.crossplane.io",
-		"ProviderConfig":       "openstack.m.crossplane.io",
+		"Server":         "compute.openstack.m.crossplane.io",
+		"KeyPair":        "compute.openstack.m.crossplane.io",
+		"Network":        "networking.openstack.m.crossplane.io",
+		"Subnet":         "networking.openstack.m.crossplane.io",
+		"Router":         "networking.openstack.m.crossplane.io",
+		"SecurityGroup":  "networking.openstack.m.crossplane.io",
+		"FloatingIP":     "networking.openstack.m.crossplane.io",
+		"Port":           "networking.openstack.m.crossplane.io",
+		"Volume":         "blockstorage.openstack.m.crossplane.io",
+		"VolumeType":     "blockstorage.openstack.m.crossplane.io",
+		"VolumeSnapshot": "blockstorage.openstack.m.crossplane.io",
+		"Image":          "image.openstack.m.crossplane.io",
+		"User":           "identity.openstack.m.crossplane.io",
+		"Project":        "identity.openstack.m.crossplane.io",
+		"Role":           "identity.openstack.m.crossplane.io",
+		"LoadBalancer":   "loadbalancing.openstack.m.crossplane.io",
+		"Listener":       "loadbalancing.openstack.m.crossplane.io",
+		"Pool":           "loadbalancing.openstack.m.crossplane.io",
+		"Member":         "loadbalancing.openstack.m.crossplane.io",
+		"HealthMonitor":  "loadbalancing.openstack.m.crossplane.io",
+		"Zone":           "dns.openstack.m.crossplane.io",
+		"ProviderConfig": "openstack.m.crossplane.io",
 	}
 
 	examplesDir := "../examples"
@@ -149,7 +151,9 @@ func TestExampleYAMLsHaveCorrectAPIGroups(t *testing.T) {
 					}
 
 					obj := &unstructured.Unstructured{}
-					yaml.Unmarshal(data, obj)
+					if err := yaml.Unmarshal(data, obj); err != nil {
+						continue
+					}
 
 					kind := obj.GetKind()
 					apiVersion := obj.GetAPIVersion()

@@ -74,7 +74,9 @@ type ZoneList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Zone) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Zone)
 	in.DeepCopyInto(out)
 	return out
@@ -90,7 +92,9 @@ func (in *Zone) DeepCopyInto(out *Zone) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ZoneList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ZoneList)
 	in.DeepCopyInto(out)
 	return out
@@ -100,7 +104,10 @@ func (in *ZoneList) DeepCopyObject() runtime.Object {
 func (in *ZoneList) DeepCopyInto(out *ZoneList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Zone, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Zone, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed
