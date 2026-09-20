@@ -2,7 +2,6 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
@@ -65,7 +64,7 @@ type LoadBalancerParameters struct {
 
 // LoadBalancerStatus defines the observed state of an OpenStack load balancer.
 type LoadBalancerStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider LoadBalancerProviderStatus `json:"atProvider,omitempty"`
 }
@@ -141,8 +140,8 @@ type LoadBalancer struct {
 
 // LoadBalancerSpec defines the desired state of a LoadBalancer.
 type LoadBalancerSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     LoadBalancerParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              LoadBalancerParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -231,7 +230,7 @@ type ListenerParameters struct {
 
 // ListenerStatus defines the observed state of an OpenStack listener.
 type ListenerStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider ListenerProviderStatus `json:"atProvider,omitempty"`
 }
@@ -305,8 +304,8 @@ type Listener struct {
 
 // ListenerSpec defines the desired state of a Listener.
 type ListenerSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     ListenerParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              ListenerParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -376,7 +375,7 @@ type PoolParameters struct {
 
 // PoolStatus defines the observed state of an OpenStack pool.
 type PoolStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider PoolProviderStatus `json:"atProvider,omitempty"`
 }
@@ -444,8 +443,8 @@ type Pool struct {
 
 // PoolSpec defines the desired state of a Pool.
 type PoolSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     PoolParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              PoolParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -511,7 +510,7 @@ type MemberParameters struct {
 
 // MemberStatus defines the observed state of an OpenStack pool member.
 type MemberStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider MemberProviderStatus `json:"atProvider,omitempty"`
 }
@@ -591,8 +590,8 @@ type Member struct {
 
 // MemberSpec defines the desired state of a Member.
 type MemberSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     MemberParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              MemberParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -666,7 +665,7 @@ type HealthMonitorParameters struct {
 
 // HealthMonitorStatus defines the observed state of an OpenStack health monitor.
 type HealthMonitorStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider HealthMonitorProviderStatus `json:"atProvider,omitempty"`
 }
@@ -748,8 +747,8 @@ type HealthMonitor struct {
 
 // HealthMonitorSpec defines the desired state of a HealthMonitor.
 type HealthMonitorSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     HealthMonitorParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              HealthMonitorParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -762,7 +761,9 @@ type HealthMonitorList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *LoadBalancer) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(LoadBalancer)
 	in.DeepCopyInto(out)
 	return out
@@ -778,7 +779,9 @@ func (in *LoadBalancer) DeepCopyInto(out *LoadBalancer) {
 
 // DeepCopyObject implements runtime.Object
 func (in *LoadBalancerList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(LoadBalancerList)
 	in.DeepCopyInto(out)
 	return out
@@ -788,12 +791,17 @@ func (in *LoadBalancerList) DeepCopyObject() runtime.Object {
 func (in *LoadBalancerList) DeepCopyInto(out *LoadBalancerList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]LoadBalancer, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]LoadBalancer, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Listener) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Listener)
 	in.DeepCopyInto(out)
 	return out
@@ -809,7 +817,9 @@ func (in *Listener) DeepCopyInto(out *Listener) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ListenerList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ListenerList)
 	in.DeepCopyInto(out)
 	return out
@@ -819,12 +829,17 @@ func (in *ListenerList) DeepCopyObject() runtime.Object {
 func (in *ListenerList) DeepCopyInto(out *ListenerList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Listener, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Listener, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Pool) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Pool)
 	in.DeepCopyInto(out)
 	return out
@@ -840,7 +855,9 @@ func (in *Pool) DeepCopyInto(out *Pool) {
 
 // DeepCopyObject implements runtime.Object
 func (in *PoolList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(PoolList)
 	in.DeepCopyInto(out)
 	return out
@@ -850,12 +867,17 @@ func (in *PoolList) DeepCopyObject() runtime.Object {
 func (in *PoolList) DeepCopyInto(out *PoolList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Pool, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Pool, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Member) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Member)
 	in.DeepCopyInto(out)
 	return out
@@ -871,7 +893,9 @@ func (in *Member) DeepCopyInto(out *Member) {
 
 // DeepCopyObject implements runtime.Object
 func (in *MemberList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(MemberList)
 	in.DeepCopyInto(out)
 	return out
@@ -881,12 +905,17 @@ func (in *MemberList) DeepCopyObject() runtime.Object {
 func (in *MemberList) DeepCopyInto(out *MemberList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Member, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Member, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *HealthMonitor) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(HealthMonitor)
 	in.DeepCopyInto(out)
 	return out
@@ -902,7 +931,9 @@ func (in *HealthMonitor) DeepCopyInto(out *HealthMonitor) {
 
 // DeepCopyObject implements runtime.Object
 func (in *HealthMonitorList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(HealthMonitorList)
 	in.DeepCopyInto(out)
 	return out
@@ -912,7 +943,10 @@ func (in *HealthMonitorList) DeepCopyObject() runtime.Object {
 func (in *HealthMonitorList) DeepCopyInto(out *HealthMonitorList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]HealthMonitor, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]HealthMonitor, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed

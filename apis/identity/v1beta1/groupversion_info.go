@@ -43,12 +43,12 @@ var (
 )
 
 type UserProviderStatus struct {
-	UserID            string `json:"userId,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Description       string `json:"description,omitempty"`
-	DomainID          string `json:"domainId,omitempty"`
-	DefaultProjectID  string `json:"defaultProjectId,omitempty"`
-	Enabled           *bool  `json:"enabled,omitempty"`
+	UserID           string `json:"userId,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Description      string `json:"description,omitempty"`
+	DomainID         string `json:"domainId,omitempty"`
+	DefaultProjectID string `json:"defaultProjectId,omitempty"`
+	Enabled          *bool  `json:"enabled,omitempty"`
 }
 
 // RoleProviderStatus defines the observed state of the role at the provider

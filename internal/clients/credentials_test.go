@@ -58,9 +58,9 @@ func TestNewClientWithValidCredentials(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			creds := map[string]string{
-				"auth_url": tt.authURL,
-				"username": tt.username,
-				"password": tt.password,
+				"auth_url":   tt.authURL,
+				"username":   tt.username,
+				"password":   tt.password,
 				"project_id": tt.projectID,
 			}
 
@@ -82,8 +82,8 @@ func TestNewClientWithValidCredentials(t *testing.T) {
 
 func TestCredentialsWithApplicationCredentials(t *testing.T) {
 	creds := map[string]string{
-		"auth_url": "https://openstack.example.com/v3",
-		"application_credential_id": "app-123",
+		"auth_url":                      "https://openstack.example.com/v3",
+		"application_credential_id":     "app-123",
 		"application_credential_secret": "secret",
 	}
 
@@ -99,11 +99,11 @@ func TestCredentialsWithApplicationCredentials(t *testing.T) {
 
 func TestCredentialsWithProjectName(t *testing.T) {
 	creds := map[string]string{
-		"auth_url": "https://openstack.example.com/v3",
-		"username": "testuser",
-		"password": "testpass",
-		"project_name": "myproject",
-		"user_domain_name": "Default",
+		"auth_url":            "https://openstack.example.com/v3",
+		"username":            "testuser",
+		"password":            "testpass",
+		"project_name":        "myproject",
+		"user_domain_name":    "Default",
 		"project_domain_name": "Default",
 	}
 

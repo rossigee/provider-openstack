@@ -71,7 +71,9 @@ type ProviderConfigUsageList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *ProviderConfig) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ProviderConfig)
 	in.DeepCopyInto(out)
 	return out
@@ -87,7 +89,9 @@ func (in *ProviderConfig) DeepCopyInto(out *ProviderConfig) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ProviderConfigList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ProviderConfigList)
 	in.DeepCopyInto(out)
 	return out
@@ -97,12 +101,17 @@ func (in *ProviderConfigList) DeepCopyObject() runtime.Object {
 func (in *ProviderConfigList) DeepCopyInto(out *ProviderConfigList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]ProviderConfig, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]ProviderConfig, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *ProviderConfigUsage) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ProviderConfigUsage)
 	in.DeepCopyInto(out)
 	return out
@@ -117,7 +126,9 @@ func (in *ProviderConfigUsage) DeepCopyInto(out *ProviderConfigUsage) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ProviderConfigUsageList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ProviderConfigUsageList)
 	in.DeepCopyInto(out)
 	return out
@@ -127,5 +138,8 @@ func (in *ProviderConfigUsageList) DeepCopyObject() runtime.Object {
 func (in *ProviderConfigUsageList) DeepCopyInto(out *ProviderConfigUsageList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]ProviderConfigUsage, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]ProviderConfigUsage, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }

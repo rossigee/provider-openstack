@@ -2,7 +2,6 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
@@ -38,12 +37,12 @@ type ImageProviderStatus struct {
 }
 
 type ImageSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     ImageParameters `json:"forProvider"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              ImageParameters `json:"forProvider"`
 }
 
 type ImageStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 	AtProvider             ImageProviderStatus `json:"atProvider,omitempty"`
 }
 
@@ -72,7 +71,9 @@ type ImageList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Image) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Image)
 	in.DeepCopyInto(out)
 	return out
@@ -88,7 +89,9 @@ func (in *Image) DeepCopyInto(out *Image) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ImageList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ImageList)
 	in.DeepCopyInto(out)
 	return out
@@ -98,7 +101,10 @@ func (in *ImageList) DeepCopyObject() runtime.Object {
 func (in *ImageList) DeepCopyInto(out *ImageList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Image, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Image, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed

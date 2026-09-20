@@ -15,7 +15,6 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
@@ -147,7 +146,7 @@ type BlockDeviceMapping struct {
 
 // ServerStatus defines the observed state of an OpenStack server.
 type ServerStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider ServerProviderStatus `json:"atProvider,omitempty"`
 
@@ -242,7 +241,7 @@ type Server struct {
 
 // ServerSpec defines the desired state of a Server.
 type ServerSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
+	xpv1.ManagedResourceSpec `json:",inline"`
 	ForProvider              ServerParameters `json:"forProvider,omitempty"`
 }
 
@@ -278,7 +277,7 @@ type KeyPairParameters struct {
 
 // KeyPairStatus defines the observed state of an OpenStack key pair.
 type KeyPairStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider KeyPairProviderStatus `json:"atProvider,omitempty"`
 
@@ -335,7 +334,7 @@ type KeyPair struct {
 
 // KeyPairSpec defines the desired state of a KeyPair.
 type KeyPairSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
+	xpv1.ManagedResourceSpec `json:",inline"`
 	ForProvider              KeyPairParameters `json:"forProvider,omitempty"`
 }
 
@@ -349,7 +348,9 @@ type KeyPairList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Server) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Server)
 	in.DeepCopyInto(out)
 	return out
@@ -365,7 +366,9 @@ func (in *Server) DeepCopyInto(out *Server) {
 
 // DeepCopyObject implements runtime.Object
 func (in *ServerList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(ServerList)
 	in.DeepCopyInto(out)
 	return out
@@ -375,12 +378,17 @@ func (in *ServerList) DeepCopyObject() runtime.Object {
 func (in *ServerList) DeepCopyInto(out *ServerList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Server, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Server, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *KeyPair) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(KeyPair)
 	in.DeepCopyInto(out)
 	return out
@@ -396,7 +404,9 @@ func (in *KeyPair) DeepCopyInto(out *KeyPair) {
 
 // DeepCopyObject implements runtime.Object
 func (in *KeyPairList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(KeyPairList)
 	in.DeepCopyInto(out)
 	return out
@@ -406,7 +416,10 @@ func (in *KeyPairList) DeepCopyObject() runtime.Object {
 func (in *KeyPairList) DeepCopyInto(out *KeyPairList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]KeyPair, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]KeyPair, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed

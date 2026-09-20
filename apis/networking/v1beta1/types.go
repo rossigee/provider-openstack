@@ -15,7 +15,6 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane/apis/v2/core/v2"
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
@@ -61,7 +60,7 @@ type NetworkParameters struct {
 
 // NetworkStatus defines the observed state of an OpenStack network.
 type NetworkStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	// AtProvider contains observations of the network state at the provider.
 	AtProvider NetworkProviderStatus `json:"atProvider,omitempty"`
@@ -137,8 +136,8 @@ type Network struct {
 
 // NetworkSpec defines the desired state of a Network.
 type NetworkSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     NetworkParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              NetworkParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -244,7 +243,7 @@ type HostRoute struct {
 
 // SubnetStatus defines the observed state of an OpenStack subnet.
 type SubnetStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider SubnetProviderStatus `json:"atProvider,omitempty"`
 }
@@ -317,8 +316,8 @@ type Subnet struct {
 
 // SubnetSpec defines the desired state of a Subnet.
 type SubnetSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     SubnetParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              SubnetParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -360,7 +359,7 @@ type RouterParameters struct {
 
 // RouterStatus defines the observed state of an OpenStack router.
 type RouterStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider RouterProviderStatus `json:"atProvider,omitempty"`
 }
@@ -432,8 +431,8 @@ type Router struct {
 
 // RouterSpec defines the desired state of a Router.
 type RouterSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     RouterParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              RouterParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -472,7 +471,7 @@ type RouterInterfaceParameters struct {
 
 // RouterInterfaceStatus defines the observed state of a router interface.
 type RouterInterfaceStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider RouterInterfaceProviderStatus `json:"atProvider,omitempty"`
 }
@@ -513,8 +512,8 @@ type RouterInterface struct {
 
 // RouterInterfaceSpec defines the desired state of a RouterInterface.
 type RouterInterfaceSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     RouterInterfaceParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              RouterInterfaceParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -546,7 +545,7 @@ type SecurityGroupParameters struct {
 
 // SecurityGroupStatus defines the observed state of an OpenStack security group.
 type SecurityGroupStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider SecurityGroupProviderStatus `json:"atProvider,omitempty"`
 }
@@ -624,8 +623,8 @@ type SecurityGroup struct {
 
 // SecurityGroupSpec defines the desired state of a SecurityGroup.
 type SecurityGroupSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     SecurityGroupParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              SecurityGroupParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -682,7 +681,7 @@ type SecurityGroupRuleParameters struct {
 
 // SecurityGroupRuleStatus defines the observed state of a security group rule.
 type SecurityGroupStatusRuleStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider SecurityGroupRuleProviderStatus `json:"atProvider,omitempty"`
 }
@@ -740,8 +739,8 @@ type SecurityGroupRule struct {
 
 // SecurityGroupRuleSpec defines the desired state of a SecurityGroupRule.
 type SecurityGroupRuleSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     SecurityGroupRuleParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              SecurityGroupRuleParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -787,7 +786,7 @@ type FloatingIPParameters struct {
 
 // FloatingIPStatus defines the observed state of an OpenStack floating IP.
 type FloatingIPStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider FloatingIPProviderStatus `json:"atProvider,omitempty"`
 
@@ -852,8 +851,8 @@ type FloatingIP struct {
 
 // FloatingIPSpec defines the desired state of a FloatingIP.
 type FloatingIPSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     FloatingIPParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              FloatingIPParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -936,7 +935,7 @@ type PortParameters struct {
 
 // PortStatus defines the observed state of an OpenStack port.
 type PortStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider PortProviderStatus `json:"atProvider,omitempty"`
 }
@@ -1002,8 +1001,8 @@ type Port struct {
 
 // PortSpec defines the desired state of a Port.
 type PortSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     PortParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              PortParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -1065,7 +1064,7 @@ type SubnetPoolParameters struct {
 
 // SubnetPoolStatus defines the observed state of an OpenStack subnet pool.
 type SubnetPoolStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider SubnetPoolProviderStatus `json:"atProvider,omitempty"`
 }
@@ -1133,8 +1132,8 @@ type SubnetPool struct {
 
 // SubnetPoolSpec defines the desired state of a SubnetPool.
 type SubnetPoolSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     SubnetPoolParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              SubnetPoolParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -1190,7 +1189,7 @@ type TrunkParameters struct {
 
 // TrunkStatus defines the observed state of an OpenStack trunk.
 type TrunkStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider TrunkProviderStatus `json:"atProvider,omitempty"`
 }
@@ -1244,8 +1243,8 @@ type Trunk struct {
 
 // TrunkSpec defines the desired state of a Trunk.
 type TrunkSpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     TrunkParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              TrunkParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -1278,7 +1277,7 @@ type RBACPolicyParameters struct {
 
 // RBACPolicyStatus defines the observed state of an OpenStack RBAC policy.
 type RBACPolicyStatus struct {
-	xpv2.ConditionedStatus `json:",inline"`
+	xpv1.ConditionedStatus `json:",inline"`
 
 	AtProvider RBACPolicyProviderStatus `json:"atProvider,omitempty"`
 }
@@ -1325,8 +1324,8 @@ type RBACPolicy struct {
 
 // RBACPolicySpec defines the desired state of a RBACPolicy.
 type RBACPolicySpec struct {
-	xpv2.ManagedResourceSpec `json:",inline"`
-	ForProvider                     RBACPolicyParameters `json:"forProvider,omitempty"`
+	xpv1.ManagedResourceSpec `json:",inline"`
+	ForProvider              RBACPolicyParameters `json:"forProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -1339,7 +1338,9 @@ type RBACPolicyList struct {
 
 // DeepCopyObject implements runtime.Object
 func (in *Network) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Network)
 	in.DeepCopyInto(out)
 	return out
@@ -1355,7 +1356,9 @@ func (in *Network) DeepCopyInto(out *Network) {
 
 // DeepCopyObject implements runtime.Object
 func (in *NetworkList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(NetworkList)
 	in.DeepCopyInto(out)
 	return out
@@ -1365,12 +1368,17 @@ func (in *NetworkList) DeepCopyObject() runtime.Object {
 func (in *NetworkList) DeepCopyInto(out *NetworkList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Network, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Network, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Subnet) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Subnet)
 	in.DeepCopyInto(out)
 	return out
@@ -1386,7 +1394,9 @@ func (in *Subnet) DeepCopyInto(out *Subnet) {
 
 // DeepCopyObject implements runtime.Object
 func (in *SubnetList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SubnetList)
 	in.DeepCopyInto(out)
 	return out
@@ -1396,12 +1406,17 @@ func (in *SubnetList) DeepCopyObject() runtime.Object {
 func (in *SubnetList) DeepCopyInto(out *SubnetList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Subnet, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Subnet, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Router) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Router)
 	in.DeepCopyInto(out)
 	return out
@@ -1417,7 +1432,9 @@ func (in *Router) DeepCopyInto(out *Router) {
 
 // DeepCopyObject implements runtime.Object
 func (in *RouterList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RouterList)
 	in.DeepCopyInto(out)
 	return out
@@ -1427,12 +1444,17 @@ func (in *RouterList) DeepCopyObject() runtime.Object {
 func (in *RouterList) DeepCopyInto(out *RouterList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Router, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Router, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *RouterInterface) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RouterInterface)
 	in.DeepCopyInto(out)
 	return out
@@ -1448,7 +1470,9 @@ func (in *RouterInterface) DeepCopyInto(out *RouterInterface) {
 
 // DeepCopyObject implements runtime.Object
 func (in *RouterInterfaceList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RouterInterfaceList)
 	in.DeepCopyInto(out)
 	return out
@@ -1458,12 +1482,17 @@ func (in *RouterInterfaceList) DeepCopyObject() runtime.Object {
 func (in *RouterInterfaceList) DeepCopyInto(out *RouterInterfaceList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]RouterInterface, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]RouterInterface, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *SecurityGroup) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SecurityGroup)
 	in.DeepCopyInto(out)
 	return out
@@ -1479,7 +1508,9 @@ func (in *SecurityGroup) DeepCopyInto(out *SecurityGroup) {
 
 // DeepCopyObject implements runtime.Object
 func (in *SecurityGroupList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SecurityGroupList)
 	in.DeepCopyInto(out)
 	return out
@@ -1489,12 +1520,17 @@ func (in *SecurityGroupList) DeepCopyObject() runtime.Object {
 func (in *SecurityGroupList) DeepCopyInto(out *SecurityGroupList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]SecurityGroup, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]SecurityGroup, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *SecurityGroupRule) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SecurityGroupRule)
 	in.DeepCopyInto(out)
 	return out
@@ -1510,7 +1546,9 @@ func (in *SecurityGroupRule) DeepCopyInto(out *SecurityGroupRule) {
 
 // DeepCopyObject implements runtime.Object
 func (in *SecurityGroupRuleList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SecurityGroupRuleList)
 	in.DeepCopyInto(out)
 	return out
@@ -1520,12 +1558,17 @@ func (in *SecurityGroupRuleList) DeepCopyObject() runtime.Object {
 func (in *SecurityGroupRuleList) DeepCopyInto(out *SecurityGroupRuleList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]SecurityGroupRule, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]SecurityGroupRule, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *FloatingIP) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(FloatingIP)
 	in.DeepCopyInto(out)
 	return out
@@ -1541,7 +1584,9 @@ func (in *FloatingIP) DeepCopyInto(out *FloatingIP) {
 
 // DeepCopyObject implements runtime.Object
 func (in *FloatingIPList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(FloatingIPList)
 	in.DeepCopyInto(out)
 	return out
@@ -1551,12 +1596,17 @@ func (in *FloatingIPList) DeepCopyObject() runtime.Object {
 func (in *FloatingIPList) DeepCopyInto(out *FloatingIPList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]FloatingIP, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]FloatingIP, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Port) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Port)
 	in.DeepCopyInto(out)
 	return out
@@ -1572,7 +1622,9 @@ func (in *Port) DeepCopyInto(out *Port) {
 
 // DeepCopyObject implements runtime.Object
 func (in *PortList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(PortList)
 	in.DeepCopyInto(out)
 	return out
@@ -1582,12 +1634,17 @@ func (in *PortList) DeepCopyObject() runtime.Object {
 func (in *PortList) DeepCopyInto(out *PortList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Port, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Port, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *SubnetPool) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SubnetPool)
 	in.DeepCopyInto(out)
 	return out
@@ -1603,7 +1660,9 @@ func (in *SubnetPool) DeepCopyInto(out *SubnetPool) {
 
 // DeepCopyObject implements runtime.Object
 func (in *SubnetPoolList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(SubnetPoolList)
 	in.DeepCopyInto(out)
 	return out
@@ -1613,12 +1672,17 @@ func (in *SubnetPoolList) DeepCopyObject() runtime.Object {
 func (in *SubnetPoolList) DeepCopyInto(out *SubnetPoolList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]SubnetPool, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]SubnetPool, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *Trunk) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(Trunk)
 	in.DeepCopyInto(out)
 	return out
@@ -1634,7 +1698,9 @@ func (in *Trunk) DeepCopyInto(out *Trunk) {
 
 // DeepCopyObject implements runtime.Object
 func (in *TrunkList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(TrunkList)
 	in.DeepCopyInto(out)
 	return out
@@ -1644,12 +1710,17 @@ func (in *TrunkList) DeepCopyObject() runtime.Object {
 func (in *TrunkList) DeepCopyInto(out *TrunkList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]Trunk, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]Trunk, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // DeepCopyObject implements runtime.Object
 func (in *RBACPolicy) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RBACPolicy)
 	in.DeepCopyInto(out)
 	return out
@@ -1665,7 +1736,9 @@ func (in *RBACPolicy) DeepCopyInto(out *RBACPolicy) {
 
 // DeepCopyObject implements runtime.Object
 func (in *RBACPolicyList) DeepCopyObject() runtime.Object {
-	if in == nil { return nil }
+	if in == nil {
+		return nil
+	}
 	out := new(RBACPolicyList)
 	in.DeepCopyInto(out)
 	return out
@@ -1675,7 +1748,10 @@ func (in *RBACPolicyList) DeepCopyObject() runtime.Object {
 func (in *RBACPolicyList) DeepCopyInto(out *RBACPolicyList) {
 	*out = *in
 	out.ListMeta = in.ListMeta
-	if in.Items != nil { out.Items = make([]RBACPolicy, len(in.Items)); copy(out.Items, in.Items) }
+	if in.Items != nil {
+		out.Items = make([]RBACPolicy, len(in.Items))
+		copy(out.Items, in.Items)
+	}
 }
 
 // GetCondition implements resource.Managed
