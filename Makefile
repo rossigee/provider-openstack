@@ -227,3 +227,17 @@ crossplane.help:
 help-special: crossplane.help
 
 .PHONY: crossplane.help help-special
+
+# xpkg-only publishing override + img neutralization for ghcr (standardized)
+xpkg.release.publish.ghcr.io/rossigee.provider-openstack:
+	@$(foreach p,$(XPKG_LINUX_PLATFORMS),$(MAKE) xpkg.build.provider-openstack PLATFORM=$(p) || exit 1;)
+	@$(CROSSPLANE_CLI) xpkg push \
+		$(foreach p,$(XPKG_LINUX_PLATFORMS),--package-files $(XPKG_OUTPUT_DIR)/$(p)/provider-openstack-$(VERSION).xpkg ) \
+		ghcr.io/rossigee/provider-openstack:$(VERSION)
+	@$(OK) Pushed package ghcr.io/rossigee/provider-openstack:$(VERSION)
+
+XPKG_REG_ORGS ?= ghcr.io/rossigee
+
+# Neutralize plain image publish for ghcr (xpkg uses same ref; plain push would clobber package.yaml)
+img.release.publish.ghcr.io/rossigee.provider-openstack:
+	@:
