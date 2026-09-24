@@ -4,17 +4,17 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.22.0
-  name: volumes.blockstorage.openstack.m.crossplane.io
+  name: members.loadbalancing.openstack.m.crossplane.io
 spec:
-  group: blockstorage.openstack.m.crossplane.io
+  group: loadbalancing.openstack.m.crossplane.io
   names:
     categories:
     - crossplane
     - openstack
-    kind: Volume
-    listKind: VolumeList
-    plural: volumes
-    singular: volume
+    kind: Member
+    listKind: MemberList
+    plural: members
+    singular: member
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -27,20 +27,23 @@ spec:
     - jsonPath: .metadata.annotations.crossplane.io/external-name
       name: External Name
       type: string
-    - jsonPath: .status.atProvider.status
+    - jsonPath: .spec.forProvider.address
+      name: Address
+      type: string
+    - jsonPath: .spec.forProvider.protocolPort
+      name: Port
+      type: integer
+    - jsonPath: .status.atProvider.provisioningStatus
       name: Status
       type: string
-    - jsonPath: .status.atProvider.size
-      name: Size
-      type: integer
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: Volume is a managed resource that represents an OpenStack Cinder
-          volume.
+        description: Member is a managed resource that represents an OpenStack Octavia
+          pool member.
         properties:
           apiVersion:
             description: |-
@@ -60,48 +63,63 @@ spec:
           metadata:
             type: object
           spec:
-            description: VolumeSpec defines the desired state of a Volume.
+            description: MemberSpec defines the desired state of a Member.
             properties:
               forProvider:
-                description: VolumeParameters define the desired state of an OpenStack
-                  Cinder volume.
+                description: MemberParameters define the desired state of an OpenStack
+                  Octavia pool member.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone for the
-                      volume.
+                  address:
+                    description: Address is the IP address of the member.
                     type: string
-                  description:
-                    description: Description of the volume.
+                  adminStateUp:
+                    default: true
+                    description: AdminStateUp is the administrative state of the member
+                      (true = UP).
+                    type: boolean
+                  backup:
+                    default: false
+                    description: Backup indicates if the member is a backup member.
+                    type: boolean
+                  monitorAddress:
+                    description: MonitorAddress is an alternate IP address used for
+                      health monitoring.
                     type: string
-                  imageId:
-                    description: ImageID is the ID of the image from which to create
-                      a bootable volume.
-                    type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is a set of key/value pairs to associate
-                      with the volume.
-                    type: object
-                  name:
-                    description: Name is the human-readable name for the volume.
-                    type: string
-                  size:
-                    description: Size is the size of the volume, in GB.
+                  monitorPort:
+                    description: MonitorPort is an alternate protocol port used for
+                      health monitoring.
                     type: integer
-                  snapshotId:
-                    description: SnapshotID is the ID of an existing volume snapshot
-                      to create the volume from.
+                  name:
+                    description: Name is the human-readable name for the member.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the ID of an existing volume to create
-                      the volume from.
+                  poolId:
+                    description: PoolID is the UUID of the pool to which this member
+                      belongs.
                     type: string
-                  volumeType:
-                    description: VolumeType is the associated volume type.
+                  projectId:
+                    description: ProjectID is the UUID of the project who owns the
+                      member.
                     type: string
+                  protocolPort:
+                    description: ProtocolPort is the port on which the application
+                      is hosted.
+                    type: integer
+                  subnetId:
+                    description: SubnetID is the UUID of the subnet.
+                    type: string
+                  tags:
+                    description: Tags is a set of resource tags.
+                    items:
+                      type: string
+                    type: array
+                  weight:
+                    description: Weight is the relative portion of traffic this member
+                      should receive.
+                    type: integer
                 required:
-                - size
+                - address
+                - poolId
+                - protocolPort
                 type: object
               managementPolicies:
                 default:
@@ -160,57 +178,68 @@ spec:
                 type: object
             type: object
           status:
-            description: VolumeStatus defines the observed state of an OpenStack volume.
+            description: MemberStatus defines the observed state of an OpenStack pool
+              member.
             properties:
               atProvider:
-                description: VolumeProviderStatus defines the observed state of the
-                  volume at the provider.
+                description: MemberProviderStatus defines the observed state of the
+                  member at the provider.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone of the
-                      volume.
+                  address:
+                    description: Address is the IP address of the member.
                     type: string
-                  bootable:
-                    description: Bootable indicates whether this is a bootable volume.
-                    type: string
-                  description:
-                    description: Description of the volume.
-                    type: string
-                  encrypted:
-                    description: Encrypted denotes if the volume is encrypted.
+                  adminStateUp:
+                    description: AdminStateUp is the administrative state.
                     type: boolean
-                  host:
-                    description: Host is the identifier of the host holding the volume.
+                  backup:
+                    description: Backup indicates if the member is a backup.
+                    type: boolean
+                  createdAt:
+                    description: CreatedAt is the creation timestamp.
                     type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is the user-defined metadata of the volume.
-                    type: object
-                  size:
-                    description: Size is the size of the volume in GB.
+                  memberId:
+                    description: MemberID is the unique identifier of the member in
+                      OpenStack.
+                    type: string
+                  monitorAddress:
+                    description: MonitorAddress is the alternate health monitor IP.
+                    type: string
+                  monitorPort:
+                    description: MonitorPort is the alternate health monitor port.
                     type: integer
-                  snapshotId:
-                    description: SnapshotID is the snapshot the volume was created
-                      from.
+                  name:
+                    description: Name is the human-readable name of the member.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the source volume the volume was created
-                      from.
+                  operatingStatus:
+                    description: OperatingStatus is the operating status.
                     type: string
-                  status:
-                    description: Status is the current status of the volume (available,
-                      creating, error, etc.).
+                  poolId:
+                    description: PoolID is the pool this member belongs to.
                     type: string
-                  tenantId:
-                    description: TenantID is the project that owns the volume.
+                  projectId:
+                    description: ProjectID is the project owner.
                     type: string
-                  volumeId:
-                    description: VolumeID is the unique identifier of the volume.
+                  protocolPort:
+                    description: ProtocolPort is the port on which the application
+                      is hosted.
+                    type: integer
+                  provisioningStatus:
+                    description: ProvisioningStatus is the provisioning status.
                     type: string
-                  volumeType:
-                    description: VolumeType is the volume type.
+                  subnetId:
+                    description: SubnetID is the UUID of the subnet.
                     type: string
+                  tags:
+                    description: Tags on the member.
+                    items:
+                      type: string
+                    type: array
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
+                    type: string
+                  weight:
+                    description: Weight is the relative weight of the member.
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.
@@ -258,9 +287,6 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              connectionDetails:
-                format: byte
-                type: string
             type: object
         required:
         - spec

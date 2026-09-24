@@ -4,17 +4,17 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.22.0
-  name: volumes.blockstorage.openstack.m.crossplane.io
+  name: routers.networking.openstack.m.crossplane.io
 spec:
-  group: blockstorage.openstack.m.crossplane.io
+  group: networking.openstack.m.crossplane.io
   names:
     categories:
     - crossplane
     - openstack
-    kind: Volume
-    listKind: VolumeList
-    plural: volumes
-    singular: volume
+    kind: Router
+    listKind: RouterList
+    plural: routers
+    singular: router
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -30,17 +30,14 @@ spec:
     - jsonPath: .status.atProvider.status
       name: Status
       type: string
-    - jsonPath: .status.atProvider.size
-      name: Size
-      type: integer
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: Volume is a managed resource that represents an OpenStack Cinder
-          volume.
+        description: Router is a managed resource that represents an OpenStack Neutron
+          router.
         properties:
           apiVersion:
             description: |-
@@ -60,48 +57,35 @@ spec:
           metadata:
             type: object
           spec:
-            description: VolumeSpec defines the desired state of a Volume.
+            description: RouterSpec defines the desired state of a Router.
             properties:
               forProvider:
-                description: VolumeParameters define the desired state of an OpenStack
-                  Cinder volume.
+                description: Router parameters define the desired state of an OpenStack
+                  Neutron router.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone for the
-                      volume.
-                    type: string
+                  adminStateUp:
+                    default: true
+                    description: AdminStateUp is the administrative state of the router.
+                    type: boolean
                   description:
-                    description: Description of the volume.
+                    description: Description of the router.
                     type: string
-                  imageId:
-                    description: ImageID is the ID of the image from which to create
-                      a bootable volume.
-                    type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is a set of key/value pairs to associate
-                      with the volume.
-                    type: object
+                  distributed:
+                    default: false
+                    description: Distributed indicates whether the router is distributed.
+                    type: boolean
                   name:
-                    description: Name is the human-readable name for the volume.
+                    description: Name is the human-readable name for the router.
                     type: string
-                  size:
-                    description: Size is the size of the volume, in GB.
-                    type: integer
-                  snapshotId:
-                    description: SnapshotID is the ID of an existing volume snapshot
-                      to create the volume from.
+                  tags:
+                    description: Tags is a set of arbitrary key/value pairs for router
+                      tagging.
+                    items:
+                      type: string
+                    type: array
+                  tenantId:
+                    description: TenantID is the project owner of the router.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the ID of an existing volume to create
-                      the volume from.
-                    type: string
-                  volumeType:
-                    description: VolumeType is the associated volume type.
-                    type: string
-                required:
-                - size
                 type: object
               managementPolicies:
                 default:
@@ -160,56 +144,66 @@ spec:
                 type: object
             type: object
           status:
-            description: VolumeStatus defines the observed state of an OpenStack volume.
+            description: RouterStatus defines the observed state of an OpenStack router.
             properties:
               atProvider:
-                description: VolumeProviderStatus defines the observed state of the
-                  volume at the provider.
+                description: RouterProviderStatus defines the observed state of the
+                  router at the provider.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone of the
-                      volume.
-                    type: string
-                  bootable:
-                    description: Bootable indicates whether this is a bootable volume.
-                    type: string
-                  description:
-                    description: Description of the volume.
-                    type: string
-                  encrypted:
-                    description: Encrypted denotes if the volume is encrypted.
+                  adminStateUp:
+                    description: AdminStateUp is the administrative state.
                     type: boolean
-                  host:
-                    description: Host is the identifier of the host holding the volume.
+                  createdAt:
+                    description: CreatedAt is the creation timestamp.
                     type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is the user-defined metadata of the volume.
-                    type: object
-                  size:
-                    description: Size is the size of the volume in GB.
+                  distributed:
+                    description: Distributed indicates if the router is distributed.
+                    type: boolean
+                  gatewayExternalIp:
+                    description: GatewayExternalIP is the external IP allocated to
+                      the router.
+                    type: string
+                  gatewayNetworkId:
+                    description: GatewayNetworkID is the external network ID connected
+                      to the router gateway.
+                    type: string
+                  revisionNumber:
+                    description: RevisionNumber for optimistic locking.
                     type: integer
-                  snapshotId:
-                    description: SnapshotID is the snapshot the volume was created
-                      from.
+                  routerId:
+                    description: RouterID is the unique identifier of the router in
+                      OpenStack.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the source volume the volume was created
-                      from.
-                    type: string
+                  routes:
+                    description: Routes are additional static routes configured on
+                      the router.
+                    items:
+                      description: RouterRoute defines a static route on a router.
+                      properties:
+                        destination:
+                          description: Destination is the destination CIDR.
+                          type: string
+                        nexthop:
+                          description: Nexthop is the next hop IP address.
+                          type: string
+                      required:
+                      - destination
+                      - nexthop
+                      type: object
+                    type: array
                   status:
-                    description: Status is the current status of the volume (available,
-                      creating, error, etc.).
+                    description: Status is the current status of the router.
                     type: string
+                  tags:
+                    description: Tags on the router.
+                    items:
+                      type: string
+                    type: array
                   tenantId:
-                    description: TenantID is the project that owns the volume.
+                    description: TenantID is the project owner.
                     type: string
-                  volumeId:
-                    description: VolumeID is the unique identifier of the volume.
-                    type: string
-                  volumeType:
-                    description: VolumeType is the volume type.
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
                     type: string
                 type: object
               conditions:
@@ -258,9 +252,6 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              connectionDetails:
-                format: byte
-                type: string
             type: object
         required:
         - spec

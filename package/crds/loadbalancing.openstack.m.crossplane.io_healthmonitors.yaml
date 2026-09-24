@@ -4,17 +4,17 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.22.0
-  name: volumes.blockstorage.openstack.m.crossplane.io
+  name: healthmonitors.loadbalancing.openstack.m.crossplane.io
 spec:
-  group: blockstorage.openstack.m.crossplane.io
+  group: loadbalancing.openstack.m.crossplane.io
   names:
     categories:
     - crossplane
     - openstack
-    kind: Volume
-    listKind: VolumeList
-    plural: volumes
-    singular: volume
+    kind: HealthMonitor
+    listKind: HealthMonitorList
+    plural: healthmonitors
+    singular: healthmonitor
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -27,20 +27,20 @@ spec:
     - jsonPath: .metadata.annotations.crossplane.io/external-name
       name: External Name
       type: string
-    - jsonPath: .status.atProvider.status
+    - jsonPath: .spec.forProvider.type
+      name: Type
+      type: string
+    - jsonPath: .status.atProvider.provisioningStatus
       name: Status
       type: string
-    - jsonPath: .status.atProvider.size
-      name: Size
-      type: integer
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: Volume is a managed resource that represents an OpenStack Cinder
-          volume.
+        description: HealthMonitor is a managed resource that represents an OpenStack
+          Octavia health monitor.
         properties:
           apiVersion:
             description: |-
@@ -60,48 +60,82 @@ spec:
           metadata:
             type: object
           spec:
-            description: VolumeSpec defines the desired state of a Volume.
+            description: HealthMonitorSpec defines the desired state of a HealthMonitor.
             properties:
               forProvider:
-                description: VolumeParameters define the desired state of an OpenStack
-                  Cinder volume.
+                description: HealthMonitorParameters define the desired state of an
+                  OpenStack Octavia health monitor.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone for the
-                      volume.
-                    type: string
-                  description:
-                    description: Description of the volume.
-                    type: string
-                  imageId:
-                    description: ImageID is the ID of the image from which to create
-                      a bootable volume.
-                    type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is a set of key/value pairs to associate
-                      with the volume.
-                    type: object
-                  name:
-                    description: Name is the human-readable name for the volume.
-                    type: string
-                  size:
-                    description: Size is the size of the volume, in GB.
+                  adminStateUp:
+                    default: true
+                    description: AdminStateUp is the administrative state of the monitor
+                      (true = UP).
+                    type: boolean
+                  delay:
+                    description: Delay is the time in seconds between sending probes
+                      to members.
                     type: integer
-                  snapshotId:
-                    description: SnapshotID is the ID of an existing volume snapshot
-                      to create the volume from.
+                  domainName:
+                    description: DomainName is the HTTP host header injected into
+                      the HTTP request.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the ID of an existing volume to create
-                      the volume from.
+                  expectedCodes:
+                    description: ExpectedCodes is the expected HTTP codes for a passing
+                      HTTP(S) monitor.
                     type: string
-                  volumeType:
-                    description: VolumeType is the associated volume type.
+                  httpMethod:
+                    description: HTTPMethod is the HTTP method used for requests.
+                      Defaults to GET.
+                    type: string
+                  httpVersion:
+                    description: HTTPVersion is the HTTP version (1.0 or 1.1). Defaults
+                      to 1.0.
+                    type: string
+                  maxRetries:
+                    description: MaxRetries is the number of allowed connection failures
+                      before marking a member as INACTIVE.
+                    type: integer
+                  maxRetriesDown:
+                    description: MaxRetriesDown is the number of allowed connection
+                      failures before marking a member as ERROR.
+                    type: integer
+                  name:
+                    description: Name is the human-readable name for the monitor.
+                    type: string
+                  projectId:
+                    description: ProjectID is the UUID of the project who owns the
+                      monitor.
+                    type: string
+                  tags:
+                    description: Tags is a set of resource tags.
+                    items:
+                      type: string
+                    type: array
+                  timeout:
+                    description: Timeout is the maximum number of seconds to wait
+                      for a connection before timing out.
+                    type: integer
+                  type:
+                    description: Type is the probe type (PING, TCP, HTTP, HTTPS, TLS-HELLO,
+                      UDP-CONNECT, SCTP).
+                    enum:
+                    - PING
+                    - TCP
+                    - HTTP
+                    - HTTPS
+                    - TLS-HELLO
+                    - UDP-CONNECT
+                    - SCTP
+                    type: string
+                  urlPath:
+                    description: URLPath is the HTTP path of the request sent by the
+                      monitor. Required for HTTP(S) types.
                     type: string
                 required:
-                - size
+                - delay
+                - maxRetries
+                - timeout
+                - type
                 type: object
               managementPolicies:
                 default:
@@ -160,56 +194,69 @@ spec:
                 type: object
             type: object
           status:
-            description: VolumeStatus defines the observed state of an OpenStack volume.
+            description: HealthMonitorStatus defines the observed state of an OpenStack
+              health monitor.
             properties:
               atProvider:
-                description: VolumeProviderStatus defines the observed state of the
-                  volume at the provider.
+                description: HealthMonitorProviderStatus defines the observed state
+                  of the monitor at the provider.
                 properties:
-                  availabilityZone:
-                    description: AvailabilityZone is the availability zone of the
-                      volume.
-                    type: string
-                  bootable:
-                    description: Bootable indicates whether this is a bootable volume.
-                    type: string
-                  description:
-                    description: Description of the volume.
-                    type: string
-                  encrypted:
-                    description: Encrypted denotes if the volume is encrypted.
+                  adminStateUp:
+                    description: AdminStateUp is the administrative state.
                     type: boolean
-                  host:
-                    description: Host is the identifier of the host holding the volume.
+                  createdAt:
+                    description: CreatedAt is the creation timestamp.
                     type: string
-                  metadata:
-                    additionalProperties:
-                      type: string
-                    description: Metadata is the user-defined metadata of the volume.
-                    type: object
-                  size:
-                    description: Size is the size of the volume in GB.
+                  delay:
+                    description: Delay is the time between probes.
                     type: integer
-                  snapshotId:
-                    description: SnapshotID is the snapshot the volume was created
-                      from.
+                  domainName:
+                    description: DomainName is the HTTP host header.
                     type: string
-                  sourceVolId:
-                    description: SourceVolID is the source volume the volume was created
-                      from.
+                  expectedCodes:
+                    description: ExpectedCodes is the expected HTTP codes.
                     type: string
-                  status:
-                    description: Status is the current status of the volume (available,
-                      creating, error, etc.).
+                  httpMethod:
+                    description: HTTPMethod is the HTTP method.
                     type: string
-                  tenantId:
-                    description: TenantID is the project that owns the volume.
+                  maxRetries:
+                    description: MaxRetries is the failure threshold.
+                    type: integer
+                  maxRetriesDown:
+                    description: MaxRetriesDown is the error threshold.
+                    type: integer
+                  monitorId:
+                    description: MonitorID is the unique identifier of the health
+                      monitor in OpenStack.
                     type: string
-                  volumeId:
-                    description: VolumeID is the unique identifier of the volume.
+                  name:
+                    description: Name is the human-readable name of the monitor.
                     type: string
-                  volumeType:
-                    description: VolumeType is the volume type.
+                  operatingStatus:
+                    description: OperatingStatus is the operating status.
+                    type: string
+                  projectId:
+                    description: ProjectID is the project owner.
+                    type: string
+                  provisioningStatus:
+                    description: ProvisioningStatus is the provisioning status.
+                    type: string
+                  tags:
+                    description: Tags on the monitor.
+                    items:
+                      type: string
+                    type: array
+                  timeout:
+                    description: Timeout is the probe timeout.
+                    type: integer
+                  type:
+                    description: Type is the probe type.
+                    type: string
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
+                    type: string
+                  urlPath:
+                    description: URLPath is the HTTP path.
                     type: string
                 type: object
               conditions:
@@ -258,9 +305,6 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              connectionDetails:
-                format: byte
-                type: string
             type: object
         required:
         - spec

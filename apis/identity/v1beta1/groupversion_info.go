@@ -1,3 +1,5 @@
+// +groupName=identity.openstack.m.crossplane.io
+// +versionName=v1beta1
 package v1beta1
 
 import (

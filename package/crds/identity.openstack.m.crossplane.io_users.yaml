@@ -3,20 +3,38 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: projects.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: users.identity.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: identity.openstack.m.crossplane.io
   names:
-    kind: Project
-    listKind: ProjectList
-    plural: projects
-    singular: project
+    categories:
+    - crossplane
+    - openstack
+    kind: User
+    listKind: UserList
+    plural: users
+    singular: user
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: User is a managed resource that represents an OpenStack identity
+          user.
         properties:
           apiVersion:
             description: |-
@@ -39,22 +57,24 @@ spec:
             properties:
               forProvider:
                 properties:
+                  defaultProjectId:
+                    type: string
                   description:
                     type: string
                   domainId:
                     type: string
+                  email:
+                    type: string
                   enabled:
-                    type: boolean
-                  isDomain:
                     type: boolean
                   name:
                     type: string
-                  parentId:
-                    type: string
-                  tags:
-                    items:
+                  options:
+                    additionalProperties:
                       type: string
-                    type: array
+                    type: object
+                  password:
+                    type: string
                 required:
                 - name
                 type: object
@@ -120,24 +140,21 @@ spec:
             properties:
               atProvider:
                 properties:
+                  defaultProjectId:
+                    type: string
                   description:
                     type: string
                   domainId:
                     type: string
                   enabled:
                     type: boolean
-                  isDomain:
-                    type: boolean
                   name:
                     type: string
-                  parentId:
+                  passwordExpiresAt:
+                    format: date-time
                     type: string
-                  projectId:
+                  userId:
                     type: string
-                  tags:
-                    items:
-                      type: string
-                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
@@ -191,3 +208,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

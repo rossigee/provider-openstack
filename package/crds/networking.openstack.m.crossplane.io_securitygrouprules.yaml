@@ -3,20 +3,44 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: images.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: securitygrouprules.networking.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: networking.openstack.m.crossplane.io
   names:
-    kind: Image
-    listKind: ImageList
-    plural: images
-    singular: image
+    categories:
+    - crossplane
+    - openstack
+    kind: SecurityGroupRule
+    listKind: SecurityGroupRuleList
+    plural: securitygrouprules
+    singular: securitygrouprule
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .spec.forProvider.direction
+      name: Direction
+      type: string
+    - jsonPath: .spec.forProvider.protocol
+      name: Protocol
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: SecurityGroupRule is a managed resource that represents an OpenStack
+          security group rule.
         properties:
           apiVersion:
             description: |-
@@ -36,36 +60,55 @@ spec:
           metadata:
             type: object
           spec:
+            description: SecurityGroupRuleSpec defines the desired state of a SecurityGroupRule.
             properties:
               forProvider:
+                description: SecurityGroupRuleParameters define the desired state
+                  of an OpenStack security group rule.
                 properties:
-                  containerFormat:
+                  direction:
+                    description: Direction is the traffic direction (ingress or egress).
+                    enum:
+                    - ingress
+                    - egress
                     type: string
-                  diskFormat:
+                  ethertype:
+                    default: IPv4
+                    description: Ethertype is the ethertype (IPv4 or IPv6).
+                    enum:
+                    - IPv4
+                    - IPv6
                     type: string
-                  minDisk:
+                  portRangeMax:
+                    description: PortRangeMax is the maximum port number in the range.
                     type: integer
-                  minRam:
+                  portRangeMin:
+                    description: PortRangeMin is the minimum port number in the range.
                     type: integer
-                  name:
+                  protocol:
+                    description: Protocol is the IP protocol (tcp, udp, icmp, or empty
+                      for any).
                     type: string
-                  properties:
-                    additionalProperties:
-                      type: string
-                    type: object
-                  protected:
-                    type: boolean
-                  tags:
-                    items:
-                      type: string
-                    type: array
-                  visibility:
+                  remoteGroupId:
+                    description: |-
+                      RemoteGroupID references another security group as the source/destination.
+                      Mutually exclusive with RemoteIPPrefix.
+                    type: string
+                  remoteIPPrefix:
+                    description: |-
+                      RemoteIPPrefix is the CIDR of the remote source/destination.
+                      Mutually exclusive with RemoteGroupID.
+                    type: string
+                  securityGroupId:
+                    description: SecurityGroupID is the security group this rule belongs
+                      to.
+                    type: string
+                  tenantId:
+                    description: TenantID is the project owner.
                     type: string
                 required:
-                - containerFormat
-                - diskFormat
-                - name
-                - visibility
+                - direction
+                - securityGroupId
                 type: object
               managementPolicies:
                 default:
@@ -122,46 +165,44 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: SecurityGroupRuleStatus defines the observed state of a security
+              group rule.
             properties:
               atProvider:
+                description: SecurityGroupRuleProviderStatus defines the observed
+                  state of the rule at the provider.
                 properties:
-                  checksum:
+                  direction:
+                    description: Direction is the traffic direction.
                     type: string
-                  containerFormat:
+                  ethertype:
+                    description: Ethertype is the ethertype.
                     type: string
-                  diskFormat:
-                    type: string
-                  file:
-                    type: string
-                  imageId:
-                    type: string
-                  minDisk:
+                  portRangeMax:
+                    description: PortRangeMax is the maximum port.
                     type: integer
-                  minRam:
+                  portRangeMin:
+                    description: PortRangeMin is the minimum port.
                     type: integer
-                  owner:
+                  protocol:
+                    description: Protocol is the IP protocol.
                     type: string
-                  protected:
-                    type: boolean
-                  schema:
+                  remoteGroupId:
+                    description: RemoteGroupID references another security group.
                     type: string
-                  size:
-                    format: int64
-                    type: integer
-                  status:
+                  remoteIPPrefix:
+                    description: RemoteIPPrefix is the CIDR.
                     type: string
-                  tags:
-                    items:
-                      type: string
-                    type: array
-                  virtualSize:
-                    format: int64
-                    type: integer
-                  visibility:
+                  ruleId:
+                    description: RuleID is the unique identifier of the rule.
+                    type: string
+                  securityGroupId:
+                    description: SecurityGroupID is the parent security group.
+                    type: string
+                  tenantId:
+                    description: TenantID is the project owner.
                     type: string
                 type: object
               conditions:
@@ -216,3 +257,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

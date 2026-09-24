@@ -3,6 +3,8 @@ Copyright 2025 The Crossplane Authors.
 Licensed under the Apache License, Version 2.0.
 */
 
+// +groupName=image.openstack.m.crossplane.io
+// +versionName=v1beta1
 package v1beta1
 
 import (

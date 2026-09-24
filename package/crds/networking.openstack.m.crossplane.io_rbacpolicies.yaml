@@ -3,20 +3,38 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: ports.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: rbacpolicies.networking.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: networking.openstack.m.crossplane.io
   names:
-    kind: Port
-    listKind: PortList
-    plural: ports
-    singular: port
+    categories:
+    - crossplane
+    - openstack
+    kind: RBACPolicy
+    listKind: RBACPolicyList
+    plural: rbacpolicies
+    singular: rbacpolicy
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: RBACPolicy is a managed resource that represents an OpenStack
+          Neutron RBAC policy.
         properties:
           apiVersion:
             description: |-
@@ -36,49 +54,36 @@ spec:
           metadata:
             type: object
           spec:
+            description: RBACPolicySpec defines the desired state of a RBACPolicy.
             properties:
               forProvider:
+                description: RBACPolicyParameters define the desired state of an OpenStack
+                  Neutron RBAC policy.
                 properties:
-                  adminStateUp:
-                    type: boolean
-                  allowedAddressPairs:
-                    items:
-                      properties:
-                        ipAddress:
-                          type: string
-                        macAddress:
-                          type: string
-                      type: object
-                    type: array
-                  description:
+                  action:
+                    description: Action is the action of the RBAC policy (access_as_external
+                      or access_as_shared).
+                    enum:
+                    - access_as_external
+                    - access_as_shared
                     type: string
-                  deviceId:
+                  objectId:
+                    description: ObjectID is the ID of the object_type resource (e.g.,
+                      network ID).
                     type: string
-                  deviceOwner:
+                  objectType:
+                    description: ObjectType is the type of the object the policy affects
+                      (e.g., "network" or "qos-policy").
                     type: string
-                  fixedIPs:
-                    items:
-                      properties:
-                        ipAddress:
-                          type: string
-                        subnetId:
-                          type: string
-                      type: object
-                    type: array
-                  macAddress:
-                    type: string
-                  name:
-                    type: string
-                  networkId:
-                    type: string
-                  securityGroups:
-                    items:
-                      type: string
-                    type: array
-                  tenantId:
+                  targetTenant:
+                    description: TargetTenant is the ID of the tenant to which the
+                      RBAC policy is enforced.
                     type: string
                 required:
-                - networkId
+                - action
+                - objectId
+                - objectType
+                - targetTenant
                 type: object
               managementPolicies:
                 default:
@@ -135,54 +140,36 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: RBACPolicyStatus defines the observed state of an OpenStack
+              RBAC policy.
             properties:
               atProvider:
+                description: RBACPolicyProviderStatus defines the observed state of
+                  the RBAC policy at the provider.
                 properties:
-                  adminStateUp:
-                    type: boolean
-                  allowedAddressPairs:
-                    items:
-                      properties:
-                        ipAddress:
-                          type: string
-                        macAddress:
-                          type: string
-                      type: object
-                    type: array
-                  description:
+                  action:
+                    description: Action is the action of the RBAC policy.
                     type: string
-                  deviceId:
+                  objectId:
+                    description: ObjectID is the ID of the object affected.
                     type: string
-                  deviceOwner:
+                  objectType:
+                    description: ObjectType is the type of the object affected.
                     type: string
-                  fixedIPs:
-                    items:
-                      properties:
-                        ipAddress:
-                          type: string
-                        subnetId:
-                          type: string
-                      type: object
-                    type: array
-                  macAddress:
+                  projectId:
+                    description: ProjectID is the project ID.
                     type: string
-                  name:
+                  rbacPolicyId:
+                    description: RBACPolicyID is the unique identifier of the RBAC
+                      policy.
                     type: string
-                  networkId:
-                    type: string
-                  portId:
-                    type: string
-                  securityGroups:
-                    items:
-                      type: string
-                    type: array
-                  status:
+                  targetTenant:
+                    description: TargetTenant is the target tenant.
                     type: string
                   tenantId:
+                    description: TenantID is the project that owns the resource.
                     type: string
                 type: object
               conditions:
@@ -237,3 +224,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}
