@@ -3,20 +3,38 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: networks.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: volumetypes.blockstorage.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: blockstorage.openstack.m.crossplane.io
   names:
-    kind: Network
-    listKind: NetworkList
-    plural: networks
-    singular: network
+    categories:
+    - crossplane
+    - openstack
+    kind: VolumeType
+    listKind: VolumeTypeList
+    plural: volumetypes
+    singular: volumetype
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: VolumeType is a managed resource that represents an OpenStack
+          Cinder volume type.
         properties:
           apiVersion:
             description: |-
@@ -36,27 +54,31 @@ spec:
           metadata:
             type: object
           spec:
+            description: VolumeTypeSpec defines the desired state of a VolumeType.
             properties:
               forProvider:
+                description: VolumeTypeParameters define the desired state of an OpenStack
+                  Cinder volume type.
                 properties:
-                  adminStateUp:
-                    type: boolean
                   description:
+                    description: Description of the volume type.
                     type: string
-                  dnsDomain:
-                    type: string
-                  name:
-                    type: string
-                  portSecurityEnabled:
-                    type: boolean
-                  shared:
-                    type: boolean
-                  tags:
-                    items:
+                  extraSpecs:
+                    additionalProperties:
                       type: string
-                    type: array
-                  tenantId:
+                    description: ExtraSpecs is a set of extra-spec key/value pairs
+                      defined by the user.
+                    type: object
+                  isPublic:
+                    default: true
+                    description: IsPublic indicates whether the volume type is publicly
+                      visible.
+                    type: boolean
+                  name:
+                    description: Name is the human-readable name for the volume type.
                     type: string
+                required:
+                - name
                 type: object
               managementPolicies:
                 default:
@@ -113,48 +135,36 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: VolumeTypeStatus defines the observed state of an OpenStack
+              volume type.
             properties:
               atProvider:
+                description: VolumeTypeProviderStatus defines the observed state of
+                  the volume type at the provider.
                 properties:
-                  adminStateUp:
-                    type: boolean
-                  createdAt:
-                    format: date-time
+                  description:
+                    description: Description of the volume type.
                     type: string
-                  dnsDomain:
-                    type: string
-                  networkId:
-                    type: string
-                  portSecurityEnabled:
-                    type: boolean
-                  providerNetworkType:
-                    type: string
-                  providerPhysicalNetwork:
-                    type: string
-                  providerSegmentationId:
-                    type: integer
-                  revisionNumber:
-                    type: integer
-                  shared:
-                    type: boolean
-                  status:
-                    type: string
-                  subnets:
-                    items:
+                  extraSpecs:
+                    additionalProperties:
                       type: string
-                    type: array
-                  tags:
-                    items:
-                      type: string
-                    type: array
-                  tenantId:
+                    description: ExtraSpecs is the set of extra-spec key/value pairs.
+                    type: object
+                  isPublic:
+                    description: IsPublic indicates whether the volume type is publicly
+                      visible.
+                    type: boolean
+                  name:
+                    description: Name is the name of the volume type.
                     type: string
-                  updatedAt:
-                    format: date-time
+                  qosSpecId:
+                    description: QosSpecID is the QoS spec ID.
+                    type: string
+                  volumeTypeId:
+                    description: VolumeTypeID is the unique identifier of the volume
+                      type.
                     type: string
                 type: object
               conditions:
@@ -203,12 +213,11 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              connectionDetails:
-                format: byte
-                type: string
             type: object
         required:
         - spec
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

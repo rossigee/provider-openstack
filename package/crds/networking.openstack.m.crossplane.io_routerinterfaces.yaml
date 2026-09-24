@@ -3,20 +3,38 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: servers.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: routerinterfaces.networking.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: networking.openstack.m.crossplane.io
   names:
-    kind: Server
-    listKind: ServerList
-    plural: servers
-    singular: server
+    categories:
+    - crossplane
+    - openstack
+    kind: RouterInterface
+    listKind: RouterInterfaceList
+    plural: routerinterfaces
+    singular: routerinterface
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: RouterInterface is a managed resource that represents an OpenStack
+          router interface.
         properties:
           apiVersion:
             description: |-
@@ -36,77 +54,39 @@ spec:
           metadata:
             type: object
           spec:
+            description: RouterInterfaceSpec defines the desired state of a RouterInterface.
             properties:
               forProvider:
+                description: RouterInterface parameters define the desired state of
+                  an OpenStack router interface.
                 properties:
-                  adminStateUp:
-                    type: boolean
-                  availabilityZone:
+                  projectId:
+                    description: ProjectID is the project ID for the router interface.
                     type: string
-                  blockDeviceMapping:
-                    items:
-                      properties:
-                        bootIndex:
-                          type: integer
-                        deleteOnTermination:
-                          type: boolean
-                        destinationType:
-                          type: string
-                        deviceName:
-                          type: string
-                        guestFormat:
-                          type: string
-                        sourceType:
-                          type: string
-                        uuid:
-                          type: string
-                        volumeSize:
-                          type: integer
-                        volumeType:
-                          type: string
-                      type: object
-                    type: array
-                  configDrive:
-                    type: boolean
-                  description:
+                  routerId:
+                    description: RouterID is the ID of the router to attach the interface
+                      to.
                     type: string
-                  flavorRef:
+                  subnetCidr:
+                    description: SubnetCIDR is the CIDR of the subnet (used to look
+                      up the subnet by CIDR when SubnetID is not specified).
                     type: string
-                  imageRef:
+                  subnetId:
+                    description: |-
+                      SubnetID is the ID of the subnet to attach to the router.
+                      Required when Type is "subnet".
                     type: string
-                  keyName:
-                    type: string
-                  name:
-                    type: string
-                  networks:
-                    items:
-                      properties:
-                        fixedIP:
-                          type: string
-                        name:
-                          type: string
-                        port:
-                          type: string
-                        uuid:
-                          type: string
-                      type: object
-                    type: array
-                  securityGroups:
-                    items:
-                      type: string
-                    type: array
-                  tags:
-                    items:
-                      type: string
-                    type: array
-                  tenantId:
-                    type: string
-                  userData:
+                  type:
+                    default: subnet
+                    description: Type is the type of interface (subnet, network, or
+                      acp). Typically "subnet".
+                    enum:
+                    - subnet
+                    - network
+                    - acp
                     type: string
                 required:
-                - flavorRef
-                - imageRef
-                - name
+                - routerId
                 type: object
               managementPolicies:
                 default:
@@ -163,55 +143,32 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: RouterInterfaceStatus defines the observed state of a router
+              interface.
             properties:
               atProvider:
+                description: RouterInterfaceProviderStatus defines the observed state
+                  of the router interface at the provider.
                 properties:
-                  addresses:
-                    items:
-                      properties:
-                        address:
-                          type: string
-                        network:
-                          type: string
-                        version:
-                          type: integer
-                      required:
-                      - address
-                      - network
-                      - version
-                      type: object
-                    type: array
-                  createdAt:
-                    format: date-time
+                  interfaceId:
+                    description: InterfaceID is the unique identifier of the router
+                      interface.
                     type: string
-                  flavor:
+                  portId:
+                    description: PortID is the port created for this interface.
                     type: string
-                  hostId:
+                  routerId:
+                    description: RouterID is the router this interface is attached
+                      to.
                     type: string
-                  image:
+                  subnetId:
+                    description: SubnetID is the subnet this interface is attached
+                      to.
                     type: string
-                  keyName:
-                    type: string
-                  powerState:
-                    type: integer
-                  serverId:
-                    type: string
-                  status:
-                    type: string
-                  tags:
-                    items:
-                      type: string
-                    type: array
                   tenantId:
-                    type: string
-                  updatedAt:
-                    format: date-time
-                    type: string
-                  vmState:
+                    description: TenantID is the project owner.
                     type: string
                 type: object
               conditions:
@@ -260,18 +217,11 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              connectionDetails:
-                properties:
-                  privateIPv4:
-                    type: string
-                  publicIPv4:
-                    type: string
-                  serverState:
-                    type: string
-                type: object
             type: object
         required:
         - spec
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

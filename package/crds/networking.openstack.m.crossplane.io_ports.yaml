@@ -3,20 +3,41 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: loadbalancers.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: ports.networking.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: networking.openstack.m.crossplane.io
   names:
-    kind: LoadBalancer
-    listKind: LoadBalancerList
-    plural: loadbalancers
-    singular: loadbalancer
+    categories:
+    - crossplane
+    - openstack
+    kind: Port
+    listKind: PortList
+    plural: ports
+    singular: port
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .status.atProvider.status
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: Port is a managed resource that represents an OpenStack Neutron
+          port.
         properties:
           apiVersion:
             description: |-
@@ -36,37 +57,81 @@ spec:
           metadata:
             type: object
           spec:
+            description: PortSpec defines the desired state of a Port.
             properties:
               forProvider:
+                description: PortParameters define the desired state of an OpenStack
+                  Neutron port.
                 properties:
                   adminStateUp:
+                    default: true
+                    description: AdminStateUp is the administrative state of the port
+                      (true = up).
                     type: boolean
-                  availabilityZone:
-                    type: string
+                  allowedAddressPairs:
+                    description: AllowedAddressPairs identifies the list of IP/MAC
+                      addresses the port will recognize/accept.
+                    items:
+                      description: AddressPair defines an allowed address pair on
+                        a port.
+                      properties:
+                        ipAddress:
+                          description: IPAddress is the IP address for the allowed
+                            address pair.
+                          type: string
+                        macAddress:
+                          description: MACAddress is the MAC address for the allowed
+                            address pair.
+                          type: string
+                      type: object
+                    type: array
                   description:
+                    description: Description of the port.
                     type: string
-                  flavorId:
+                  deviceId:
+                    description: DeviceID identifies the device (e.g., virtual server)
+                      using this port.
+                    type: string
+                  deviceOwner:
+                    description: 'DeviceOwner identifies the entity (e.g.: dhcp agent)
+                      using this port.'
+                    type: string
+                  fixedIPs:
+                    description: FixedIPs specifies the IP addresses for the port.
+                    items:
+                      description: FixedIP defines a fixed IP address allocation on
+                        a port.
+                      properties:
+                        ipAddress:
+                          description: IPAddress is the specific IP address to allocate.
+                          type: string
+                        subnetId:
+                          description: SubnetID is the ID of the subnet from which
+                            the IP address is allocated.
+                          type: string
+                      type: object
+                    type: array
+                  macAddress:
+                    description: MACAddress is the MAC address to use on this port.
                     type: string
                   name:
+                    description: Name is the human-readable name for the port.
                     type: string
-                  projectId:
+                  networkId:
+                    description: NetworkID is the ID of the network to which the port
+                      belongs.
                     type: string
-                  provider:
-                    type: string
-                  tags:
+                  securityGroups:
+                    description: SecurityGroups is the list of security group IDs
+                      associated with the port.
                     items:
                       type: string
                     type: array
-                  vipAddress:
+                  tenantId:
+                    description: TenantID is the project owner of the port.
                     type: string
-                  vipNetworkId:
-                    type: string
-                  vipPortId:
-                    type: string
-                  vipQosPolicyId:
-                    type: string
-                  vipSubnetId:
-                    type: string
+                required:
+                - networkId
                 type: object
               managementPolicies:
                 default:
@@ -123,48 +188,80 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: PortStatus defines the observed state of an OpenStack port.
             properties:
               atProvider:
+                description: PortProviderStatus defines the observed state of the
+                  port at the provider.
                 properties:
                   adminStateUp:
+                    description: AdminStateUp is the administrative state.
                     type: boolean
-                  createdAt:
-                    format: date-time
-                    type: string
+                  allowedAddressPairs:
+                    description: AllowedAddressPairs are the allowed address pairs.
+                    items:
+                      description: AddressPair defines an allowed address pair on
+                        a port.
+                      properties:
+                        ipAddress:
+                          description: IPAddress is the IP address for the allowed
+                            address pair.
+                          type: string
+                        macAddress:
+                          description: MACAddress is the MAC address for the allowed
+                            address pair.
+                          type: string
+                      type: object
+                    type: array
                   description:
+                    description: Description of the port.
                     type: string
-                  flavorId:
+                  deviceId:
+                    description: DeviceID identifies the device using this port.
                     type: string
-                  loadBalancerId:
+                  deviceOwner:
+                    description: DeviceOwner identifies the entity using this port.
+                    type: string
+                  fixedIPs:
+                    description: FixedIPs are the fixed IPs allocated to the port.
+                    items:
+                      description: FixedIP defines a fixed IP address allocation on
+                        a port.
+                      properties:
+                        ipAddress:
+                          description: IPAddress is the specific IP address to allocate.
+                          type: string
+                        subnetId:
+                          description: SubnetID is the ID of the subnet from which
+                            the IP address is allocated.
+                          type: string
+                      type: object
+                    type: array
+                  macAddress:
+                    description: MACAddress is the MAC address of the port.
                     type: string
                   name:
+                    description: Name is the name of the port.
                     type: string
-                  operatingStatus:
+                  networkId:
+                    description: NetworkID is the network this port belongs to.
                     type: string
-                  projectId:
+                  portId:
+                    description: PortID is the unique identifier of the port in OpenStack.
                     type: string
-                  provider:
-                    type: string
-                  provisioningStatus:
-                    type: string
-                  tags:
+                  securityGroups:
+                    description: SecurityGroups is the list of security group IDs.
                     items:
                       type: string
                     type: array
-                  updatedAt:
-                    format: date-time
+                  status:
+                    description: Status is the current status (ACTIVE, DOWN, BUILD,
+                      ERROR).
                     type: string
-                  vipAddress:
-                    type: string
-                  vipNetworkId:
-                    type: string
-                  vipPortId:
-                    type: string
-                  vipSubnetId:
+                  tenantId:
+                    description: TenantID is the project owner.
                     type: string
                 type: object
               conditions:
@@ -219,3 +316,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

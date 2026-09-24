@@ -3,20 +3,37 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: users.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: zones.dns.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: dns.openstack.m.crossplane.io
   names:
-    kind: User
-    listKind: UserList
-    plural: users
-    singular: user
+    categories:
+    - crossplane
+    - openstack
+    kind: Zone
+    listKind: ZoneList
+    plural: zones
+    singular: zone
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: Zone is a managed resource that represents an OpenStack DNS zone.
         properties:
           apiVersion:
             description: |-
@@ -39,23 +56,19 @@ spec:
             properties:
               forProvider:
                 properties:
-                  defaultProjectId:
-                    type: string
-                  description:
-                    type: string
-                  domainId:
-                    type: string
-                  email:
-                    type: string
-                  enabled:
-                    type: boolean
-                  name:
-                    type: string
-                  options:
+                  attributes:
                     additionalProperties:
                       type: string
                     type: object
-                  password:
+                  description:
+                    type: string
+                  email:
+                    type: string
+                  name:
+                    type: string
+                  ttl:
+                    type: integer
+                  type:
                     type: string
                 required:
                 - name
@@ -122,20 +135,24 @@ spec:
             properties:
               atProvider:
                 properties:
-                  defaultProjectId:
-                    type: string
-                  description:
-                    type: string
-                  domainId:
-                    type: string
-                  enabled:
-                    type: boolean
-                  name:
-                    type: string
-                  passwordExpiresAt:
+                  attributes:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  createdAt:
                     format: date-time
                     type: string
-                  userId:
+                  email:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  ttl:
+                    type: integer
+                  type:
+                    type: string
+                  zoneId:
                     type: string
                 type: object
               conditions:
@@ -190,3 +207,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

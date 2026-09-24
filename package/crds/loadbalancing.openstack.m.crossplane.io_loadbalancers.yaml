@@ -3,20 +3,44 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
-  name: zones.
+    controller-gen.kubebuilder.io/version: v0.22.0
+  name: loadbalancers.loadbalancing.openstack.m.crossplane.io
 spec:
-  group: ""
+  group: loadbalancing.openstack.m.crossplane.io
   names:
-    kind: Zone
-    listKind: ZoneList
-    plural: zones
-    singular: zone
+    categories:
+    - crossplane
+    - openstack
+    kind: LoadBalancer
+    listKind: LoadBalancerList
+    plural: loadbalancers
+    singular: loadbalancer
   scope: Namespaced
   versions:
-  - name: ""
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: Synced
+      type: string
+    - jsonPath: .metadata.annotations.crossplane.io/external-name
+      name: External Name
+      type: string
+    - jsonPath: .status.atProvider.vipAddress
+      name: VIP Address
+      type: string
+    - jsonPath: .status.atProvider.provisioningStatus
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
+        description: LoadBalancer is a managed resource that represents an OpenStack
+          Octavia load balancer.
         properties:
           apiVersion:
             description: |-
@@ -36,25 +60,61 @@ spec:
           metadata:
             type: object
           spec:
+            description: LoadBalancerSpec defines the desired state of a LoadBalancer.
             properties:
               forProvider:
+                description: LoadBalancerParameters define the desired state of an
+                  OpenStack Octavia load balancer.
                 properties:
-                  attributes:
-                    additionalProperties:
-                      type: string
-                    type: object
-                  description:
+                  adminStateUp:
+                    default: true
+                    description: AdminStateUp is the administrative state of the load
+                      balancer (true = UP).
+                    type: boolean
+                  availabilityZone:
+                    description: AvailabilityZone is the name of an Octavia availability
+                      zone.
                     type: string
-                  email:
+                  description:
+                    description: Description of the load balancer.
+                    type: string
+                  flavorId:
+                    description: FlavorID is the UUID of a flavor if set.
                     type: string
                   name:
+                    description: Name is the human-readable name for the load balancer.
                     type: string
-                  ttl:
-                    type: integer
-                  type:
+                  projectId:
+                    description: ProjectID is the UUID of the project who owns the
+                      load balancer.
                     type: string
-                required:
-                - name
+                  provider:
+                    description: Provider is the name of the provider.
+                    type: string
+                  tags:
+                    description: Tags is a set of resource tags.
+                    items:
+                      type: string
+                    type: array
+                  vipAddress:
+                    description: VipAddress is the IP address of the load balancer.
+                    type: string
+                  vipNetworkId:
+                    description: VipNetworkID is the UUID of the network on which
+                      to allocate the virtual IP.
+                    type: string
+                  vipPortId:
+                    description: VipPortID is the UUID of the port associated with
+                      the VIP address.
+                    type: string
+                  vipQosPolicyId:
+                    description: VipQosPolicyID is the ID of the QoS Policy which
+                      will apply to the Virtual IP.
+                    type: string
+                  vipSubnetId:
+                    description: VipSubnetID is the UUID of the subnet on which to
+                      allocate the virtual IP.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -111,31 +171,68 @@ spec:
                 required:
                 - name
                 type: object
-            required:
-            - forProvider
             type: object
           status:
+            description: LoadBalancerStatus defines the observed state of an OpenStack
+              load balancer.
             properties:
               atProvider:
+                description: LoadBalancerProviderStatus defines the observed state
+                  of the load balancer at the provider.
                 properties:
-                  attributes:
-                    additionalProperties:
-                      type: string
-                    type: object
+                  adminStateUp:
+                    description: AdminStateUp is the administrative state.
+                    type: boolean
                   createdAt:
-                    format: date-time
+                    description: CreatedAt is the creation timestamp.
                     type: string
-                  email:
+                  description:
+                    description: Description of the load balancer.
+                    type: string
+                  flavorId:
+                    description: FlavorID is the UUID of the flavor.
+                    type: string
+                  loadBalancerId:
+                    description: LoadBalancerID is the unique identifier of the load
+                      balancer in OpenStack.
                     type: string
                   name:
+                    description: Name is the human-readable name of the load balancer.
                     type: string
-                  status:
+                  operatingStatus:
+                    description: OperatingStatus is the operating status (ONLINE,
+                      OFFLINE, etc.).
                     type: string
-                  ttl:
-                    type: integer
-                  type:
+                  projectId:
+                    description: ProjectID is the project owner.
                     type: string
-                  zoneId:
+                  provider:
+                    description: Provider is the provider name.
+                    type: string
+                  provisioningStatus:
+                    description: ProvisioningStatus is the provisioning status of
+                      the load balancer (ACTIVE, PENDING_CREATE, ERROR, etc.).
+                    type: string
+                  tags:
+                    description: Tags on the load balancer.
+                    items:
+                      type: string
+                    type: array
+                  updatedAt:
+                    description: UpdatedAt is the last update timestamp.
+                    type: string
+                  vipAddress:
+                    description: VipAddress is the IP address of the load balancer.
+                    type: string
+                  vipNetworkId:
+                    description: VipNetworkID is the UUID of the network for the VIP.
+                    type: string
+                  vipPortId:
+                    description: VipPortID is the UUID of the port associated with
+                      the VIP.
+                    type: string
+                  vipSubnetId:
+                    description: VipSubnetID is the UUID of the subnet for the VIP.
                     type: string
                 type: object
               conditions:
@@ -190,3 +287,5 @@ spec:
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}
