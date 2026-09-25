@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.3.2] - 2026-09-24
+
+### Changed
+
+- Corrected the OpenStack `+groupName` API group markers and regenerated the group-qualified CRDs for the `*.openstack.m.crossplane.io` managed-resource API groups.
+- Raised the package minimum to Crossplane v2.5.0 while retaining the upstream v2.5.0 release-candidate API module.
+- Hardened tag-only, xpkg-only release publishing for exact `vMAJOR.MINOR.PATCH` tags at the current `origin/master` commit.
+- Publishes `linux_amd64` and `linux_arm64` xpkg artifacts, aliases the version as `latest`, and verifies matching digests and both platform manifests before creating the GitHub Release.
+
 ## [Unreleased]
 
 ### BREAKING: v1beta1 Namespaced Migration

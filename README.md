@@ -11,7 +11,7 @@ A native [Crossplane](https://crossplane.io/) provider for managing OpenStack re
 
 ## Container Registry
 
-- **Primary**: `ghcr.io/rossigee/provider-openstack:v0.10.0`
+- **Primary**: `ghcr.io/rossigee/provider-openstack:v1.3.2`
 
 ## Overview
 
@@ -100,7 +100,7 @@ kind: Provider
 metadata:
   name: provider-openstack
 spec:
-  package: ghcr.io/rossigee/provider-openstack:v0.10.0
+  package: ghcr.io/rossigee/provider-openstack:v1.3.2
 ```
 
 ### Configuration

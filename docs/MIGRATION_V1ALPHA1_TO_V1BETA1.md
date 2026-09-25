@@ -49,11 +49,7 @@ spec:
 ### 1. Update Provider Installation
 
 ```bash
-# Install new v1beta1 provider
-helm repo add crossplane-contrib https://charts.crossplane.io/contrib
-helm install crossplane-openstack crossplane-contrib/provider-openstack \
-  --version v0.11.0+ \
-  -n crossplane-system
+kubectl crossplane install provider ghcr.io/rossigee/provider-openstack:v1.3.2
 ```
 
 ### 2. Backup Existing Resources

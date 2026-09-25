@@ -4,7 +4,7 @@ Complete guide to installing and using provider-openstack v1beta1 with Crossplan
 
 ## Prerequisites
 
-- **Kubernetes cluster** with Crossplane v1.14+ installed
+- **Kubernetes cluster** with Crossplane v2.5+ installed
 - **OpenStack** cloud environment (Nova, Neutron, Cinder, etc.)
 - OpenStack credentials with appropriate permissions
 - `kubectl` configured to access your cluster
@@ -29,15 +29,7 @@ kubectl wait -n crossplane-system --for=condition=Ready pods -l app.kubernetes.i
 ### 2. Install Provider OpenStack
 
 ```bash
-# Using Crossplane CLI
-kubectl crossplane install provider ghcr.io/rossigee/provider-openstack:v0.11.0
-
-# Or using Helm
-helm repo add crossplane-contrib https://charts.crossplane.io/contrib
-helm install provider-openstack \
-  crossplane-contrib/provider-openstack \
-  -n crossplane-system \
-  --version ">=0.11.0"
+kubectl crossplane install provider ghcr.io/rossigee/provider-openstack:v1.3.2
 ```
 
 Verify installation:
