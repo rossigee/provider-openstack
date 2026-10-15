@@ -35,7 +35,6 @@ const (
 	webhookTLSCertDirEnvVar = "WEBHOOK_TLS_CERT_DIR"
 	tlsServerCertDirEnvVar  = "TLS_SERVER_CERTS_DIR"
 	certsDirEnvVar          = "CERTS_DIR"
-	tlsServerCertDir        = "/tls/server"
 )
 
 func main() {
@@ -49,7 +48,7 @@ func main() {
 		enableManagementPolicies = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Bool()
 
 		certsDirSet = false
-		certsDir    = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default(tlsServerCertDir).Envar(certsDirEnvVar).PreAction(func(_ *kingpin.ParseContext) error {
+		certsDir    = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default("").Envar(certsDirEnvVar).PreAction(func(_ *kingpin.ParseContext) error {
 			certsDirSet = true
 			return nil
 		}).String()

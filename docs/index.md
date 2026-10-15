@@ -48,4 +48,4 @@ See `apis/` directory for all available resources.
 
 ## Status
 
-This is a grandfathered provider (exception to the no-Terraform rule).
+This provider uses native Crossplane controllers and direct OpenStack API clients.
