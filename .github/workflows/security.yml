@@ -1,5 +1,5 @@
 # Standardized Security Template for Crossplane Providers
-# Version: 2026-09-08 - Updated for Go 1.27.2 (aligned with ci/release templates)
+# Version: 2026-09-08 - Updated for Go 1.27.3 (aligned with ci/release templates)
 #
 # This template provides:
 # - AUTOMATED security scanning on pushes/PRs (with no-op detection)
@@ -49,7 +49,7 @@ permissions:
   pull-requests: write
 
 env:
-  GO_VERSION: '1.27.2'
+  GO_VERSION: '1.27.3'
 
 jobs:
   detect-noop:
@@ -187,7 +187,7 @@ jobs:
         uses: actions/dependency-review-action@v5
         with:
           fail-on-severity: moderate
-          allow-licenses: Apache-2.0, MIT, BSD-2-Clause, BSD-3-Clause, ISC, MPL-2.0, LicenseRef-scancode-google-patent-license-golang
+          allow-licenses: Apache-2.0, MIT, BSD-2-Clause, BSD-3-Clause, ISC, MPL-2.0, AGPL-3.0, LicenseRef-scancode-google-patent-license-golang
 
   notification:
     name: Security Scan Notification
@@ -237,7 +237,7 @@ jobs:
 #    - Clear notifications when enabled
 #
 # 5. STANDARDIZED VERSION
-#    - Go 1.27.2
+#    - Go 1.27.3
 #    - Actions: checkout@v4, setup-go@v6, codeql-action@v6
 #    - Runners: ubuntu-24.04
 #
