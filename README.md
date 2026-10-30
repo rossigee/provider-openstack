@@ -71,12 +71,11 @@ All resources use versioned API groups under `*.openstack.m.crossplane.io` (e.g.
 | User | Keystone user |
 | Role | Keystone role |
 
-### DNS (2 resources)
+### DNS (1 resource)
 
 | Kind | Description |
 |------|-------------|
 | Zone | Designate DNS zone |
-| RecordSet | Designate DNS record set |
 
 ### Load Balancing (5 resources)
 
