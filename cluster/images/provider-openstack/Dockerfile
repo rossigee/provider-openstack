@@ -1,5 +1,4 @@
-FROM alpine:3.22
-RUN apk --no-cache add ca-certificates bash
+FROM gcr.io/distroless/static:nonroot
 
 LABEL org.opencontainers.image.title="provider-openstack"
 LABEL org.opencontainers.image.description="Crossplane provider for OpenStack management"
