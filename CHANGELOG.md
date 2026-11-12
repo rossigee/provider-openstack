@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-11-12
+
+### Changed
+- Built with Go 1.27.4 (previously 1.27.3).
+
 ### BREAKING: v1beta1 Namespaced Migration
 
 **⚠️ This is a major breaking change. See [Migration Guide](docs/MIGRATION_V1ALPHA1_TO_V1BETA1.md) for upgrade instructions.**
